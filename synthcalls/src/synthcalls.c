@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "synthcalls.h"
 
-void initInterface(SynthCallInterface *interface, size_t *buffer_sizes, int num_buffers)
+void init_interface(synthcall_interface *interface, size_t *buffer_sizes, int num_buffers)
 {
 
     interface->buffer_count = num_buffers;
@@ -16,4 +16,6 @@ void initInterface(SynthCallInterface *interface, size_t *buffer_sizes, int num_
     interface->buffers = (char *)malloc(totalSize);
 }
 
-void async_call(SynthCallInterface *interface, SynthCallID id, unsigned int callspot, ...);
+void async_call(synthcall_interface *interface, synthcall_id id, unsigned int callspot, ...)
+{
+}
