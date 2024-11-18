@@ -40,7 +40,7 @@ run-tests: tests
 	@echo "Running all tests..."
 	@for exec in $(TEST_EXEC); do \
 		echo "Running $$exec:"; \
-		$$exec; \
+		LD_LIBRARY_PATH=$(BUILD_DIR) $$exec; \
 	done
 
 # Clean up build artifacts
