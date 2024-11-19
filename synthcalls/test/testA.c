@@ -1,35 +1,86 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 #include "synthcalls.h"
 
-void original_foo()
+void simple_putchar(synthcall_interface *interface)
 {
-    printf("Hello, World!\n");
-    printf("Hello, World, again\n");
-    putchar('H');
+    async_call(interface, 0, 'H', true);
+    async_call(interface, 1, 'W', true);
+    async_call(interface, 2, '\n', true);
 }
 
-void synthcalls_foo(synthcall_interface *interface)
+void wrapped_simple_putchar()
 {
-    async_call(interface, PRINTF, 0, "Hello, World!\n");
-    async_call(interface, PRINTF, 1, "Hello, World, again\n");
-    async_call(interface, PUTCHAR, 2, 'H');
+    // create interface
+    size_t buffer_sizes[4] = {1, 1, 1};
+    synthcall_interface interface;
+    init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
+
+    // call the function using the interface
+    simple_putchar(&interface);
+
+    // apply all the synthcalls
+    int active;
+    do
+    {
+        active = 0;
+
+        char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + interface.front_idx[0];
+        putchar(*buffer_0_addr);
+        interface.front_idx[0]++;
+        active = active || interface.buffer_sizes[0] > 0;
+
+        char *buffer_1_addr = interface.unified_buffer + interface.buffer_base_idx[1] + interface.front_idx[1];
+        putchar(*buffer_1_addr);
+        interface.front_idx[1]++;
+        active = active || interface.buffer_sizes[1] > 0;
+
+        char *buffer_2_addr = interface.unified_buffer + interface.buffer_base_idx[2] + interface.front_idx[2];
+        putchar(*buffer_2_addr);
+        interface.front_idx[2]++;
+        active = active || interface.buffer_sizes[2] > 0;
+
+    } while (active);
 }
 
-void foo(synthcall_interface *interface)
+void loop_printf(synthcall_interface *interface)
 {
-    async_call(interface, PRINTF, 0, "Hello, World!\n");
+    for (int i = 0; i < 10; i++)
+    {
+        async_call(interface, 0, i, false);
+    }
+    close_callspot(interface, 0);
+}
+
+void wrapped_loop_printf()
+{
+    size_t buffer_sizes[1] = {11};
+    synthcall_interface interface;
+    init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
+
+    loop_printf(&interface);
+
+    int active;
+    do
+    {
+        active = 0;
+
+        char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + interface.front_idx[0];
+        printf("%d\n", *buffer_0_addr);
+        interface.front_idx[0]++;
+        active = active || interface.buffer_sizes[0] > 0;
+
+    } while (active);
 }
 
 int main()
 {
-    original_foo();
+    printf("Test: simple putchar\n");
+    wrapped_simple_putchar();
 
-    size_t buffer_sizes[3] = {1024, 512, 256};
-    synthcall_interface interface;
-    init_interface(&interface, buffer_sizes, 3);
+    printf("\nTest: loop printf\n");
+    wrapped_loop_printf();
 
-    synthcalls_foo(&interface);
-
-    printf("Hello, World!\n");
     return 0;
 }
