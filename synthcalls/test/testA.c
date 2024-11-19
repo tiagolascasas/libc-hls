@@ -45,27 +45,27 @@ void wrapped_simple_putchar()
 
         if (buffer_0_front_idx < interface.back_idx[0])
         {
-            char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + interface.back_idx[0];
-            putchar(*buffer_0_addr);
             buffer_0_front_idx++;
+            char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + buffer_0_front_idx;
+            putchar(*buffer_0_addr);
         }
         bool is_closed_0 = interface.is_closed[0] && buffer_0_front_idx == interface.back_idx[0];
         active = active || !is_closed_0;
 
         if (buffer_1_front_idx < interface.back_idx[1])
         {
-            char *buffer_1_addr = interface.unified_buffer + interface.buffer_base_idx[1] + interface.back_idx[1];
-            putchar(*buffer_1_addr);
             buffer_1_front_idx++;
+            char *buffer_1_addr = interface.unified_buffer + interface.buffer_base_idx[1] + buffer_0_front_idx;
+            putchar(*buffer_1_addr);
         }
         bool is_closed_1 = interface.is_closed[1] && buffer_1_front_idx == interface.back_idx[1];
         active = active || !is_closed_1;
 
         if (buffer_2_front_idx < interface.back_idx[2])
         {
-            char *buffer_2_addr = interface.unified_buffer + interface.buffer_base_idx[2] + interface.back_idx[2];
-            putchar(*buffer_2_addr);
             buffer_2_front_idx++;
+            char *buffer_2_addr = interface.unified_buffer + interface.buffer_base_idx[2] + buffer_0_front_idx;
+            putchar(*buffer_2_addr);
         }
         bool is_closed_2 = interface.is_closed[2] && buffer_2_front_idx == interface.back_idx[2];
         active = active || !is_closed_2;
@@ -106,9 +106,9 @@ void wrapped_loop_printf()
 
         if (buffer_0_front_idx < interface.back_idx[0])
         {
-            char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + interface.back_idx[0];
-            printf("%d, ", *buffer_0_addr);
             buffer_0_front_idx++;
+            char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + buffer_0_front_idx;
+            printf("%d, ", *buffer_0_addr);
         }
         bool is_closed_0 = interface.is_closed[0] && buffer_0_front_idx == interface.back_idx[0];
         active = active || !is_closed_0;
