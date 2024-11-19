@@ -21,25 +21,28 @@ void wrapped_simple_putchar()
     simple_putchar(&interface);
 
     // apply all the synthcalls
-    int active;
+    bool active;
     do
     {
-        active = 0;
+        active = false;
 
         char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + interface.front_idx[0];
         putchar(*buffer_0_addr);
         interface.front_idx[0]++;
-        active = active || interface.buffer_sizes[0] > 0;
+        bool is_closed_0 = interface.is_closed[0] && interface.front_idx[0] == interface.back_idx[0];
+        active = active || !is_closed_0;
 
         char *buffer_1_addr = interface.unified_buffer + interface.buffer_base_idx[1] + interface.front_idx[1];
         putchar(*buffer_1_addr);
         interface.front_idx[1]++;
-        active = active || interface.buffer_sizes[1] > 0;
+        bool is_closed_1 = interface.is_closed[1] && interface.front_idx[1] == interface.back_idx[1];
+        active = active || !is_closed_1;
 
         char *buffer_2_addr = interface.unified_buffer + interface.buffer_base_idx[2] + interface.front_idx[2];
         putchar(*buffer_2_addr);
         interface.front_idx[2]++;
-        active = active || interface.buffer_sizes[2] > 0;
+        bool is_closed_2 = interface.is_closed[2] && interface.front_idx[2] == interface.back_idx[2];
+        active = active || !is_closed_2;
 
     } while (active);
 }
@@ -69,7 +72,8 @@ void wrapped_loop_printf()
         char *buffer_0_addr = interface.unified_buffer + interface.buffer_base_idx[0] + interface.front_idx[0];
         printf("%d\n", *buffer_0_addr);
         interface.front_idx[0]++;
-        active = active || interface.buffer_sizes[0] > 0;
+        bool is_closed_0 = interface.is_closed[0] && interface.front_idx[0] == interface.back_idx[0];
+        active = active || !is_closed_0;
 
     } while (active);
 }
