@@ -8,7 +8,6 @@ void init_interface(synthcall_interface *interface, size_t *buffer_sizes, unsign
     interface->buffer_count = num_buffers;
     interface->buffer_base_idx = (unsigned int *)malloc(sizeof(unsigned int) * num_buffers);
     interface->buffer_sizes = (size_t *)malloc(sizeof(size_t) * num_buffers);
-    interface->front_idx = (unsigned int *)malloc(sizeof(unsigned int) * num_buffers);
     interface->back_idx = (unsigned int *)malloc(sizeof(unsigned int) * num_buffers);
     interface->is_closed = (bool *)malloc(sizeof(bool) * num_buffers);
 
@@ -17,8 +16,7 @@ void init_interface(synthcall_interface *interface, size_t *buffer_sizes, unsign
     {
         interface->buffer_base_idx[i] = totalSize;
         interface->buffer_sizes[i] = buffer_sizes[i];
-        interface->front_idx[i] = 0;
-        interface->back_idx[i] = 0;
+        interface->back_idx[i] = -1;
         interface->is_closed[i] = false;
 
         totalSize += buffer_sizes[i];
@@ -31,8 +29,9 @@ void async_call(synthcall_interface *interface, unsigned int callspot, char arg,
     char *buffer = interface->unified_buffer + interface->buffer_base_idx[callspot];
     unsigned int back_idx = interface->back_idx[callspot];
 
+    back_idx++;
     buffer[back_idx] = arg;
-    interface->back_idx[callspot] += 1;
+    interface->back_idx[callspot] = back_idx;
 
     if (isLast)
     {

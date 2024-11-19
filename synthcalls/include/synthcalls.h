@@ -19,7 +19,6 @@ extern "C"
         unsigned int buffer_count;
 
         // deque semantics for each sub-buffer
-        unsigned int *front_idx;
         int *back_idx;
         bool *is_closed;
     } synthcall_interface;
