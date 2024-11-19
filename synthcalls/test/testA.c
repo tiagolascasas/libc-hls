@@ -96,7 +96,8 @@ void wrapped_loop_printf()
     synthcall_interface interface;
     init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
 
-    loop_printf(&interface);
+    pthread_t thread;
+    pthread_create(&thread, NULL, loop_printf, (void *)&interface);
 
     bool active;
     int buffer_0_front_idx = -1;
@@ -114,6 +115,8 @@ void wrapped_loop_printf()
         active = active || !is_closed_0;
 
     } while (active);
+
+    pthread_join(thread, NULL);
 }
 
 int main()
