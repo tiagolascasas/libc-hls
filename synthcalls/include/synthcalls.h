@@ -21,13 +21,13 @@ extern "C"
         // sub-buffer semantics
         int *buffer_idx;
         bool *is_closed;
-    } async_synthcalls_t;
+    } async_interface_t;
 
-    void init_interface(async_synthcalls_t *interface, size_t *buffer_sizes, unsigned int num_buffers);
+    void synthcalls_init_interface(async_interface_t *interface, size_t *buffer_sizes, unsigned int num_buffers);
 
-    void async_call(async_synthcalls_t *interface, unsigned int callspot, bool isLast, const char *types, ...);
+    void synthcalls_async_call(async_interface_t *interface, unsigned int callspot, bool isLast, const char *types, ...);
 
-    void close_callspot(async_synthcalls_t *interface, unsigned int callspot);
+    void synthcalls_close_callspot(async_interface_t *interface, unsigned int callspot);
 #ifdef __cplusplus
 }
 #endif

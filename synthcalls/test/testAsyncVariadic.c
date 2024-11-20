@@ -29,7 +29,7 @@ void *original_variadic_printf()
 
 void *variadic_printf(void *interface)
 {
-    async_call((async_synthcalls_t *)interface, 0, 42, true);
+    synthcalls_async_call((async_interface_t *)interface, 0, 42, true);
     unsigned long long *sum = (unsigned long long *)malloc(sizeof(unsigned long long));
     *sum = 0;
 
@@ -37,13 +37,13 @@ void *variadic_printf(void *interface)
     {
         *sum += i;
     }
-    async_call((async_synthcalls_t *)interface, 1, 10, true);
+    synthcalls_async_call((async_interface_t *)interface, 1, 10, true);
     for (int i = 0; i < BIG_N; i++)
     {
         *sum *= i;
     }
-    async_call((async_synthcalls_t *)interface, 2, '\n', true);
-    async_call((async_synthcalls_t *)interface, 3, 20, false);
+    synthcalls_async_call((async_interface_t *)interface, 2, '\n', true);
+    synthcalls_async_call((async_interface_t *)interface, 3, 20, false);
     return (void *)sum;
 }
 
@@ -54,8 +54,8 @@ void wrapped_variadic_printf()
         sizeof(int),
         sizeof(int) * 3,
         sizeof(unsigned long long)};
-    async_synthcalls_t interface;
-    init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
+    async_interface_t interface;
+    synthcalls_init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
 
     // simulate kernel execution using a thread
     pthread_t thread;

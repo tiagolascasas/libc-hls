@@ -5,27 +5,27 @@
 
 #define BIG_N 100000000
 
-int loop_cout(async_synthcalls_t *interface)
+int loop_cout(async_interface_t *interface)
 {
     unsigned long long sum = 0;
     for (int i = 0; i < 10; i++)
     {
-        async_call(interface, 0, i, false);
+        synthcalls_async_call(interface, 0, false, "i", i);
 
         for (int i = 0; i < BIG_N; i++)
         {
             sum += i;
         }
     }
-    close_callspot(interface, 0);
+    synthcalls_close_callspot(interface, 0);
     return sum;
 }
 
 void wrapped_loop_cout()
 {
     size_t buffer_sizes[1] = {11};
-    async_synthcalls_t interface;
-    init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
+    async_interface_t interface;
+    synthcalls_init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
 
     std::thread thread(loop_cout, &interface);
 
