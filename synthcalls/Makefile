@@ -55,9 +55,14 @@ run-tests: tests
 		LD_LIBRARY_PATH=$(BUILD_DIR) $$exec; \
 	done
 
+# Run a single test program
+run-%: $(BUILD_DIR)/%
+	@echo "Running test $*..."
+	LD_LIBRARY_PATH=$(BUILD_DIR) $<
+
 # Clean up build artifacts
 clean:
 	rm -rf $(BUILD_DIR)
 
 # Phony targets
-.PHONY: all clean tests run-tests
+.PHONY: all clean tests run-tests run-%
