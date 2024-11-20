@@ -5,7 +5,7 @@
 
 #define BIG_N 100000000
 
-int loop_cout(synthcall_interface *interface)
+int loop_cout(async_synthcalls_t *interface)
 {
     unsigned long long sum = 0;
     for (int i = 0; i < 10; i++)
@@ -24,7 +24,7 @@ int loop_cout(synthcall_interface *interface)
 void wrapped_loop_cout()
 {
     size_t buffer_sizes[1] = {11};
-    synthcall_interface interface;
+    async_synthcalls_t interface;
     init_interface(&interface, buffer_sizes, sizeof(buffer_sizes) / sizeof(size_t));
 
     std::thread thread(loop_cout, &interface);
@@ -35,14 +35,14 @@ void wrapped_loop_cout()
     {
         active = false;
 
-        if (buffer_0_front_idx < interface.back_idx[0])
+        if (buffer_0_front_idx < interface.buffer_idx[0])
         {
             buffer_0_front_idx++;
             char *buffer_0 = interface.unified_buffer + interface.buffer_base_idx[0];
             char data = buffer_0[buffer_0_front_idx];
             std::cout << static_cast<unsigned int>(data) << std::endl;
         }
-        bool is_closed_0 = interface.is_closed[0] && buffer_0_front_idx == interface.back_idx[0];
+        bool is_closed_0 = interface.is_closed[0] && buffer_0_front_idx == interface.buffer_idx[0];
         active = active || !is_closed_0;
 
     } while (active);
