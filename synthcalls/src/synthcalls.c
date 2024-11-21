@@ -137,7 +137,20 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
     }
 }
 
-bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun, const char *arg_types)
+bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun)
+{
+    if (fun != PRINTF)
+    {
+        return listen_async_nonblock_variadic(buf, fun, "");
+    }
+    else
+    {
+        printf("printf() needs to be explicitly called with listen_async_nonblock_variadic, even if it has no arguments");
+        return false;
+    }
+}
+
+bool listen_async_nonblock_variadic(async_call_buf *buf, AsyncCall fun, const char *arg_types)
 {
     if (buf->host_idx == buf->kernel_idx)
     {
@@ -154,7 +167,7 @@ bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun, const char *arg_t
     switch (fun)
     {
     case PRINTF:
-        // TODO
+
         break;
     case PUTCHAR:
         int arg = *((int *)curr_ptr);

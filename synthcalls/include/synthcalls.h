@@ -28,7 +28,9 @@ extern "C"
 
     void async_call(async_call_buf *buf, bool isLast, const char *types, ...);
 
-    bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun, const char *arg_types);
+    bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun);
+
+    bool listen_async_nonblock_variadic(async_call_buf *buf, AsyncCall fun, const char *arg_types);
 
     void close_async_buf(async_call_buf *buf);
 #ifdef __cplusplus

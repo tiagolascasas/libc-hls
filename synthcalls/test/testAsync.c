@@ -26,90 +26,63 @@ void *kernel_A(async_call_buf *putchar_0, async_call_buf *putchar_1, async_call_
     return (void *)(sum);
 }
 
-void wrapped_simple_putchar()
+void wrapped_kernel_A()
 {
     async_call_buf *putchar_0 = create_async_buf(0, "c", 1);
     async_call_buf *putchar_1 = create_async_buf(1, "c", 1);
     async_call_buf *putchar_2 = create_async_buf(2, "c", 1);
 
-    kernel_A(&putchar_0, &putchar_1, &putchar_2);
+    kernel_A(putchar_0, putchar_1, putchar_2);
 
     bool active = true;
     while (active)
     {
         active = false;
-        active = active || listen_async_nonblock(&putchar_0, PUTCHAR, "c");
-        active = active || listen_async_nonblock(&putchar_1, PUTCHAR, "c");
-        active = active || listen_async_nonblock(&putchar_2, PUTCHAR, "c");
+        active = active || listen_async_nonblock(putchar_0, PUTCHAR);
+        active = active || listen_async_nonblock(putchar_1, PUTCHAR);
+        active = active || listen_async_nonblock(putchar_2, PUTCHAR);
     }
 }
 
-// void *loop_printf(void *interface)
-// {
-//     unsigned long long *sum = (unsigned long long *)malloc(sizeof(unsigned long long));
-//     *sum = 0;
+void *kernel_B(async_call_buf *printf_0)
+{
+    unsigned long long *sum = (unsigned long long *)malloc(sizeof(unsigned long long));
+    *sum = 0;
 
-//     for (int i = 0; i < 10; i++)
-//     {
-//         synthcalls_async_call((async_interface_t *)interface, 0, i, false);
+    for (int i = 0; i < 10; i++)
+    {
+        async_call(printf_0, true, "i", i);
 
-//         for (int i = 0; i < BIG_N; i++)
-//         {
-//             *sum += i;
-//         }
-//     }
-//     synthcalls_close_callspot((async_interface_t *)interface, 0);
-//     return (void *)sum;
-// }
+        for (int i = 0; i < BIG_N / 100; i++)
+        {
+            *sum += i;
+        }
+    }
+    close_async_buf((async_call_buf *)printf_0);
+    return (void *)sum;
+}
 
-// void wrapped_loop_printf()
-// {
-//     size_t buffer_sizes[1] = {11 * sizeof(int)};
-//     async_interface_t interface;
-//     synthcalls_init_interface(&interface, buffer_sizes, 1);
+void wrapped_kernel_B()
+{
+    async_call_buf *printf_0 = create_async_buf(0, "i", 10);
 
-//     pthread_t thread;
-//     pthread_create(&thread, NULL, loop_printf, (void *)&interface);
+    kernel_B(printf_0);
 
-//     pthread_join(thread, NULL);
-
-//     printf("\n");
-//     for (int i = 0; i < sizeof(int) * 11; i++)
-//     {
-//         printf("%p %d\n", interface.unified_buffer + i, interface.unified_buffer[i]);
-//     }
-
-//     bool active;
-//     int buffer_0_host_idx = -1;
-
-//     do
-//     {
-//         active = false;
-
-//         if (buffer_0_host_idx < interface.buffer_idx[0])
-//         {
-//             buffer_0_host_idx = (buffer_0_host_idx == -1) ? 0 : buffer_0_host_idx;
-
-//             char *buffer_0_base_addr = interface.unified_buffer + interface.buffer_base_idx[0];
-//             char *buffer_0_ptr = buffer_0_base_addr + buffer_0_host_idx;
-
-//             int arg0 = *((int *)buffer_0_ptr);
-//             printf("Loop index: %d\n", arg0);
-
-//             buffer_0_host_idx += sizeof(int);
-//         }
-//         bool is_closed_0 = interface.is_closed[0] && buffer_0_host_idx == interface.buffer_idx[0];
-//         active = active || !is_closed_0;
-//     } while (active);
-// }
+    bool active = true;
+    while (active)
+    {
+        active = false;
+        active = active || listen_async_nonblock_variadic(printf_0, PRINTF, "i");
+    }
+}
 
 int main()
 {
-    printf("Test: simple putchar\n");
-    wrapped_simple_putchar();
+    printf("Test: three static putchar() callspots\n");
+    wrapped_kernel_A();
 
-    // printf("\nTest: loop printf\n");
-    // wrapped_loop_printf();
+    printf("\nTest: one printf() callspot, called 10 times (static number of repetitions)\n");
+    // wrapped_kernel_B();
 
     return 0;
 }
