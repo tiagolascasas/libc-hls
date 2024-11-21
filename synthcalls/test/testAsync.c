@@ -105,12 +105,6 @@ void wrapped_kernel_C()
 
     kernel_C(printf_0, printf_1);
 
-    printf("%d\n", printf_0->size);
-    for (int i = 0; i < printf_0->size; i++)
-    {
-        printf("printf_0 %d\n", printf_0->buffer[i]);
-    }
-
     bool active = true;
     while (active)
     {
