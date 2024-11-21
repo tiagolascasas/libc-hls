@@ -37,6 +37,8 @@ void wrapped_simple_putchar()
     pthread_t thread;
     pthread_create(&thread, NULL, simple_putchar, (void *)&interface);
 
+    pthread_join(thread, NULL);
+
     // apply all the synthcalls
     bool active;
     int buffer_0_host_idx = -1;
@@ -91,8 +93,6 @@ void wrapped_simple_putchar()
         bool is_closed_2 = interface.is_closed[2] && buffer_2_host_idx == interface.buffer_idx[2];
         active = active || !is_closed_2;
     } while (active);
-
-    pthread_join(thread, NULL);
 
     printf("\n");
     for (int i = 0; i < sizeof(int) * 3; i++)
