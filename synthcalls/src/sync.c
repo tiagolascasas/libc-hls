@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdint.h>
 #include "synthcalls.h"
 
 sync_call_buf *create_sync_buf(const char *arg_types)
@@ -45,6 +50,6 @@ void init_sync_buf(sync_call_buf *buf, const char *arg_types)
     buf->size = size;
     buf->buffer = (char *)calloc(size, sizeof(uint8_t));
 
-    buf->res_buffer = (char *)calloc(1, sizeof(uint64_t));
+    buf->res_buffer = 0;
     buf->has_result = false;
 }

@@ -118,11 +118,11 @@ int main()
 {
     printf("--------------------------------------------------\n");
     printf("Test: three static putchar() callspots\n");
-    // wrapped_kernel_A();
+    wrapped_kernel_A();
 
     printf("\n--------------------------------------------------\n");
     printf("Test: one printf() callspot, called 10 times (static number of repetitions)\n");
-    // wrapped_kernel_B();
+    wrapped_kernel_B();
 
     printf("--------------------------------------------------\n");
     printf("Test: variadic printf()\n");

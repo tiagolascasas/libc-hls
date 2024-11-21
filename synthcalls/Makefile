@@ -12,7 +12,7 @@ TEST_DIR = test
 BUILD_DIR = build
 
 # Library files
-LIB_SRC = $(SRC_DIR)/synthcalls.c
+LIB_SRC = $(SRC_DIR)/async.c $(SRC_DIR)/sync.c
 LIB_SO = $(BUILD_DIR)/libsynthcalls.so
 
 # Test files

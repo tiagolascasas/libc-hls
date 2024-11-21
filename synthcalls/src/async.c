@@ -69,7 +69,7 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
     {
         char *curr_ptr = buf->buffer + buf->kernel_idx;
 
-        const type_indicator = types[i];
+        const char type_indicator = types[i];
         switch (type_indicator)
         {
         case 'i':
