@@ -7,12 +7,13 @@
 
 #define BIG_N 1000000000
 
-void *kernel_A(async_call_buf *putchar_0, async_call_buf *putchar_1, async_call_buf *putchar_2)
+void *kernel_A(async_call_buf *putchar_0, async_call_buf *putchar_1, async_call_buf *putchar_2, async_call_buf *assert_0)
 {
     async_call(putchar_0, true, "c", 'H');
     unsigned long long *sum = (unsigned long long *)malloc(sizeof(unsigned long long));
     *sum = 0;
 
+    async_call(assert_0, true, "i", *sum == 0);
     for (int i = 0; i < BIG_N; i++)
     {
         *sum += i;
@@ -28,19 +29,21 @@ void *kernel_A(async_call_buf *putchar_0, async_call_buf *putchar_1, async_call_
 
 void wrapped_kernel_A()
 {
-    async_call_buf *putchar_0 = create_async_buf(0, "c", 1);
-    async_call_buf *putchar_1 = create_async_buf(1, "c", 1);
-    async_call_buf *putchar_2 = create_async_buf(2, "c", 1);
+    async_call_buf *putchar_0 = create_async_buf("c", 1);
+    async_call_buf *putchar_1 = create_async_buf("c", 1);
+    async_call_buf *putchar_2 = create_async_buf("c", 1);
+    async_call_buf *assert_0 = create_async_buf("i", 1);
 
-    kernel_A(putchar_0, putchar_1, putchar_2);
+    kernel_A(putchar_0, putchar_1, putchar_2, assert_0);
 
     bool active = true;
     while (active)
     {
         active = false;
-        active = active || listen_async_nonblock(putchar_0, PUTCHAR);
-        active = active || listen_async_nonblock(putchar_1, PUTCHAR);
-        active = active || listen_async_nonblock(putchar_2, PUTCHAR);
+        active = active || listen_async_putchar(putchar_0);
+        active = active || listen_async_putchar(putchar_1);
+        active = active || listen_async_putchar(putchar_2);
+        active = active || listen_async_assert(assert_0);
     }
 }
 
@@ -64,7 +67,7 @@ void *kernel_B(async_call_buf *printf_0)
 
 void wrapped_kernel_B()
 {
-    async_call_buf *printf_0 = create_async_buf(0, "i", 10);
+    async_call_buf *printf_0 = create_async_buf("i", 10);
 
     kernel_B(printf_0);
 
@@ -72,7 +75,7 @@ void wrapped_kernel_B()
     while (active)
     {
         active = false;
-        active = active || listen_async_nonblock_variadic(printf_0, PRINTF, "i");
+        active = active || listen_async_printf(printf_0, "index = %d\n", "i");
     }
 }
 

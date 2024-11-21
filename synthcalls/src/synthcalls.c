@@ -2,18 +2,23 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <assert.h>
 #include "synthcalls.h"
 
-async_call_buf *create_async_buf(unsigned int callspot, const char *arg_types, unsigned int n_calls)
+static int wrapped_printf(char *ptr, const char *arg_types);
+static int wrapped_putchar(char *ptr);
+
+async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls)
 {
     async_call_buf *buf = (async_call_buf *)malloc(sizeof(async_call_buf));
-    init_async_buf(buf, callspot, arg_types, n_calls);
+    init_async_buf(buf, arg_types, n_calls);
     return buf;
 }
 
-void init_async_buf(async_call_buf *buf, unsigned int callspot, const char *arg_types, unsigned int n_calls)
+void init_async_buf(async_call_buf *buf, const char *arg_types, unsigned int n_calls)
 {
-    buf->callspot = callspot;
     buf->kernel_idx = -1;
     buf->host_idx = -1;
     buf->is_closed = false;
@@ -137,20 +142,7 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
     }
 }
 
-bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun)
-{
-    if (fun != PRINTF)
-    {
-        return listen_async_nonblock_variadic(buf, fun, "");
-    }
-    else
-    {
-        printf("printf() needs to be explicitly called with listen_async_nonblock_variadic, even if it has no arguments");
-        return false;
-    }
-}
-
-bool listen_async_nonblock_variadic(async_call_buf *buf, AsyncCall fun, const char *arg_types)
+bool listen_async_putchar(async_call_buf *buf)
 {
     if (buf->host_idx == buf->kernel_idx)
     {
@@ -160,25 +152,36 @@ bool listen_async_nonblock_variadic(async_call_buf *buf, AsyncCall fun, const ch
     {
         buf->host_idx = 0;
     }
-
     char *curr_ptr = buf->buffer + buf->host_idx;
-    size_t size = 0;
 
-    switch (fun)
+    int arg = *((int *)curr_ptr);
+    putchar((char)arg);
+
+    buf->host_idx += sizeof(int);
+    return true;
+}
+
+bool listen_async_assert(async_call_buf *buf)
+{
+    if (buf->host_idx == buf->kernel_idx)
     {
-    case PRINTF:
-
-        break;
-    case PUTCHAR:
-        int arg = *((int *)curr_ptr);
-        putchar((char)arg);
-
-        buf->host_idx += sizeof(int);
-        break;
-    default:
-        printf("Syscall %d not implemented", fun);
+        return !buf->is_closed;
     }
-    buf->host_idx += size;
+    if (buf->host_idx == -1)
+    {
+        buf->host_idx = 0;
+    }
+    char *curr_ptr = buf->buffer + buf->host_idx;
+
+    int arg = *((int *)curr_ptr);
+    assert(arg);
+
+    buf->host_idx += sizeof(int);
+    return true;
+}
+
+bool listen_async_printf(async_call_buf *buf, const char *format, const char *arg_types)
+{
 }
 
 inline void close_async_buf(async_call_buf *buf)

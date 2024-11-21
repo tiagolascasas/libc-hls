@@ -14,7 +14,6 @@ extern "C"
 
     typedef struct
     {
-        unsigned int callspot;
         char *buffer;
         size_t size;
         int kernel_idx;
@@ -22,15 +21,17 @@ extern "C"
         bool is_closed;
     } async_call_buf;
 
-    async_call_buf *create_async_buf(unsigned int callspot, const char *arg_types, unsigned int n_calls);
+    async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls);
 
-    void init_async_buf(async_call_buf *buf, unsigned int callspot, const char *arg_types, unsigned int n_calls);
+    void init_async_buf(async_call_buf *buf, const char *arg_types, unsigned int n_calls);
 
     void async_call(async_call_buf *buf, bool isLast, const char *types, ...);
 
-    bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun);
+    bool listen_async_assert(async_call_buf *buf);
 
-    bool listen_async_nonblock_variadic(async_call_buf *buf, AsyncCall fun, const char *arg_types);
+    bool listen_async_putchar(async_call_buf *buf);
+
+    bool listen_async_printf(async_call_buf *buf, const char *format, const char *arg_types);
 
     void close_async_buf(async_call_buf *buf);
 #ifdef __cplusplus
