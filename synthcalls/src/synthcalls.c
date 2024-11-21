@@ -5,11 +5,12 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <assert.h>
+#include <stdint.h>
 #include "synthcalls.h"
 
 async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls)
 {
-    async_call_buf *buf = (async_call_buf *)malloc(sizeof(async_call_buf));
+    async_call_buf *buf = (async_call_buf *)calloc(1, sizeof(async_call_buf));
     init_async_buf(buf, arg_types, n_calls);
     return buf;
 }
@@ -27,33 +28,31 @@ void init_async_buf(async_call_buf *buf, const char *arg_types, unsigned int n_c
         {
         case 'i':
         case 'c':
-            size += sizeof(int);
+            size += sizeof(int32_t);
             break;
         case 'u':
-            size += sizeof(unsigned int);
+            size += sizeof(uint32_t);
             break;
         case 'l':
-            size += sizeof(long);
+            size += sizeof(int64_t);
             break;
         case 'U':
-            size += sizeof(unsigned long);
-            break;
-        case 'L':
-            size += sizeof(long long);
-            break;
-        case 'X':
-            size += sizeof(unsigned long long);
+            size += sizeof(uint64_t);
             break;
         case 'f':
         case 'd':
             size += sizeof(double);
             break;
+        case 'p':
+            size += sizeof(uint64_t);
+            break;
         default:
             break;
         }
     }
-    buf->size = size;
-    buf->buffer = (char *)malloc(size * n_calls);
+    size_t total_size = size * n_calls;
+    buf->size = total_size;
+    buf->buffer = (char *)calloc(total_size, sizeof(uint8_t));
 }
 
 void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
@@ -62,76 +61,70 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
     {
         buf->kernel_idx = 0;
     }
-    char *curr_ptr = buf->buffer + buf->kernel_idx;
-    size_t size = 0;
 
     va_list args;
     va_start(args, types);
 
-    const char *p = types;
-    while (*p)
+    for (size_t i = 0; i < strlen(types); i++)
     {
-        switch (*p)
+        char *curr_ptr = buf->buffer + buf->kernel_idx;
+
+        const type_indicator = types[i];
+        switch (type_indicator)
         {
         case 'i':
         case 'c':
         { // int
-            int i = va_arg(args, int);
+            int32_t i = va_arg(args, int32_t);
             *((int *)curr_ptr) = i;
-            size = sizeof(int);
+            buf->kernel_idx += sizeof(int32_t);
             break;
         }
         case 'u':
         { // unsigned int
-            unsigned int u = va_arg(args, unsigned int);
-            *((unsigned int *)curr_ptr) = u;
-            size = sizeof(unsigned int);
+            uint32_t u = va_arg(args, uint32_t);
+            *((uint32_t *)curr_ptr) = u;
+            buf->kernel_idx += sizeof(uint32_t);
             break;
         }
         case 'l':
         { // long
-            long l = va_arg(args, long);
-            *((long *)curr_ptr) = l;
-            size = sizeof(long);
+            int64_t l = va_arg(args, int64_t);
+            *((int64_t *)curr_ptr) = l;
+            buf->kernel_idx += sizeof(int64_t);
             break;
         }
         case 'U':
         { // unsigned long
-            unsigned long ul = va_arg(args, unsigned long);
-            *((unsigned long *)curr_ptr) = ul;
-            size = sizeof(unsigned long);
+            uint64_t ul = va_arg(args, uint64_t);
+            *((uint64_t *)curr_ptr) = ul;
+            buf->kernel_idx += sizeof(uint64_t);
             break;
         }
-        case 'L':
-        { // long long
-            long long ll = va_arg(args, long long);
-            *((long long *)curr_ptr) = ll;
-            size = sizeof(long long);
-            break;
-        }
-        case 'X':
-        { // unsigned long long
-            unsigned long long ull = va_arg(args, unsigned long long);
-            *((unsigned long long *)curr_ptr) = ull;
-            size = sizeof(unsigned long long);
+        case 'p':
+        { // pointer
+            int pointer = va_arg(args, void *);
+            int pointer_as_long = (uint64_t)pointer;
+            *((uint64_t *)curr_ptr) = pointer_as_long;
+            buf->kernel_idx += sizeof(uint64_t);
             break;
         }
         case 'f':
         case 'd':
         { // float
             double f = va_arg(args, double);
+
             *((double *)curr_ptr) = f;
-            size = sizeof(double);
+            buf->kernel_idx += sizeof(double);
             break;
         }
         default:
+        {
             break;
         }
-        p++;
+        }
     }
     va_end(args);
-
-    buf->kernel_idx += size;
 
     if (isLast)
     {
@@ -151,10 +144,10 @@ bool listen_async_putchar(async_call_buf *buf)
     }
     char *curr_ptr = buf->buffer + buf->host_idx;
 
-    int arg = *((int *)curr_ptr);
-    putchar((char)arg);
+    uint32_t arg = *((uint32_t *)curr_ptr);
+    putchar(arg);
 
-    buf->host_idx += sizeof(int);
+    buf->host_idx += sizeof(uint32_t);
     return true;
 }
 
@@ -170,10 +163,10 @@ bool listen_async_assert(async_call_buf *buf)
     }
     char *curr_ptr = buf->buffer + buf->host_idx;
 
-    int arg = *((int *)curr_ptr);
+    uint32_t arg = *((uint32_t *)curr_ptr);
     assert(arg);
 
-    buf->host_idx += sizeof(int);
+    buf->host_idx += sizeof(uint32_t);
     return true;
 }
 
@@ -209,51 +202,37 @@ bool listen_async_printf(async_call_buf *buf, const char *format)
             case 'd':
             case 'i':
             {
-                int arg = *((int *)(curr_ptr + host_ptr_increment));
+                int32_t arg = *((int32_t *)(curr_ptr + host_ptr_increment));
                 printf("%d", arg);
-                host_ptr_increment += sizeof(int);
+                host_ptr_increment += sizeof(int32_t);
                 break;
             }
             case 'c':
             {
-                int arg = *((int *)(curr_ptr + host_ptr_increment));
-                printf("%c", (int)arg);
-                host_ptr_increment += sizeof(int);
+                uint32_t arg = *((uint32_t *)(curr_ptr + host_ptr_increment));
+                printf("%c", (uint8_t)arg);
+                host_ptr_increment += sizeof(uint32_t);
                 break;
             }
             case 'u':
             {
-                unsigned int arg = *((unsigned int *)(curr_ptr + host_ptr_increment));
+                uint32_t arg = *((uint32_t *)(curr_ptr + host_ptr_increment));
                 printf("%u", arg);
                 host_ptr_increment += sizeof(unsigned int);
                 break;
             }
             case 'l':
             {
-                long arg = *((long *)(curr_ptr + host_ptr_increment));
+                int64_t arg = *((int64_t *)(curr_ptr + host_ptr_increment));
                 printf("%ld", arg);
-                host_ptr_increment += sizeof(long);
+                host_ptr_increment += sizeof(int64_t);
                 break;
             }
             case 'U':
             {
-                unsigned long arg = *((unsigned long *)(curr_ptr + host_ptr_increment));
+                uint64_t arg = *((uint64_t *)(curr_ptr + host_ptr_increment));
                 printf("%lu", arg);
-                host_ptr_increment += sizeof(unsigned long);
-                break;
-            }
-            case 'L':
-            {
-                long long arg = *((long long *)(curr_ptr + host_ptr_increment));
-                printf("%lld", arg);
-                host_ptr_increment += sizeof(long long);
-                break;
-            }
-            case 'X':
-            {
-                unsigned long long arg = *((unsigned long long *)(curr_ptr + host_ptr_increment));
-                printf("%llu", arg);
-                host_ptr_increment += sizeof(unsigned long long);
+                host_ptr_increment += sizeof(uint64_t);
                 break;
             }
             case 'f':
@@ -261,6 +240,13 @@ bool listen_async_printf(async_call_buf *buf, const char *format)
                 double arg = *((double *)(curr_ptr + host_ptr_increment));
                 printf("%f", arg);
                 host_ptr_increment += sizeof(double);
+                break;
+            }
+            case 'p':
+            {
+                uint64_t arg = *((uint64_t *)(curr_ptr + host_ptr_increment));
+                printf("%p", (void *)arg);
+                host_ptr_increment += sizeof(uint64_t);
                 break;
             }
             default:
