@@ -54,7 +54,7 @@ void *kernel_B(async_call_buf *printf_0)
 
     for (int i = 0; i < 10; i++)
     {
-        async_call(printf_0, true, "i", i);
+        async_call(printf_0, false, "i", i);
 
         for (int i = 0; i < BIG_N / 100; i++)
         {
@@ -75,7 +75,7 @@ void wrapped_kernel_B()
     while (active)
     {
         active = false;
-        active = active || listen_async_printf(printf_0, "index = %d\n", "i");
+        active = active || listen_async_printf(printf_0, "index = %d\n");
     }
 }
 
@@ -85,7 +85,7 @@ int main()
     wrapped_kernel_A();
 
     printf("\nTest: one printf() callspot, called 10 times (static number of repetitions)\n");
-    // wrapped_kernel_B();
+    wrapped_kernel_B();
 
     return 0;
 }

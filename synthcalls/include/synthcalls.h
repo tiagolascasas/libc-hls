@@ -31,7 +31,7 @@ extern "C"
 
     bool listen_async_putchar(async_call_buf *buf);
 
-    bool listen_async_printf(async_call_buf *buf, const char *format, const char *arg_types);
+    bool listen_async_printf(async_call_buf *buf, const char *format);
 
     void close_async_buf(async_call_buf *buf);
 #ifdef __cplusplus

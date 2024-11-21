@@ -7,9 +7,6 @@
 #include <assert.h>
 #include "synthcalls.h"
 
-static int wrapped_printf(char *ptr, const char *arg_types);
-static int wrapped_putchar(char *ptr);
-
 async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls)
 {
     async_call_buf *buf = (async_call_buf *)malloc(sizeof(async_call_buf));
@@ -180,8 +177,103 @@ bool listen_async_assert(async_call_buf *buf)
     return true;
 }
 
-bool listen_async_printf(async_call_buf *buf, const char *format, const char *arg_types)
+bool listen_async_printf(async_call_buf *buf, const char *format)
 {
+    if (buf->host_idx == buf->kernel_idx)
+    {
+        return !buf->is_closed;
+    }
+    if (buf->host_idx == -1)
+    {
+        buf->host_idx = 0;
+    }
+    char *curr_ptr = buf->buffer + buf->host_idx;
+    size_t host_ptr_increment = 0;
+
+    for (size_t i = 0; i < strlen(format); i++)
+    {
+        char curr_char = format[i];
+        if (curr_char != '%')
+        {
+            putchar(curr_char);
+        }
+        else if (curr_char == '%' && format[i + 1] == '\0')
+        {
+            putchar(curr_char);
+        }
+        else
+        {
+            char next_char = format[i + 1];
+            switch (next_char)
+            {
+            case 'd':
+            case 'i':
+            {
+                int arg = *((int *)(curr_ptr + host_ptr_increment));
+                printf("%d", arg);
+                host_ptr_increment += sizeof(int);
+                break;
+            }
+            case 'c':
+            {
+                int arg = *((int *)(curr_ptr + host_ptr_increment));
+                printf("%c", (int)arg);
+                host_ptr_increment += sizeof(int);
+                break;
+            }
+            case 'u':
+            {
+                unsigned int arg = *((unsigned int *)(curr_ptr + host_ptr_increment));
+                printf("%u", arg);
+                host_ptr_increment += sizeof(unsigned int);
+                break;
+            }
+            case 'l':
+            {
+                long arg = *((long *)(curr_ptr + host_ptr_increment));
+                printf("%ld", arg);
+                host_ptr_increment += sizeof(long);
+                break;
+            }
+            case 'U':
+            {
+                unsigned long arg = *((unsigned long *)(curr_ptr + host_ptr_increment));
+                printf("%lu", arg);
+                host_ptr_increment += sizeof(unsigned long);
+                break;
+            }
+            case 'L':
+            {
+                long long arg = *((long long *)(curr_ptr + host_ptr_increment));
+                printf("%lld", arg);
+                host_ptr_increment += sizeof(long long);
+                break;
+            }
+            case 'X':
+            {
+                unsigned long long arg = *((unsigned long long *)(curr_ptr + host_ptr_increment));
+                printf("%llu", arg);
+                host_ptr_increment += sizeof(unsigned long long);
+                break;
+            }
+            case 'f':
+            {
+                double arg = *((double *)(curr_ptr + host_ptr_increment));
+                printf("%f", arg);
+                host_ptr_increment += sizeof(double);
+                break;
+            }
+            default:
+            {
+                putchar(curr_char);
+                break;
+            }
+            }
+            i++;
+        }
+    }
+    buf->host_idx += host_ptr_increment;
+    return true;
 }
 
 inline void close_async_buf(async_call_buf *buf)
