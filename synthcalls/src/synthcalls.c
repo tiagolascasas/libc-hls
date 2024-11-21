@@ -1,39 +1,66 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <string.h>
 #include "synthcalls.h"
 
-void synthcalls_init_interface(async_interface_t *interface, size_t *buffer_sizes, unsigned int num_buffers)
+async_call_buf *create_async_buf(unsigned int callspot, const char *arg_types, unsigned int n_calls)
 {
-    interface->buffer_count = num_buffers;
-    interface->buffer_base_idx = (unsigned int *)malloc(sizeof(unsigned int) * num_buffers);
-    interface->buffer_sizes = (size_t *)malloc(sizeof(size_t) * num_buffers);
-    interface->buffer_idx = (int *)malloc(sizeof(int) * num_buffers);
-    interface->is_closed = (bool *)malloc(sizeof(bool) * num_buffers);
-
-    size_t totalSize = 0;
-    for (unsigned int i = 0; i < num_buffers; i++)
-    {
-        interface->buffer_base_idx[i] = totalSize;
-        interface->buffer_sizes[i] = buffer_sizes[i];
-        interface->buffer_idx[i] = -1;
-        interface->is_closed[i] = false;
-
-        totalSize += buffer_sizes[i];
-    }
-    interface->unified_buffer = (char *)malloc(totalSize);
+    async_call_buf *buf = (async_call_buf *)malloc(sizeof(async_call_buf));
+    init_async_buf(buf, callspot, arg_types, n_calls);
+    return buf;
 }
 
-void synthcalls_async_call(async_interface_t *interface, unsigned int callspot, bool isLast, const char *types, ...)
+void init_async_buf(async_call_buf *buf, unsigned int callspot, const char *arg_types, unsigned int n_calls)
 {
-    if (interface->buffer_idx[callspot] == -1)
-    {
-        interface->buffer_idx[callspot] = 0;
-    }
+    buf->callspot = callspot;
+    buf->kernel_idx = -1;
+    buf->host_idx = -1;
+    buf->is_closed = false;
 
-    char *buffer = interface->unified_buffer + interface->buffer_base_idx[callspot];
-    int curr_idx = interface->buffer_idx[callspot];
-    char *curr_ptr = buffer + curr_idx;
+    size_t size = 0;
+    for (size_t i = 0; i < strlen(arg_types); i++)
+    {
+        switch (arg_types[i])
+        {
+        case 'i':
+        case 'c':
+            size += sizeof(int);
+            break;
+        case 'u':
+            size += sizeof(unsigned int);
+            break;
+        case 'l':
+            size += sizeof(long);
+            break;
+        case 'U':
+            size += sizeof(unsigned long);
+            break;
+        case 'L':
+            size += sizeof(long long);
+            break;
+        case 'X':
+            size += sizeof(unsigned long long);
+            break;
+        case 'f':
+        case 'd':
+            size += sizeof(double);
+            break;
+        default:
+            break;
+        }
+    }
+    buf->size = size;
+    buf->buffer = (char *)malloc(size * n_calls);
+}
+
+void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
+{
+    if (buf->kernel_idx == -1)
+    {
+        buf->kernel_idx = 0;
+    }
+    char *curr_ptr = buf->buffer + buf->kernel_idx;
     size_t size = 0;
 
     va_list args;
@@ -102,15 +129,46 @@ void synthcalls_async_call(async_interface_t *interface, unsigned int callspot, 
     }
     va_end(args);
 
-    interface->buffer_idx[callspot] += size;
+    buf->kernel_idx += size;
 
     if (isLast)
     {
-        synthcalls_close_callspot(interface, callspot);
+        close_async_buf(buf);
     }
 }
 
-void synthcalls_close_callspot(async_interface_t *interface, unsigned int callspot)
+bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun, const char *arg_types)
 {
-    interface->is_closed[callspot] = true;
+    if (buf->host_idx == buf->kernel_idx)
+    {
+        return !buf->is_closed;
+    }
+    if (buf->host_idx == -1)
+    {
+        buf->host_idx = 0;
+    }
+
+    char *curr_ptr = buf->buffer + buf->host_idx;
+    size_t size = 0;
+
+    switch (fun)
+    {
+    case PRINTF:
+        // TODO
+        break;
+    case PUTCHAR:
+        int arg = *((int *)curr_ptr);
+        putchar((char)arg);
+
+        buf->host_idx += sizeof(int);
+        break;
+    default:
+        printf("Syscall %d not implemented", fun);
+    }
+    buf->host_idx += size;
+}
+
+inline void close_async_buf(async_call_buf *buf)
+{
+    buf->is_closed = true;
 }

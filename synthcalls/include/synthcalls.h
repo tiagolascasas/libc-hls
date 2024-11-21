@@ -6,28 +6,31 @@
 extern "C"
 {
 #endif
+    typedef enum
+    {
+        PRINTF,
+        PUTCHAR
+    } AsyncCall;
+
     typedef struct
     {
-        // unified, fixed-size buffer
-        char *unified_buffer;
-        size_t unified_buffer_size;
+        unsigned int callspot;
+        char *buffer;
+        size_t size;
+        int kernel_idx;
+        int host_idx;
+        bool is_closed;
+    } async_call_buf;
 
-        // info to interpret the unified buffer
-        // as multiple sub-buffers
-        unsigned int *buffer_base_idx;
-        size_t *buffer_sizes;
-        unsigned int buffer_count;
+    async_call_buf *create_async_buf(unsigned int callspot, const char *arg_types, unsigned int n_calls);
 
-        // sub-buffer semantics
-        int *buffer_idx;
-        bool *is_closed;
-    } async_interface_t;
+    void init_async_buf(async_call_buf *buf, unsigned int callspot, const char *arg_types, unsigned int n_calls);
 
-    void synthcalls_init_interface(async_interface_t *interface, size_t *buffer_sizes, unsigned int num_buffers);
+    void async_call(async_call_buf *buf, bool isLast, const char *types, ...);
 
-    void synthcalls_async_call(async_interface_t *interface, unsigned int callspot, bool isLast, const char *types, ...);
+    bool listen_async_nonblock(async_call_buf *buf, AsyncCall fun, const char *arg_types);
 
-    void synthcalls_close_callspot(async_interface_t *interface, unsigned int callspot);
+    void close_async_buf(async_call_buf *buf);
 #ifdef __cplusplus
 }
 #endif
