@@ -1,0 +1,44 @@
+{
+  "name": "async-static_host",
+  "type": "HOST",
+  "platform": "/tools/Xilinx/Vitis/2024.1/base_platforms/xilinx_zcu102_base_202410_1/xilinx_zcu102_base_202410_1.xpfm",
+  "domain": "xrt",
+  "cpuInstance": "cortex-a53",
+  "cpuType": "cortex-a53",
+  "os": "linux",
+  "sysroot": "/home/tls/zcu102/sysroots/cortexa72-cortexa53-xilinx-linux",
+  "configuration": {
+    "componentType": "HOST",
+    "hostToolchainConfigurations": [
+      {
+        "configId": "default",
+        "compilerSymbols": [],
+        "compilerIncludes": [
+          "../async-static_common/libs/common/includes/cmdparser",
+          "../async-static_common/libs/common/includes/logger"
+        ],
+        "compilerOptions": [],
+        "linkerLibraries": [
+          "uuid",
+          "xrt_coreutil"
+        ],
+        "linkerLibraryPaths": [],
+        "linkerOptions": [],
+        "x86CompilerSymbols": [],
+        "x86CompilerIncludes": [
+          "../async-static_common/libs/common/includes/cmdparser",
+          "../async-static_common/libs/common/includes/logger"
+        ],
+        "x86CompilerOptions": [],
+        "x86LinkerLibraries": [
+          "uuid",
+          "xrt_coreutil"
+        ],
+        "x86LinkerLibraryPaths": [],
+        "x86LinkerOptions": []
+      }
+    ]
+  },
+  "domainRealName": "xrt",
+  "applicationFlow": "EMBEDDED_ACCEL"
+}

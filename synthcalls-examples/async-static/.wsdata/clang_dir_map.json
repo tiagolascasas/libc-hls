@@ -1,0 +1,6 @@
+{
+  "workspaceRoot": "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static",
+  "mapping": {
+    "async-static_vadd/src/vadd.cpp": "async-static_vadd"
+  }
+}

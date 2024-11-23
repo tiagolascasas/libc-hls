@@ -1,0 +1,12 @@
+{
+  "name": "async-static_vadd",
+  "type": "HLS",
+  "part": "xczu9eg-ffvb1156-2-e",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "hls_config.cfg"
+    ],
+    "work_dir": "vadd"
+  }
+}

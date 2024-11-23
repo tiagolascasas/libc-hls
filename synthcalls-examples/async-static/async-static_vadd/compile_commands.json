@@ -1,0 +1,15 @@
+[
+  {
+    "directory": "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd",
+    "arguments": [
+      "/tools/Xilinx/Vitis_HLS/2024.1/vcxx/libexec/clang++",
+      "-fhls",
+      "-hls-syn-headers-dir=/tools/Xilinx/Vitis_HLS/2024.1/common/technology/autopilot",
+      "",
+      "-g",
+      "-c",
+      "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/vadd.cpp"
+    ],
+    "file": "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/vadd.cpp"
+  }
+]
