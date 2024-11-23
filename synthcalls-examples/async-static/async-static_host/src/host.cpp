@@ -23,6 +23,8 @@
 #include "experimental/xrt_device.h"
 #include "experimental/xrt_kernel.h"
 
+#include "synthcalls.h"
+
 #define DATA_SIZE 4096
 
 int main(int argc, char** argv) {
@@ -50,6 +52,8 @@ int main(int argc, char** argv) {
     auto uuid = device.load_xclbin(binaryFile);
 
     size_t vector_size_bytes = sizeof(int) * DATA_SIZE;
+
+    async_call_buf *putchar0 = create_async_buf("c", 1);
 
     auto krnl = xrt::kernel(device, uuid, "vadd");
 

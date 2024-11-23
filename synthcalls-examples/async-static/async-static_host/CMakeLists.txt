@@ -123,9 +123,10 @@ set(HOST_LINK_OPTIONS
 )
 endif()
 
-target_sources(${CMAKE_PROJECT_NAME}
+target_sources(async-static_host
 PRIVATE
     src/host.cpp
+    src/async.c
     libs/common/includes/logger/logger.cpp
     libs/common/includes/cmdparser/cmdlineparser.cpp
 )
