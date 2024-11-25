@@ -127,8 +127,6 @@ target_sources(async-static_host
 PRIVATE
     src/host.cpp
     src/async.c
-    libs/common/includes/logger/logger.cpp
-    libs/common/includes/cmdparser/cmdlineparser.cpp
 )
 # Below compile definitions are derived from the application template used to
 # create this project.Update them to suite your requirement. They will not be

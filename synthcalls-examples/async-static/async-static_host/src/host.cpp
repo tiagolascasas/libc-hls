@@ -1,22 +1,5 @@
-/**
-* Copyright (C) 2019-2021 Xilinx, Inc
-*
-* Licensed under the Apache License, Version 2.0 (the "License"). You may
-* not use this file except in compliance with the License. A copy of the
-* License is located at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-* License for the specific language governing permissions and limitations
-* under the License.
-*/
-
-#include "cmdlineparser.h"
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 // XRT includes
 #include "experimental/xrt_bo.h"
@@ -27,75 +10,48 @@
 
 #define DATA_SIZE 4096
 
-int main(int argc, char** argv) {
-    // Command Line Parser
-    sda::utils::CmdLineParser parser;
+void wrapped_vadd(int *v1, int *v2, int *vo, int size) {
+  auto device = xrt::device(0);
+  auto uuid = device.load_xclbin("./vadd.xclbin");
+  auto kernel = xrt::kernel(device, uuid, "vadd");
 
-    // Switches
-    //**************//"<Full Arg>",  "<Short Arg>", "<Description>", "<Default>"
-    parser.addSwitch("--xclbin_file", "-x", "input binary file string", "");
-    parser.addSwitch("--device_id", "-d", "device index", "0");
-    parser.parse(argc, argv);
+  auto bo_v1 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
+  auto bo_v2 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
+  auto bo_vo = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
 
-    // Read settings
-    std::string binaryFile = parser.value("xclbin_file");
-    int device_index = stoi(parser.value("device_id"));
+  int *host_ptr_v1 = bo_v1.map<int *>();
+  int *host_ptr_v2 = bo_v2.map<int *>();
+  int *host_ptr_vo = bo_vo.map<int *>();
 
-    if (argc < 3) {
-        parser.printHelp();
-        return EXIT_FAILURE;
-    }
+  std::memcpy(host_ptr_v1, v1, size * sizeof(int));
+  std::memcpy(host_ptr_v2, v2, size * sizeof(int));
+  std::memcpy(host_ptr_vo, vo, size * sizeof(int));
 
-    std::cout << "Open the device" << device_index << std::endl;
-    auto device = xrt::device(device_index);
-    std::cout << "Load the xclbin " << binaryFile << std::endl;
-    auto uuid = device.load_xclbin(binaryFile);
+  bo_v1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+  bo_v2.sync(XCL_BO_SYNC_BO_TO_DEVICE);
 
-    size_t vector_size_bytes = sizeof(int) * DATA_SIZE;
+  auto kernel_execution = kernel(bo_v1, bo_v2, bo_vo, size);
+  kernel_execution.wait();
 
-    async_call_buf *putchar0 = create_async_buf("c", 1);
+  bo_vo.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
 
-    auto krnl = xrt::kernel(device, uuid, "vadd");
+  std::memcpy(vo, host_ptr_vo, size * sizeof(int));
+}
 
-    std::cout << "Allocate Buffer in Global Memory\n";
-    auto bo0 = xrt::bo(device, vector_size_bytes, krnl.group_id(0));
-    auto bo1 = xrt::bo(device, vector_size_bytes, krnl.group_id(1));
-    auto bo_out = xrt::bo(device, vector_size_bytes, krnl.group_id(2));
+int main() {
 
-    // Map the contents of the buffer object into host memory
-    auto bo0_map = bo0.map<int*>();
-    auto bo1_map = bo1.map<int*>();
-    auto bo_out_map = bo_out.map<int*>();
-    std::fill(bo0_map, bo0_map + DATA_SIZE, 0);
-    std::fill(bo1_map, bo1_map + DATA_SIZE, 0);
-    std::fill(bo_out_map, bo_out_map + DATA_SIZE, 0);
+  int v1[DATA_SIZE] = {0};
+  int v2[DATA_SIZE] = {0};
+  int vo[DATA_SIZE] = {0};
+  int reference[DATA_SIZE] = {0};
 
-    // Create the test data
-    int bufReference[DATA_SIZE];
-    for (int i = 0; i < DATA_SIZE; ++i) {
-        bo0_map[i] = i;
-        bo1_map[i] = i;
-        bufReference[i] = bo0_map[i] + bo1_map[i];
-    }
+  for (int i = 0; i < DATA_SIZE; ++i) {
+    v1[i] = i;
+    v2[i] = i;
+    reference[i] = v1[i] + v2[i];
+  }
+  wrapped_vadd(v1, v2, vo, DATA_SIZE);
 
-    // Synchronize buffer content with device side
-    std::cout << "synchronize input buffer data to device global memory\n";
-
-    bo0.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-
-    std::cout << "Execution of the kernel\n";
-    auto run = krnl(bo0, bo1, bo_out, DATA_SIZE);
-    run.wait();
-
-    // Get the output;
-    std::cout << "Get the output data from the device" << std::endl;
-    bo_out.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
-
-    // Validate our results
-    if (std::memcmp(bo_out_map, bufReference, DATA_SIZE))
-        throw std::runtime_error("Value read back does not match reference");
-
-    std::cout << "TEST PASSED\n";
-    return 0;
+  std::cout << (std::memcmp(vo, reference, DATA_SIZE) ? "Checksum failed" : "Checksum passed") << std::endl;
+  return 0;
 }
