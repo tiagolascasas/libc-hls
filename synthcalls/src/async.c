@@ -10,17 +10,6 @@
 
 async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls)
 {
-    async_call_buf *buf = (async_call_buf *)calloc(1, sizeof(async_call_buf));
-    init_async_buf(buf, arg_types, n_calls);
-    return buf;
-}
-
-void init_async_buf(async_call_buf *buf, const char *arg_types, unsigned int n_calls)
-{
-    buf->kernel_idx = -1;
-    buf->host_idx = -1;
-    buf->is_closed = false;
-
     size_t size = 0;
     for (size_t i = 0; i < strlen(arg_types); i++)
     {
@@ -50,9 +39,17 @@ void init_async_buf(async_call_buf *buf, const char *arg_types, unsigned int n_c
             break;
         }
     }
-    size_t total_size = size * n_calls;
+    size_t buffer_size = size * n_calls;
+    size_t total_size = sizeof(async_call_buf) + buffer_size;
+
+    async_call_buf *buf = (async_call_buf *)calloc(total_size, sizeof(uint8_t));
+
     buf->size = total_size;
-    buf->buffer = (char *)calloc(total_size, sizeof(uint8_t));
+    buf->kernel_idx = -1;
+    buf->host_idx = -1;
+    buf->is_closed = false;
+    buf->buffer = (int8_t *)(buf + 1);
+    return buf;
 }
 
 void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
@@ -67,7 +64,7 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
 
     for (size_t i = 0; i < strlen(types); i++)
     {
-        char *curr_ptr = buf->buffer + buf->kernel_idx;
+        int8_t *curr_ptr = buf->buffer + buf->kernel_idx;
 
         const char type_indicator = types[i];
         switch (type_indicator)
@@ -103,8 +100,8 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
         }
         case 'p':
         { // pointer
-            int pointer = va_arg(args, void *);
-            int pointer_as_long = (uint64_t)pointer;
+            void* pointer = va_arg(args, void *);
+            uint64_t pointer_as_long = (uint64_t)pointer;
             *((uint64_t *)curr_ptr) = pointer_as_long;
             buf->kernel_idx += sizeof(uint64_t);
             break;
@@ -142,7 +139,7 @@ bool listen_async_putchar(async_call_buf *buf)
     {
         buf->host_idx = 0;
     }
-    char *curr_ptr = buf->buffer + buf->host_idx;
+    int8_t *curr_ptr = buf->buffer + buf->host_idx;
 
     uint32_t arg = *((uint32_t *)curr_ptr);
     putchar(arg);
@@ -161,7 +158,7 @@ bool listen_async_assert(async_call_buf *buf)
     {
         buf->host_idx = 0;
     }
-    char *curr_ptr = buf->buffer + buf->host_idx;
+    int8_t *curr_ptr = buf->buffer + buf->host_idx;
 
     uint32_t arg = *((uint32_t *)curr_ptr);
     assert(arg);
@@ -180,7 +177,7 @@ bool listen_async_printf(async_call_buf *buf, const char *format)
     {
         buf->host_idx = 0;
     }
-    char *curr_ptr = buf->buffer + buf->host_idx;
+    int8_t *curr_ptr = buf->buffer + buf->host_idx;
     size_t host_ptr_increment = 0;
 
     for (size_t i = 0; i < strlen(format); i++)

@@ -1,0 +1,217 @@
+
+
+================================================================
+== Synthesis Summary Report of 'vadd'
+================================================================
++ General Information: 
+    * Date:           Mon Nov 25 16:13:56 2024
+    * Version:        2024.1 (Build 5069499 on May 21 2024)
+    * Project:        vadd
+    * Solution:       hls (Vitis Kernel Flow Target)
+    * Product family: zynquplus
+    * Target device:  xczu9eg-ffvb1156-2-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+------------+-----------+-----+
+    |              Modules             | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |         |    |            |           |     |
+    |              & Loops             | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|  BRAM   | DSP|     FF     |    LUT    | URAM|
+    +----------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+------------+-----------+-----+
+    |+ vadd*                           |     -|  0.00|     4243|  2.829e+04|         -|     4173|     -|  dataflow|  6 (~0%)|   -|  3332 (~0%)|  4449 (1%)|    -|
+    | + entry_proc                     |     -|  3.03|        0|      0.000|         -|        0|     -|        no|        -|   -|     3 (~0%)|   37 (~0%)|    -|
+    | + read_input                     |     -|  0.00|     4172|  2.781e+04|         -|     4172|     -|        no|        -|   -|   238 (~0%)|  803 (~0%)|    -|
+    |  + read_input_Pipeline_mem_rd    |     -|  0.00|     4099|  2.733e+04|         -|     4099|     -|        no|        -|   -|    68 (~0%)|  143 (~0%)|    -|
+    |   o mem_rd                       |     -|  4.87|     4097|  2.731e+04|         3|        1|  4096|       yes|        -|   -|           -|          -|    -|
+    | + read_input_1                   |     -|  0.00|     4170|  2.780e+04|         -|     4170|     -|        no|        -|   -|   371 (~0%)|  266 (~0%)|    -|
+    |  o mem_rd                        |     -|  4.87|     4168|  2.779e+04|        74|        1|  4096|       yes|        -|   -|           -|          -|    -|
+    | + compute_add                    |     -|  0.18|     4100|  2.733e+04|         -|     4100|     -|        no|        -|   -|    71 (~0%)|  275 (~0%)|    -|
+    |  + compute_add_Pipeline_execute  |     -|  0.18|     4098|  2.732e+04|         -|     4098|     -|        no|        -|   -|    34 (~0%)|  191 (~0%)|    -|
+    |   o execute                      |     -|  4.87|     4096|  2.731e+04|         2|        1|  4096|       yes|        -|   -|           -|          -|    -|
+    | + write_result                   |     -|  0.00|     4170|  2.780e+04|         -|     4170|     -|        no|        -|   -|   267 (~0%)|  804 (~0%)|    -|
+    |  + write_result_Pipeline_mem_wr  |     -|  0.00|     4099|  2.733e+04|         -|     4099|     -|        no|        -|   -|    68 (~0%)|  145 (~0%)|    -|
+    |   o mem_wr                       |     -|  4.87|     4097|  2.731e+04|         3|        1|  4096|       yes|        -|   -|           -|          -|    -|
+    +----------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+------------+-----------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| Interface   | Read/Write | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   | Resource Estimate |
+|             |            | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |                   |
++-------------+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| m_axi_gmem0 | READ_WRITE | 32 -> 32   | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=4            |
+| m_axi_gmem1 | READ_ONLY  | 32 -> 32   | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=2            |
++-------------+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| Interface     | Register | Offset | Width | Access | Description                      | Bit Fields                                                                         |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| s_axi_control | CTRL     | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 4=AP_CONTINUE 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER     | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                                           |
+| s_axi_control | IP_IER   | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                                      |
+| s_axi_control | IP_ISR   | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                                      |
+| s_axi_control | in1_1    | 0x10   | 32    | W      | Data signal of in1               |                                                                                    |
+| s_axi_control | in1_2    | 0x14   | 32    | W      | Data signal of in1               |                                                                                    |
+| s_axi_control | in2_1    | 0x1c   | 32    | W      | Data signal of in2               |                                                                                    |
+| s_axi_control | in2_2    | 0x20   | 32    | W      | Data signal of in2               |                                                                                    |
+| s_axi_control | out_r_1  | 0x28   | 32    | W      | Data signal of out_r             |                                                                                    |
+| s_axi_control | out_r_2  | 0x2c   | 32    | W      | Data signal of out_r             |                                                                                    |
+| s_axi_control | size     | 0x34   | 32    | W      | Data signal of size              |                                                                                    |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+
+* Other Ports
++-------------+-----------+----------+
+| Port        | Direction | Bitwidth |
++-------------+-----------+----------+
+| event_done  | out       | 1        |
+| event_start | out       | 1        |
++-------------+-----------+----------+
+
+* TOP LEVEL CONTROL
++-----------+---------------+-----------+
+| Interface | Type          | Ports     |
++-----------+---------------+-----------+
+| ap_clk    | clock         | ap_clk    |
+| ap_rst_n  | reset         | ap_rst_n  |
+| interrupt | interrupt     | interrupt |
+| ap_ctrl   | ap_ctrl_chain |           |
++-----------+---------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+---------------+
+| Argument | Direction | Datatype      |
++----------+-----------+---------------+
+| in1      | inout     | unsigned int* |
+| in2      | in        | unsigned int* |
+| out      | inout     | unsigned int* |
+| size     | in        | int           |
++----------+-----------+---------------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+-----------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                           |
++----------+---------------+-----------+----------+-----------------------------------+
+| in1      | m_axi_gmem0   | interface |          | channel=0                         |
+| in1      | s_axi_control | register  | offset   | name=in1_1 offset=0x10 range=32   |
+| in1      | s_axi_control | register  | offset   | name=in1_2 offset=0x14 range=32   |
+| in2      | m_axi_gmem1   | interface |          | channel=0                         |
+| in2      | s_axi_control | register  | offset   | name=in2_1 offset=0x1c range=32   |
+| in2      | s_axi_control | register  | offset   | name=in2_2 offset=0x20 range=32   |
+| out      | m_axi_gmem0   | interface |          | channel=0                         |
+| out      | s_axi_control | register  | offset   | name=out_r_1 offset=0x28 range=32 |
+| out      | s_axi_control | register  | offset   | name=out_r_2 offset=0x2c range=32 |
+| size     | s_axi_control | register  |          | name=size offset=0x34 range=32    |
++----------+---------------+-----------+----------+-----------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------+----------+-------+--------+-------------------+
+| HW Interface | Direction | Length   | Width | Loop   | Loop Location     |
++--------------+-----------+----------+-------+--------+-------------------+
+| m_axi_gmem0  | read      | variable | 32    | mem_rd | src/vadd.cpp:68:5 |
+| m_axi_gmem0  | write     | variable | 32    | mem_wr | src/vadd.cpp:89:5 |
+| m_axi_gmem1  | read      | variable | 32    | mem_rd | src/vadd.cpp:68:5 |
++--------------+-----------+----------+-------+--------+-------------------+
+
+* All M_AXI Variable Accesses
++-------------------+----------+--------------------+-----------+--------------+----------+--------+-------------------+------------+------------------------------------------------+
+| HW Interface      | Variable | Access Location    | Direction | Burst Status | Length   | Loop   | Loop Location     | Resolution | Problem                                        |
++-------------------+----------+--------------------+-----------+--------------+----------+--------+-------------------+------------+------------------------------------------------+
+| m_axi_gmem0       | out      | src/vadd.cpp:91:9  | write     | Widen Fail   |          | mem_wr | src/vadd.cpp:89:5 | 214-234    | Sequential access length is not divisible by 2 |
+| m_axi_gmem0       | out      | src/vadd.cpp:91:9  | write     | Inferred     | variable | mem_wr | src/vadd.cpp:89:5 |            |                                                |
+| m_axi_gmem0,gmem1 | in       | src/vadd.cpp:70:11 | read      | Widen Fail   |          | mem_rd | src/vadd.cpp:68:5 | 214-234    | Sequential access length is not divisible by 2 |
+| m_axi_gmem0,gmem1 | in       | src/vadd.cpp:70:11 | read      | Inferred     | variable | mem_rd | src/vadd.cpp:68:5 |            |                                                |
++-------------------+----------+--------------------+-----------+--------------+----------+--------+-------------------+------------+------------------------------------------------+
+
+    * Resolution URL: docs.xilinx.com/access/sources/dita/topic?Doc_Version=2024.1%20English&url=ug1448-hls-guidance&resourceid=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++----------------------------------+-----+--------+-------------+--------+----------+---------+
+| Name                             | DSP | Pragma | Variable    | Op     | Impl     | Latency |
++----------------------------------+-----+--------+-------------+--------+----------+---------+
+| + vadd                           | 0   |        |             |        |          |         |
+|  + read_input                    | 0   |        |             |        |          |         |
+|    icmp_ln68_fu_92_p2            |     |        | icmp_ln68   | setgt  | auto     | 0       |
+|    empty_fu_102_p3               |     |        | empty       | select | auto_sel | 0       |
+|   + read_input_Pipeline_mem_rd   | 0   |        |             |        |          |         |
+|     icmp_ln68_fu_96_p2           |     |        | icmp_ln68   | setlt  | auto     | 0       |
+|     add_ln68_fu_102_p2           |     |        | add_ln68    | add    | fabric   | 0       |
+|  + read_input_1                  | 0   |        |             |        |          |         |
+|    icmp_ln68_fu_110_p2           |     |        | icmp_ln68   | setgt  | auto     | 0       |
+|    empty_fu_120_p3               |     |        | empty       | select | auto_sel | 0       |
+|    icmp_ln68_1_fu_144_p2         |     |        | icmp_ln68_1 | setlt  | auto     | 0       |
+|    add_ln68_fu_150_p2            |     |        | add_ln68    | add    | fabric   | 0       |
+|  + compute_add                   | 0   |        |             |        |          |         |
+|   + compute_add_Pipeline_execute | 0   |        |             |        |          |         |
+|     icmp_ln80_fu_81_p2           |     |        | icmp_ln80   | setlt  | auto     | 0       |
+|     add_ln80_fu_87_p2            |     |        | add_ln80    | add    | fabric   | 0       |
+|     add_ln82_fu_98_p2            |     |        | add_ln82    | add    | fabric   | 0       |
+|  + write_result                  | 0   |        |             |        |          |         |
+|    icmp_ln89_fu_83_p2            |     |        | icmp_ln89   | setgt  | auto     | 0       |
+|    empty_fu_103_p3               |     |        | empty       | select | auto_sel | 0       |
+|   + write_result_Pipeline_mem_wr | 0   |        |             |        |          |         |
+|     icmp_ln89_fu_100_p2          |     |        | icmp_ln89   | setlt  | auto     | 0       |
+|     add_ln89_fu_106_p2           |     |        | add_ln89    | add    | fabric   | 0       |
++----------------------------------+-----+--------+-------------+--------+----------+---------+
+
+
+================================================================
+== Storage Report
+================================================================
++-------------------+--------------+-------------+------+------+--------+-----------+------+---------+------------------+
+| Name              | Usage        | Type        | BRAM | URAM | Pragma | Variable  | Impl | Latency | Bitwidth, Depth, |
+|                   |              |             |      |      |        |           |      |         | Banks            |
++-------------------+--------------+-------------+------+------+--------+-----------+------+---------+------------------+
+| + vadd            |              |             | 6    | 0    |        |           |      |         |                  |
+|   control_s_axi_U | interface    | s_axilite   |      |      |        |           |      |         |                  |
+|   gmem0_m_axi_U   | interface    | m_axi       | 4    |      |        |           |      |         |                  |
+|   gmem1_m_axi_U   | interface    | m_axi       | 2    |      |        |           |      |         |                  |
+|   out_r_c_U       | fifo channel | scalar prop |      |      |        | out_r_c   | srl  | 0       | 64, 4, 1         |
+|   size_c1_U       | fifo channel | scalar prop |      |      |        | size_c1   | srl  | 0       | 32, 2, 1         |
+|   inStream1_U     | fifo channel | stream      |      |      |        | inStream1 | srl  | 0       | 32, 2, 1         |
+|   inStream2_U     | fifo channel | stream      |      |      |        | inStream2 | srl  | 0       | 32, 2, 1         |
+|   size_c_U        | fifo channel | scalar prop |      |      |        | size_c    | srl  | 0       | 32, 2, 1         |
+|   outStream_U     | fifo channel | stream      |      |      |        | outStream | srl  | 0       | 32, 2, 1         |
++-------------------+--------------+-------------+------+------+--------+-----------+------+---------+------------------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------+---------------------------------+---------------------------------+
+| Type           | Options                         | Location                        |
++----------------+---------------------------------+---------------------------------+
+| loop_tripcount | min = c_size max = c_size       | src/vadd.cpp:69 in read_input   |
+| loop_tripcount | min = c_size max = c_size       | src/vadd.cpp:81 in compute_add  |
+| loop_tripcount | min = c_size max = c_size       | src/vadd.cpp:90 in write_result |
+| interface      | m_axi port = in1 bundle = gmem0 | src/vadd.cpp:109 in vadd        |
+| interface      | m_axi port = in2 bundle = gmem1 | src/vadd.cpp:110 in vadd        |
+| interface      | m_axi port = out bundle = gmem0 | src/vadd.cpp:111 in vadd        |
+| dataflow       |                                 | src/vadd.cpp:113 in vadd        |
++----------------+---------------------------------+---------------------------------+
+
+

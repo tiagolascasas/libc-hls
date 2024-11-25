@@ -1,0 +1,22 @@
+Begin Function 'read_input'
+
+RTL state condition: (1'b1 == ap_CS_fsm_state1)
+# ST_1
+local empty <select_68> <integer> <> 'select' <src/vadd.cpp:68>
+empty /home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/vadd.cpp:68
+empty /home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/vadd.cpp:68
+reg: empty_reg_140[30:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state2)
+# ST_2
+local trunc_ln68_2 <partselect_68> <integer> <> 'partselect' <src/vadd.cpp:68>
+trunc_ln68_2 /home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/vadd.cpp:68
+reg: trunc_ln68_2_reg_145[61:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state74)
+# ST_74
+
+End Function 'read_input'
+

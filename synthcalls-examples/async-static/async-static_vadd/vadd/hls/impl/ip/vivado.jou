@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Mon Nov 25 16:14:01 2024
+# Process ID: 53781
+# Current directory: /home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/vadd/hls/impl/ip
+# Command line: vivado -notrace -mode batch -source run_ippack.tcl
+# Log file: /home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/vadd/hls/impl/ip/vivado.log
+# Journal file: /home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/vadd/hls/impl/ip/vivado.jou
+# Running On        :tls-Legion-5-15ACH6H
+# Platform          :Ubuntu
+# Operating System  :Ubuntu 22.04.5 LTS
+# Processor Detail  :AMD Ryzen 5 5600H with Radeon Graphics
+# CPU Frequency     :3391.138 MHz
+# CPU Physical cores:6
+# CPU Logical cores :12
+# Host memory       :33497 MB
+# Swap memory       :2147 MB
+# Total Virtual     :35645 MB
+# Available Virtual :26410 MB
+#-----------------------------------------------------------
+source run_ippack.tcl -notrace
