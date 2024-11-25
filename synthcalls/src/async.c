@@ -40,23 +40,26 @@ async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls)
         }
     }
     size_t buffer_size = size * n_calls;
-    size_t total_size = sizeof(async_call_buf) + buffer_size;
+    int8_t *buffer = (int8_t *)calloc(1, buffer_size);
 
-    async_call_buf *buf = (async_call_buf *)calloc(total_size, sizeof(uint8_t));
+    async_info *info = (async_info *)calloc(1, sizeof(async_info));
+    info->size = buffer_size;
+    info->kernel_idx = -1;
+    info->host_idx = -1;
+    info->is_closed = false;
 
-    buf->size = total_size;
-    buf->kernel_idx = -1;
-    buf->host_idx = -1;
-    buf->is_closed = false;
-    buf->buffer = (int8_t *)(buf + 1);
+    async_call_buf *buf = (async_call_buf *)calloc(1, sizeof(async_call_buf));
+    buf->info = info;
+    buf->buffer = buffer;
+
     return buf;
 }
 
-void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
+void async_call(int8_t *buffer, async_info *info, bool isLast, const char *types, ...)
 {
-    if (buf->kernel_idx == -1)
+    if (info->kernel_idx == -1)
     {
-        buf->kernel_idx = 0;
+        info->kernel_idx = 0;
     }
 
     va_list args;
@@ -64,7 +67,7 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
 
     for (size_t i = 0; i < strlen(types); i++)
     {
-        int8_t *curr_ptr = buf->buffer + buf->kernel_idx;
+        int8_t *curr_ptr = buffer + info->kernel_idx;
 
         const char type_indicator = types[i];
         switch (type_indicator)
@@ -74,28 +77,28 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
         { // int
             int32_t i = va_arg(args, int32_t);
             *((int *)curr_ptr) = i;
-            buf->kernel_idx += sizeof(int32_t);
+            info->kernel_idx += sizeof(int32_t);
             break;
         }
         case 'u':
         { // unsigned int
             uint32_t u = va_arg(args, uint32_t);
             *((uint32_t *)curr_ptr) = u;
-            buf->kernel_idx += sizeof(uint32_t);
+            info->kernel_idx += sizeof(uint32_t);
             break;
         }
         case 'l':
         { // long
             int64_t l = va_arg(args, int64_t);
             *((int64_t *)curr_ptr) = l;
-            buf->kernel_idx += sizeof(int64_t);
+            info->kernel_idx += sizeof(int64_t);
             break;
         }
         case 'U':
         { // unsigned long
             uint64_t ul = va_arg(args, uint64_t);
             *((uint64_t *)curr_ptr) = ul;
-            buf->kernel_idx += sizeof(uint64_t);
+            info->kernel_idx += sizeof(uint64_t);
             break;
         }
         case 'p':
@@ -103,7 +106,7 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
             void* pointer = va_arg(args, void *);
             uint64_t pointer_as_long = (uint64_t)pointer;
             *((uint64_t *)curr_ptr) = pointer_as_long;
-            buf->kernel_idx += sizeof(uint64_t);
+            info->kernel_idx += sizeof(uint64_t);
             break;
         }
         case 'f':
@@ -112,7 +115,7 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
             double f = va_arg(args, double);
 
             *((double *)curr_ptr) = f;
-            buf->kernel_idx += sizeof(double);
+            info->kernel_idx += sizeof(double);
             break;
         }
         default:
@@ -125,59 +128,59 @@ void async_call(async_call_buf *buf, bool isLast, const char *types, ...)
 
     if (isLast)
     {
-        close_async_buf(buf);
+        close_async(info);
     }
 }
 
 bool listen_async_putchar(async_call_buf *buf)
 {
-    if (buf->host_idx == buf->kernel_idx)
+    if (buf->info->host_idx == buf->info->kernel_idx)
     {
-        return !buf->is_closed;
+        return !buf->info->is_closed;
     }
-    if (buf->host_idx == -1)
+    if (buf->info->host_idx == -1)
     {
-        buf->host_idx = 0;
+        buf->info->host_idx = 0;
     }
-    int8_t *curr_ptr = buf->buffer + buf->host_idx;
+    int8_t *curr_ptr = buf->buffer + buf->info->host_idx;
 
     uint32_t arg = *((uint32_t *)curr_ptr);
     putchar(arg);
 
-    buf->host_idx += sizeof(uint32_t);
+    buf->info->host_idx += sizeof(uint32_t);
     return true;
 }
 
 bool listen_async_assert(async_call_buf *buf)
 {
-    if (buf->host_idx == buf->kernel_idx)
+    if (buf->info->host_idx == buf->info->kernel_idx)
     {
-        return !buf->is_closed;
+        return !buf->info->is_closed;
     }
-    if (buf->host_idx == -1)
+    if (buf->info->host_idx == -1)
     {
-        buf->host_idx = 0;
+        buf->info->host_idx = 0;
     }
-    int8_t *curr_ptr = buf->buffer + buf->host_idx;
+    int8_t *curr_ptr = buf->buffer + buf->info->host_idx;
 
     uint32_t arg = *((uint32_t *)curr_ptr);
     assert(arg);
 
-    buf->host_idx += sizeof(uint32_t);
+    buf->info->host_idx += sizeof(uint32_t);
     return true;
 }
 
 bool listen_async_printf(async_call_buf *buf, const char *format)
 {
-    if (buf->host_idx == buf->kernel_idx)
+    if (buf->info->host_idx == buf->info->kernel_idx)
     {
-        return !buf->is_closed;
+        return !buf->info->is_closed;
     }
-    if (buf->host_idx == -1)
+    if (buf->info->host_idx == -1)
     {
-        buf->host_idx = 0;
+        buf->info->host_idx = 0;
     }
-    int8_t *curr_ptr = buf->buffer + buf->host_idx;
+    int8_t *curr_ptr = buf->buffer + buf->info->host_idx;
     size_t host_ptr_increment = 0;
 
     for (size_t i = 0; i < strlen(format); i++)
@@ -255,11 +258,11 @@ bool listen_async_printf(async_call_buf *buf, const char *format)
             i++;
         }
     }
-    buf->host_idx += host_ptr_increment;
+    buf->info->host_idx += host_ptr_increment;
     return true;
 }
 
-inline void close_async_buf(async_call_buf *buf)
+inline void close_async(async_info *info)
 {
-    buf->is_closed = true;
+    info->is_closed = true;
 }

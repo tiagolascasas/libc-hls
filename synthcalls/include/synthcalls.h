@@ -14,12 +14,17 @@ extern "C"
         int32_t kernel_idx;
         int32_t host_idx;
         bool is_closed;
+    } async_info;
+
+    typedef struct
+    {
+        async_info *info;
         int8_t *buffer;
     } async_call_buf;
 
     async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls);
 
-    void async_call(async_call_buf *buf, bool isLast, const char *types, ...);
+    void async_call(int8_t *buf, async_info *info, bool isLast, const char *types, ...);
 
     bool listen_async_assert(async_call_buf *buf);
 
@@ -27,11 +32,11 @@ extern "C"
 
     bool listen_async_printf(async_call_buf *buf, const char *format);
 
-    void close_async_buf(async_call_buf *buf);
+    void close_async(async_info *info);
 
     typedef struct
     {
-        
+
         size_t size;
         int32_t kernel_idx;
         int32_t host_idx;
