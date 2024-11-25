@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 synthcalls/build/
+
+synthcalls-examples/async-static/async-static_vadd/vadd/
