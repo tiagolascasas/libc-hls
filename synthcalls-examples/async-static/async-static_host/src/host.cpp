@@ -16,6 +16,7 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     async_call_buf *putchar0 = create_async_buf_fixed(PUTCHAR, 1);
     async_call_buf *assert0 = create_async_buf_fixed(ASSERT, 1);
+    async_call_buf *printf0 = create_async_buf_variadic(1, 1);
 
     std::cout << "Creating CPU-FPGA buffers\n";
     auto bo_v1 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
@@ -25,6 +26,8 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     auto bo_putchar0_info = xrt::bo(device, sizeof(async_info), kernel.group_id(0));
     auto bo_assert0_buf = xrt::bo(device, assert0->info->size, kernel.group_id(0));
     auto bo_assert0_info = xrt::bo(device, sizeof(async_info), kernel.group_id(0));
+    auto bo_printf0_buf = xrt::bo(device, printf0->info->size, kernel.group_id(0));
+    auto bo_printf0_info = xrt::bo(device, sizeof(async_info), kernel.group_id(0));
 
     int *host_ptr_v1 = bo_v1.map<int *>();
     int *host_ptr_v2 = bo_v2.map<int *>();
@@ -33,6 +36,8 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     async_info *host_ptr_putchar0_info = bo_putchar0_info.map<async_info *>();
     int8_t *host_ptr_assert0_buf = bo_assert0_buf.map<int8_t *>();
     async_info *host_ptr_assert0_info = bo_assert0_info.map<async_info *>();
+    int8_t *host_ptr_printf0_buf = bo_printf0_buf.map<int8_t *>();
+    async_info *host_ptr_printf0_info = bo_printf0_info.map<async_info *>();
 
     std::cout << "Copying data into buffers\n";
     std::memcpy(host_ptr_v1, v1, size * sizeof(int));
@@ -42,6 +47,8 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     std::memcpy(host_ptr_putchar0_info, putchar0->info, sizeof(async_info));
     std::memcpy(host_ptr_assert0_buf, assert0->buffer, assert0->info->size);
     std::memcpy(host_ptr_assert0_info, assert0->info, sizeof(async_info));
+    std::memcpy(host_ptr_printf0_buf, printf0->buffer, printf0->info->size);
+    std::memcpy(host_ptr_printf0_info, printf0->info, sizeof(async_info));
 
     std::cout << "Syncing buffers from the CPU to the FPGA\n";
     bo_v1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
@@ -50,9 +57,14 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     bo_putchar0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
     bo_assert0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
     bo_assert0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+    bo_printf0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+    bo_printf0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
 
     std::cout << "Starting kernel...\n";
-    auto kernel_execution = kernel(bo_v1, bo_v2, bo_vo, size, bo_putchar0_buf, bo_putchar0_info, bo_assert0_buf, bo_assert0_info);
+    auto kernel_execution = kernel(bo_v1, bo_v2, bo_vo, size,
+                                   bo_putchar0_buf, bo_putchar0_info,
+                                   bo_assert0_buf, bo_assert0_info,
+                                   bo_printf0_buf, bo_printf0_info);
 
     std::cout << "Polling for asynchronous calls using a rate of " << polling_rate << "ms\n";
     bool valid;
@@ -73,8 +85,11 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
         bo_assert0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_assert0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         valid = valid || listen_async_assert(host_ptr_assert0_buf, host_ptr_assert0_info);
-    } 
-    while (valid);
+
+        bo_printf0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_printf0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        valid = valid || listen_async_printf(host_ptr_printf0_buf, host_ptr_printf0_info, "This is a printf() from the FPGA, at iteration %d\n");
+    } while (valid);
 
     if (kernel_execution.state() != ERT_CMD_STATE_COMPLETED)
     {
