@@ -126,7 +126,7 @@ endif()
 target_sources(async-static_host
 PRIVATE
     src/host.cpp
-    src/async.c
+    src/async_host.c
 )
 # Below compile definitions are derived from the application template used to
 # create this project.Update them to suite your requirement. They will not be

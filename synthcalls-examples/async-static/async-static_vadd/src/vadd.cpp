@@ -6,9 +6,9 @@ void vadd(unsigned int *in1, unsigned int *in2, unsigned int *out, int size, int
     {
         out[i] = in1[i] + in2[i];
 
-        if (i == 6000)
+        if (i == 50)
         {
-            call_async_putchar(buf, info, true, 'a');
+            call_async_putchar(buf, info, true, 'X');
         }
     }
 }
