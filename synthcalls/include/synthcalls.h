@@ -8,11 +8,14 @@
 extern "C"
 {
 #endif
-    typedef enum {
+    typedef enum
+    {
         ASSERT,
         PUTCHAR,
         PRINTF
     } SyscallName;
+
+    // Async data structures
     typedef struct
     {
         size_t size;
@@ -27,18 +30,17 @@ extern "C"
         int8_t *buffer;
     } async_call_buf;
 
+    // Host async functions
     async_call_buf *create_async_buf_fixed(SyscallName fun, unsigned int n_calls);
-    async_call_buf *create_async_buf_variadic(const char* arg_types, unsigned int ncalls);
-
-    void call_async_assert(int8_t *buf, async_info *info, bool isLast, bool condition);
+    async_call_buf *create_async_buf_variadic(unsigned int n_args, unsigned int ncalls);
     bool listen_async_assert(async_call_buf *buf);
-
-    void call_async_putchar(int8_t *buf, async_info *info, bool isLast, char c);
     bool listen_async_putchar(async_call_buf *buf);
-
-    void call_async_puts(int8_t *buf, async_info *info, bool isLast, int64_t* args);
     bool listen_async_printf(async_call_buf *buf, const char *format);
 
+    // Kernel async functions
+    void call_async_assert(int8_t *buf, async_info *info, bool isLast, bool condition);
+    void call_async_putchar(int8_t *buf, async_info *info, bool isLast, char c);
+    void call_async_printf(int8_t *buf, async_info *info, bool isLast, int64_t *args, size_t n_args);
     void close_async(async_info *info);
 
     typedef struct

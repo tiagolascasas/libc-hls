@@ -9,30 +9,30 @@
 
 void *kernel_A(async_call_buf *putchar_0, async_call_buf *putchar_1, async_call_buf *putchar_2, async_call_buf *assert_0)
 {
-    async_call(putchar_0->buffer, putchar_0->info, true, "c", 'H');
+    call_async_putchar(putchar_0->buffer, putchar_0->info, true, 'H');
     unsigned long long *sum = (unsigned long long *)malloc(sizeof(unsigned long long));
     *sum = 0;
 
-    async_call(assert_0->buffer, assert_0->info, true, "i", *sum == 0);
+    call_async_assert(assert_0->buffer, assert_0->info, true, 1 == 1);
     for (int i = 0; i < BIG_N; i++)
     {
         *sum += i;
     }
-    async_call(putchar_1->buffer, putchar_1->info, true, "c", 'i');
+    call_async_putchar(putchar_1->buffer, putchar_1->info, true, 'i');
     for (int i = 0; i < BIG_N; i++)
     {
         *sum *= i;
     }
-    async_call(putchar_2->buffer, putchar_2->info, true, "c", '!');
+    call_async_putchar(putchar_2->buffer, putchar_2->info, true, '!');
     return (void *)(sum);
 }
 
 void wrapped_kernel_A()
 {
-    async_call_buf *putchar_0 = create_async_buf("c", 1);
-    async_call_buf *putchar_1 = create_async_buf("c", 1);
-    async_call_buf *putchar_2 = create_async_buf("c", 1);
-    async_call_buf *assert_0 = create_async_buf("i", 1);
+    async_call_buf *putchar_0 = create_async_buf_fixed(PUTCHAR, 1);
+    async_call_buf *putchar_1 = create_async_buf_fixed(PUTCHAR, 1);
+    async_call_buf *putchar_2 = create_async_buf_fixed(PUTCHAR, 1);
+    async_call_buf *assert_0 = create_async_buf_fixed(ASSERT, 1);
 
     kernel_A(putchar_0, putchar_1, putchar_2, assert_0);
 
@@ -54,7 +54,8 @@ void *kernel_B(async_call_buf *printf_0)
 
     for (int i = 0; i < 10; i++)
     {
-        async_call(printf_0->buffer, printf_0->info, false, "i", i);
+        uint64_t args[1] = {i};
+        call_async_printf(printf_0->buffer, printf_0->info, false, args, 1);
 
         for (int i = 0; i < BIG_N / 100; i++)
         {
@@ -67,7 +68,7 @@ void *kernel_B(async_call_buf *printf_0)
 
 void wrapped_kernel_B()
 {
-    async_call_buf *printf_0 = create_async_buf("i", 10);
+    async_call_buf *printf_0 = create_async_buf_variadic(1, 10);
 
     kernel_B(printf_0);
 
@@ -86,7 +87,8 @@ void *kernel_C(async_call_buf *printf_0, async_call_buf *printf_1)
 
     for (int i = 0; i < 10; i++)
     {
-        async_call(printf_0->buffer, printf_0->info, false, "il", i, *sum);
+        uint64_t printf_0_args[2] = {i, *sum};
+        call_async_printf(printf_0->buffer, printf_0->info, false, printf_0_args, 2);
 
         for (int i = 0; i < BIG_N / 100; i++)
         {
@@ -94,14 +96,16 @@ void *kernel_C(async_call_buf *printf_0, async_call_buf *printf_1)
         }
     }
     close_async(printf_0->info);
-    async_call(printf_1->buffer, printf_1->info, true, "fffc", 123.456, -999.555, 1615.55, 2);
+
+    int64_t printf_1_args[4] = {10, 20, 30, 40};
+    call_async_printf(printf_1->buffer, printf_1->info, true, printf_1_args, 4);
     return (void *)sum;
 }
 
 void wrapped_kernel_C()
 {
-    async_call_buf *printf_0 = create_async_buf("il", 10);
-    async_call_buf *printf_1 = create_async_buf("fffc", 1);
+    async_call_buf *printf_0 = create_async_buf_variadic(2, 10);
+    async_call_buf *printf_1 = create_async_buf_variadic(2, 1);
 
     kernel_C(printf_0, printf_1);
 
@@ -110,7 +114,7 @@ void wrapped_kernel_C()
     {
         active = false;
         active = active || listen_async_printf(printf_0, "index = %d, sum = %lu\n");
-        active = active || listen_async_printf(printf_1, "floats: %f, %f, %f, int: %d\n");
+        active = active || listen_async_printf(printf_1, "numbers: %d, %d, %d, %d\n");
     }
 }
 
