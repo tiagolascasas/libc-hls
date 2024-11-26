@@ -1,5 +1,12 @@
 {
     "VitisApplication.ZynqMP.Sysroot": "/home/tls/zcu102/sysroots/cortexa72-cortexa53-xilinx-linux",
     "VitisApplication.ZynqMP.KernelImage": "/home/tls/zcu102/Image",
-    "VitisApplication.ZynqMP.RootFS": "/home/tls/zcu102/rootfs.ext4"
+    "VitisApplication.ZynqMP.RootFS": "/home/tls/zcu102/rootfs.ext4",
+    "clangd.fallbackFlags": [
+        "-I/tools/Xilinx/Vitis_HLS/2024.1/include",
+        "-I/tools/Xilinx/Vitis_HLS/2024.1/include/etc",
+        "-I/tools/Xilinx/Vitis_HLS/2024.1/include/ap_sysc",
+        "-I/tools/Xilinx/Vitis_HLS/2024.1/lnx64/tools/auto_cc/include",
+        "-I/tools/Xilinx/Vitis_HLS/2024.1/lnx64/tools/systemc/include"
+    ]
 }

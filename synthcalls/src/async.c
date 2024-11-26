@@ -8,38 +8,80 @@
 #include <stdint.h>
 #include "synthcalls.h"
 
-async_call_buf *create_async_buf(const char *arg_types, unsigned int n_calls)
-{
+static async_call_buf *create_async_buf(size_t buffer_size);
+
+async_call_buf *create_async_buf_fixed(SyscallName fun, unsigned int n_calls) {
     size_t size = 0;
+    switch (fun)
+    {
+    case ASSERT:
+        size = sizeof(uint32_t);
+        break;
+    case PUTCHAR:
+        size = sizeof(uint32_t);
+        break;
+    case PRINTF:    
+        size = sizeof(uint32_t);
+        break;
+    default:
+        break;
+    }
+    size_t buffer_size = size * n_calls;
+    return create_async_buf(buffer_size)
+}
+
+async_call_buf *create_async_buf_variadic(const char* arg_types, unsigned int ncalls) {
+    size_t size = 0;
+
     for (size_t i = 0; i < strlen(arg_types); i++)
     {
-        switch (arg_types[i])
+        const char type_indicator = arg_types[i];
+        switch (type_indicator)
         {
         case 'i':
         case 'c':
+        { // int
             size += sizeof(int32_t);
             break;
+        }
         case 'u':
+        { // unsigned int
             size += sizeof(uint32_t);
             break;
+        }
         case 'l':
+        { // long
             size += sizeof(int64_t);
             break;
+        }
         case 'U':
+        { // unsigned long
             size += sizeof(uint64_t);
-            break;
-        case 'f':
-        case 'd':
-            size += sizeof(double);
-            break;
-        case 'p':
-            size += sizeof(uint64_t);
-            break;
-        default:
             break;
         }
+        case 'p':
+        { // pointer
+            size += sizeof(uint64_t);
+            break;
+        }
+        case 'f':
+        case 'd':
+        { // float
+            size += sizeof(double);
+            break;
+        }
+        default:
+        {
+            break;
+        }
+        }
     }
-    size_t buffer_size = size * n_calls;
+    size_t buffer_size = size * ncalls;
+    return create_async_buf(buffer_size);
+}
+
+static async_call_buf *create_async_buf(size_t buffer_size)
+{
     int8_t *buffer = (int8_t *)calloc(1, buffer_size);
 
     async_info *info = (async_info *)calloc(1, sizeof(async_info));
