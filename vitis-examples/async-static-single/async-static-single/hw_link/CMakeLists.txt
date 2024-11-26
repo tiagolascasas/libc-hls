@@ -57,11 +57,11 @@ set(_vadd_OPTIONS
 # binary container.
 if( ${VITIS_TARGET} STREQUAL sw_emu )
 set(_vadd_KERNEL_XO_PATHS
-async-static_vadd/vadd/sw_emu/vadd.xo
+async-static-single_vadd/vadd/sw_emu/vadd.xo
 )
 else()
 set(_vadd_KERNEL_XO_PATHS
-async-static_vadd/vadd/vadd.xo
+async-static-single_vadd/vadd/vadd.xo
 )
 endif()
 set(_vadd_USER_KERNEL_PATHS

@@ -1,10 +1,10 @@
 {
   "modelVersion": "1.0",
-  "projectName": "async-static",
+  "projectName": "async-static-single",
   "platform": "/tools/Xilinx/Vitis/2024.1/base_platforms/xilinx_zcu102_base_202410_1/xilinx_zcu102_base_202410_1.xpfm",
   "externalComponentRefs": [
-    "async-static_host",
-    "async-static_vadd"
+    "async-static-single_host",
+    "async-static-single_vadd"
   ],
   "components": [
     {
@@ -32,7 +32,7 @@
           {
             "name": "vadd",
             "kernels": {
-              "vadd": "async-static_vadd"
+              "vadd": "async-static-single_vadd"
             },
             "userXoKernels": {},
             "aieComponents": [],

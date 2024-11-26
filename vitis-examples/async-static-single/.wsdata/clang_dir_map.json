@@ -1,8 +1,9 @@
 {
-  "workspaceRoot": "/home/tls/synthesizable-syscalls/synthcalls-examples/async-static",
+  "workspaceRoot": "/home/tls/synthesizable-syscalls/vitis-examples/async-static-single",
   "mapping": {
-    "async-static_vadd/src/async_kernel.c": "async-static_vadd",
-    "/home/tls/synthesizable-syscalls/synthcalls/src/async_kernel.c": "async-static_vadd",
-    "async-static_vadd/src/vadd.cpp": "async-static_vadd"
+    "async-static-single_vadd/src/async_kernel.c": "async-static-single_vadd",
+    "/home/tls/synthesizable-syscalls/src/async_host.c": "async-static-single_vadd",
+    "async-static-single_vadd/src/async_host.c": "async-static-single_vadd",
+    "async-static-single_vadd/src/vadd.cpp": "async-static-single_vadd"
   }
 }

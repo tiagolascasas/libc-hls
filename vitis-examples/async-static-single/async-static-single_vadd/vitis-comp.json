@@ -1,5 +1,5 @@
 {
-  "name": "async-static_vadd",
+  "name": "async-static-single_vadd",
   "type": "HLS",
   "part": "xczu9eg-ffvb1156-2-e",
   "configuration": {

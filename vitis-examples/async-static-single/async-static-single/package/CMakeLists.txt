@@ -60,15 +60,15 @@ endif()
 # emconfig.json files generated during the host component build. These are
 # packed into the sd_card for sw_emu and hw_emu targets
 set(_HOST_EMCONFIG
-async-static_host/build/${HOST_TARGET}/emconfig.json
+async-static-single_host/build/${HOST_TARGET}/emconfig.json
 )
 
 set(_HOST_EXE
-async-static_host/build/${HOST_TARGET}/async-static_host
+async-static-single_host/build/${HOST_TARGET}/async-static-single_host
 )
 
 set(_RUN_APP_SCRIPT
-async-static_hw_emu/run_app.sh
+async-static-single_hw_emu/run_app.sh
 )
 
 

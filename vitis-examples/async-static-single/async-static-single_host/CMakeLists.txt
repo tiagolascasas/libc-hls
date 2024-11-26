@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
-project(async-static_host
+project(async-static-single_host
 LANGUAGES
 C CXX
 )
@@ -84,8 +84,8 @@ set(HOST_COMPILE_OPTIONS
 ""
 )
 set(HOST_INCLUDE_DIRECTORIES
-../async-static_common/libs/common/includes/cmdparser
-../async-static_common/libs/common/includes/logger
+../async-static-single_common/libs/common/includes/cmdparser
+../async-static-single_common/libs/common/includes/logger
 ${Vitis_INCLUDE_DIRS}
 )
 set(HOST_LINK_LIBRARIES
@@ -104,8 +104,8 @@ set(HOST_COMPILE_OPTIONS
 --sysroot=${SYSROOT}
 )
 set(HOST_INCLUDE_DIRECTORIES
-../async-static_common/libs/common/includes/cmdparser
-../async-static_common/libs/common/includes/logger
+../async-static-single_common/libs/common/includes/cmdparser
+../async-static-single_common/libs/common/includes/logger
 ${SYSROOT}/usr/include
 ${SYSROOT}/usr/include/xrt
 ${Vitis_HLS_INCLUDE_DIR}
@@ -123,7 +123,7 @@ set(HOST_LINK_OPTIONS
 )
 endif()
 
-target_sources(async-static_host
+target_sources(async-static-single_host
 PRIVATE
     src/host.cpp
     src/async_host.c

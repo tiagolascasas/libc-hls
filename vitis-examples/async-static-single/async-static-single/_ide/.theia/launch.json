@@ -1,0 +1,145 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "async-static-single_sw_emu",
+      "debugType": "sw_emu",
+      "type": "gdb",
+      "request": "launch",
+      "target": "${workspaceFolder}/async-static-single_host/build/x86sim/async-static-single_host",
+      "applicationProjectDir": "${workspaceFolder}/async-static-single",
+      "arguments": "-x ${workspaceFolder}/async-static-single/build/sw_emu/package/vadd.xclbin",
+      "cwd": "${workspaceFolder}/async-static-single/build/sw_emu/async-static-single_sw_emu",
+      "gdbpath": "${env:XILINX_VITIS}/bin/xgdb",
+      "valuesFormatting": "prettyPrinters",
+      "env": {
+        "XILINX_VITIS": "${env:XILINX_VITIS}",
+        "XILINX_HLS": "${env:XILINX_VITIS}",
+        "XCL_EMULATION_MODE": "sw_emu",
+        "ENABLE_KERNEL_DEBUG": "true",
+        "XRT_INI_PATH": "${workspaceFolder}/async-static-single/async-static-single_host/runtime/sw_emu_xrt.ini",
+        "XCL_BIN_PATH": "${workspaceFolder}/async-static-single/build/sw_emu/package",
+        "LD_LIBRARY_PATH": "${env:XILINX_XRT}/lib"
+      }
+    },
+    {
+      "type": "tcf-debug",
+      "request": "launch",
+      "name": "async-static-single_hw_emu",
+      "debugType": "tcf_hw_emu",
+      "target": {
+        "targetConnectionId": "LinuxEmulation",
+        "peersIniPath": "../../../.wsdata/.peers.ini",
+        "file": "${workspaceFolder}/async-static-single_host/build/hw/async-static-single_host",
+        "remoteFilePath": "/run/media/mmcblk0p1/async-static-single_host"
+      },
+      "env": {
+        "XILINX_VITIS": "/run/media/mmcblk0p1",
+        "XILINX_XRT": "/usr",
+        "XCL_EMULATION_MODE": "hw_emu",
+        "XRT_INI_PATH": "/run/media/mmcblk0p1/hw_emu_xrt.ini",
+        "LD_LIBRARY_PATH": "/run/media/mmcblk0p1:/tmp:$LD_LIBRARY_PATH"
+      },
+      "copyToTarget": [
+        {
+          "source": "${workspaceFolder}/async-static-single/build/hw_emu/package/vadd.xclbin",
+          "destination": "/run/media/mmcblk0p1"
+        },
+        {
+          "source": "${workspaceFolder}/async-static-single/async-static-single_host/runtime/hw_emu_xrt.ini",
+          "destination": "/run/media/mmcblk0p1"
+        }
+      ],
+      "copyFromTargetOnTermination": [
+        {
+          "pattern": ".txt",
+          "destination": "${workspaceFolder}/async-static-single/build/hw_emu/async-static-single_hw_emu"
+        },
+        {
+          "pattern": ".run_summary",
+          "destination": "${workspaceFolder}/async-static-single/build/hw_emu/async-static-single_hw_emu"
+        },
+        {
+          "pattern": ".json",
+          "destination": "${workspaceFolder}/async-static-single/build/hw_emu/async-static-single_hw_emu"
+        },
+        {
+          "pattern": ".csv",
+          "destination": "${workspaceFolder}/async-static-single/build/hw_emu/async-static-single_hw_emu"
+        }
+      ],
+      "pathMap": [
+        {
+          "source": "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static-single/async-static-single/build/hw_emu/hw_link/vadd/vadd/int/xo/vadd/vadd/cpu_sources",
+          "destination": "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static-single/async-static-single_vadd/src"
+        }
+      ],
+      "replaceNativeEnv": false,
+      "arguments": "-x ./vadd.xclbin",
+      "workingDirectory": "/run/media/mmcblk0p1",
+      "stopAtMain": true,
+      "stopAtProgramEntry": false,
+      "autoAttachProcessChildren": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "tcf-debug",
+      "request": "launch",
+      "name": "async-static-single_hw",
+      "debugType": "tcf_hw",
+      "target": {
+        "targetConnectionId": "Linux Agent",
+        "peersIniPath": "../../../.wsdata/.peers.ini",
+        "file": "${workspaceFolder}/async-static-single_host/build/hw/async-static-single_host",
+        "remoteFilePath": "/run/media/mmcblk0p1/async-static-single_host"
+      },
+      "env": {
+        "XILINX_VITIS": "/run/media/mmcblk0p1",
+        "XILINX_XRT": "/usr",
+        "XRT_INI_PATH": "/run/media/mmcblk0p1/hw_xrt.ini",
+        "LD_LIBRARY_PATH": "/run/media/mmcblk0p1:/tmp:$LD_LIBRARY_PATH"
+      },
+      "copyToTarget": [
+        {
+          "source": "${workspaceFolder}/async-static-single/build/hw/package/vadd.xclbin",
+          "destination": "/run/media/mmcblk0p1"
+        },
+        {
+          "source": "${workspaceFolder}/async-static-single/async-static-single_host/runtime/hw_xrt.ini",
+          "destination": "/run/media/mmcblk0p1"
+        }
+      ],
+      "copyFromTargetOnTermination": [
+        {
+          "pattern": ".txt",
+          "destination": "${workspaceFolder}/async-static-single/build/hw/async-static-single_hw"
+        },
+        {
+          "pattern": ".run_summary",
+          "destination": "${workspaceFolder}/async-static-single/build/hw/async-static-single_hw"
+        },
+        {
+          "pattern": ".json",
+          "destination": "${workspaceFolder}/async-static-single/build/hw/async-static-single_hw"
+        },
+        {
+          "pattern": ".csv",
+          "destination": "${workspaceFolder}/async-static-single/build/hw/async-static-single_hw"
+        }
+      ],
+      "pathMap": [
+        {
+          "source": "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static-single/async-static-single/build/hw/hw_link/vadd/vadd/int/xo/vadd/vadd/cpu_sources",
+          "destination": "/mnt/b180a8c1-349c-4ebe-becf-54b1f4e7e66d/home/tls/clava-workspace/synthesizable-syscalls/synthcalls-examples/async-static-single/async-static-single_vadd/src"
+        }
+      ],
+      "replaceNativeEnv": false,
+      "arguments": "-x ./vadd.xclbin",
+      "workingDirectory": "/run/media/mmcblk0p1",
+      "stopAtMain": true,
+      "stopAtProgramEntry": false,
+      "autoAttachProcessChildren": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ]
+}

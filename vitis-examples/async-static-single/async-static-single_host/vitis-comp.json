@@ -1,5 +1,5 @@
 {
-  "name": "async-static_host",
+  "name": "async-static-single_host",
   "type": "HOST",
   "platform": "/tools/Xilinx/Vitis/2024.1/base_platforms/xilinx_zcu102_base_202410_1/xilinx_zcu102_base_202410_1.xpfm",
   "domain": "xrt",
@@ -14,8 +14,8 @@
         "configId": "default",
         "compilerSymbols": [],
         "compilerIncludes": [
-          "../async-static_common/libs/common/includes/cmdparser",
-          "../async-static_common/libs/common/includes/logger"
+          "../async-static-single_common/libs/common/includes/cmdparser",
+          "../async-static-single_common/libs/common/includes/logger"
         ],
         "compilerOptions": [],
         "linkerLibraries": [
@@ -26,8 +26,8 @@
         "linkerOptions": [],
         "x86CompilerSymbols": [],
         "x86CompilerIncludes": [
-          "../async-static_common/libs/common/includes/cmdparser",
-          "../async-static_common/libs/common/includes/logger"
+          "../async-static-single_common/libs/common/includes/cmdparser",
+          "../async-static-single_common/libs/common/includes/logger"
         ],
         "x86CompilerOptions": [],
         "x86LinkerLibraries": [
