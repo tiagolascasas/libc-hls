@@ -69,6 +69,7 @@ bool listen_async_assert(int8_t *buffer, async_info *info)
 
     int32_t arg = *((int32_t *)curr_ptr);
     assert(arg);
+    printf("Assertion passed\n");
 
     info->host_idx += sizeof(int32_t);
     return true;
