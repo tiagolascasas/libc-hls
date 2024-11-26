@@ -55,55 +55,55 @@ static async_call_buf *create_async_buf(size_t buffer_size)
     return buf;
 }
 
-bool listen_async_putchar(async_call_buf *buf)
+bool listen_async_assert(int8_t *buffer, async_info *info)
 {
-    if (buf->info->host_idx == buf->info->kernel_idx)
+    if (info->host_idx == info->kernel_idx)
     {
-        return !buf->info->is_closed;
+        return !info->is_closed;
     }
-    if (buf->info->host_idx == -1)
+    if (info->host_idx == -1)
     {
-        buf->info->host_idx = 0;
+        info->host_idx = 0;
     }
-    int8_t *curr_ptr = buf->buffer + buf->info->host_idx;
-
-    uint32_t arg = *((uint32_t *)curr_ptr);
-    putchar(arg);
-
-    buf->info->host_idx += sizeof(uint32_t);
-    return true;
-}
-
-bool listen_async_assert(async_call_buf *buf)
-{
-    if (buf->info->host_idx == buf->info->kernel_idx)
-    {
-        return !buf->info->is_closed;
-    }
-    if (buf->info->host_idx == -1)
-    {
-        buf->info->host_idx = 0;
-    }
-    int8_t *curr_ptr = buf->buffer + buf->info->host_idx;
+    int8_t *curr_ptr = buffer + info->host_idx;
 
     int32_t arg = *((int32_t *)curr_ptr);
     assert(arg);
 
-    buf->info->host_idx += sizeof(int32_t);
+    info->host_idx += sizeof(int32_t);
     return true;
 }
 
-bool listen_async_printf(async_call_buf *buf, const char *format)
+bool listen_async_putchar(int8_t *buffer, async_info *info)
 {
-    if (buf->info->host_idx == buf->info->kernel_idx)
+    if (info->host_idx == info->kernel_idx)
     {
-        return !buf->info->is_closed;
+        return !info->is_closed;
     }
-    if (buf->info->host_idx == -1)
+    if (info->host_idx == -1)
     {
-        buf->info->host_idx = 0;
+        info->host_idx = 0;
     }
-    int8_t *curr_ptr = buf->buffer + buf->info->host_idx;
+    int8_t *curr_ptr = buffer + info->host_idx;
+
+    uint32_t arg = *((uint32_t *)curr_ptr);
+    putchar(arg);
+
+    info->host_idx += sizeof(uint32_t);
+    return true;
+}
+
+bool listen_async_printf(int8_t *buffer, async_info *info, const char *format)
+{
+    if (info->host_idx == info->kernel_idx)
+    {
+        return !info->is_closed;
+    }
+    if (info->host_idx == -1)
+    {
+        info->host_idx = 0;
+    }
+    int8_t *curr_ptr = buffer + info->host_idx;
     size_t host_ptr_increment = 0;
 
     for (size_t i = 0; i < strlen(format); i++)
@@ -170,6 +170,6 @@ bool listen_async_printf(async_call_buf *buf, const char *format)
             i++;
         }
     }
-    buf->info->host_idx += host_ptr_increment;
+    info->host_idx += host_ptr_increment;
     return true;
 }

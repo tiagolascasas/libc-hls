@@ -40,10 +40,10 @@ void wrapped_kernel_A()
     while (active)
     {
         active = false;
-        active = active || listen_async_putchar(putchar_0);
-        active = active || listen_async_putchar(putchar_1);
-        active = active || listen_async_putchar(putchar_2);
-        active = active || listen_async_assert(assert_0);
+        active = active || listen_async_putchar(putchar_0->buffer, putchar_0->info);
+        active = active || listen_async_putchar(putchar_1->buffer, putchar_1->info);
+        active = active || listen_async_putchar(putchar_2->buffer, putchar_2->info);
+        active = active || listen_async_assert(assert_0->buffer, assert_0->info);
     }
 }
 
@@ -76,7 +76,7 @@ void wrapped_kernel_B()
     while (active)
     {
         active = false;
-        active = active || listen_async_printf(printf_0, "index = %d\n");
+        active = active || listen_async_printf(printf_0->buffer, printf_0->info, "index = %d\n");
     }
 }
 
@@ -113,8 +113,8 @@ void wrapped_kernel_C()
     while (active)
     {
         active = false;
-        active = active || listen_async_printf(printf_0, "index = %d, sum = %lu\n");
-        active = active || listen_async_printf(printf_1, "numbers: %d, %d, %d, %d\n");
+        active = active || listen_async_printf(printf_0->buffer, printf_0->info, "index = %d, sum = %lu\n");
+        active = active || listen_async_printf(printf_1->buffer, printf_0->info, "numbers: %d, %d, %d, %d\n");
     }
 }
 

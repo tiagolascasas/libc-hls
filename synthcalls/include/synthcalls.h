@@ -33,9 +33,9 @@ extern "C"
     // Host async functions
     async_call_buf *create_async_buf_fixed(SyscallName fun, unsigned int n_calls);
     async_call_buf *create_async_buf_variadic(unsigned int n_args, unsigned int ncalls);
-    bool listen_async_assert(async_call_buf *buf);
-    bool listen_async_putchar(async_call_buf *buf);
-    bool listen_async_printf(async_call_buf *buf, const char *format);
+    bool listen_async_assert(int8_t *buffer, async_info *info);
+    bool listen_async_putchar(int8_t *buffer, async_info *info);
+    bool listen_async_printf(int8_t *buffer, async_info *info, const char *format);
 
     // Kernel async functions
     void call_async_assert(int8_t *buf, async_info *info, bool isLast, bool condition);
