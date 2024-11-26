@@ -6,6 +6,18 @@
       "-fhls",
       "-hls-syn-headers-dir=/tools/Xilinx/Vitis_HLS/2024.1/common/technology/autopilot",
       "",
+      "-c",
+      "/home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/async_kernel.c"
+    ],
+    "file": "/home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/async_kernel.c"
+  },
+  {
+    "directory": "/home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd",
+    "arguments": [
+      "/tools/Xilinx/Vitis_HLS/2024.1/vcxx/libexec/clang++",
+      "-fhls",
+      "-hls-syn-headers-dir=/tools/Xilinx/Vitis_HLS/2024.1/common/technology/autopilot",
+      "",
       "-g",
       "-c",
       "/home/tls/synthesizable-syscalls/synthcalls-examples/async-static/async-static_vadd/src/vadd.cpp"

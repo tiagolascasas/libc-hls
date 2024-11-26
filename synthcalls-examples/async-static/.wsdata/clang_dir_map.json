@@ -1,8 +1,8 @@
 {
   "workspaceRoot": "/home/tls/synthesizable-syscalls/synthcalls-examples/async-static",
   "mapping": {
-    "async-static_vadd/src/async.c": "async-static_vadd",
-    "/home/tls/synthesizable-syscalls/synthcalls/src/async.c": "async-static_vadd",
+    "async-static_vadd/src/async_kernel.c": "async-static_vadd",
+    "/home/tls/synthesizable-syscalls/synthcalls/src/async_kernel.c": "async-static_vadd",
     "async-static_vadd/src/vadd.cpp": "async-static_vadd"
   }
 }
