@@ -51,17 +51,28 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     std::cout << "Polling for asynchronous calls using a rate of " << polling_rate << "ms\n";
     bool valid;
+    unsigned int i = 0;
     do
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(polling_rate));
-        bo_putchar0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        auto is_finished = kernel_execution.state() == ERT_CMD_STATE_COMPLETED;
+        std::cout << "Polling access " << i << (is_finished ? ", kernel has finished" : ", kernel is still running") << std::endl;
+
         bo_putchar0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_putchar0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        
         valid = listen_async_putchar(host_ptr_putchar0_buf, host_ptr_putchar0_info);
     } while (valid);
-    std::cout << "\nAll async calls processed\n";
+
+    if (kernel_execution.state() != ERT_CMD_STATE_COMPLETED) {
+        std::cout << "All async calls processed, kernel is still running\n";
+    }
+    else {
+        std::cout << "All async calls processed, kernel has finished\n";
+    }
 
     kernel_execution.wait();
-
+    
     std::cout << "Kernel finished executing\n";
 
     bo_vo.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
