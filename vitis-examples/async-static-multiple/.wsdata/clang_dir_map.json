@@ -1,8 +1,0 @@
-{
-  "workspaceRoot": "/home/tls/synthesizable-syscalls/vitis-examples/async-static-multiple",
-  "mapping": {
-    "async-static-multiple_vadd/src/vadd.cpp": "async-static-multiple_vadd",
-    "async-static-multiple_vadd/src/synthcalls.h": "async-static-multiple_vadd",
-    "async-static-multiple_vadd/src/async_kernel.c": "async-static-multiple_vadd"
-  }
-}
