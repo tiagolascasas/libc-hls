@@ -2,8 +2,7 @@
   "workspaceRoot": "/home/tls/synthesizable-syscalls/vitis-examples/async-static-single",
   "mapping": {
     "async-static-single_vadd/src/async_kernel.c": "async-static-single_vadd",
-    "/home/tls/synthesizable-syscalls/src/async_host.c": "async-static-single_vadd",
-    "async-static-single_vadd/src/async_host.c": "async-static-single_vadd",
+    "async-static-single_vadd/src/synthcalls.h": "async-static-single_vadd",
     "async-static-single_vadd/src/vadd.cpp": "async-static-single_vadd"
   }
 }
