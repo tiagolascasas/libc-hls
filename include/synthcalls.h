@@ -8,14 +8,14 @@
 extern "C"
 {
 #endif
+    // Async data structures
     typedef enum
     {
         ASSERT,
         PUTCHAR,
         PRINTF
-    } SyscallName;
+    } AsyncCall;
 
-    // Async data structures
     typedef struct
     {
         size_t size;
@@ -26,7 +26,7 @@ extern "C"
     typedef struct
     {
         int32_t idx;
-        SyscallName fun;
+        AsyncCall fun;
     } async_host_info;
 
     typedef struct
@@ -37,9 +37,8 @@ extern "C"
     } async_call;
 
     // Host async functions
-    async_call *create_async_call_fixed(SyscallName fun, unsigned int n_calls);
-    async_call *create_async_call_variadic(SyscallName fun, unsigned int ncalls, unsigned int n_args);
-    void replace_async_buf(async_call *call, int8_t *buf, async_kernel_info *info);
+    async_call *create_async_call_fixed(AsyncCall fun, unsigned int n_calls);
+    async_call *create_async_call_variadic(AsyncCall fun, unsigned int ncalls, unsigned int n_args);
     bool listen_async_assert(async_call *call);
     bool listen_async_putchar(async_call *call);
     bool listen_async_printf(async_call *call, const char *format);
@@ -50,7 +49,48 @@ extern "C"
     void call_async_printf(int8_t *buf, async_kernel_info *info, bool isLast, int64_t *args, size_t n_args);
     void close_async(async_kernel_info *info);
 
-    // TODO: implement sync_call
+    // Sync data structures
+    typedef enum 
+    {
+        SQRT,
+        POW
+    } SyncCall;
+
+    typedef union {
+        int64_t *int_arg_buf;
+        double *float_arg_buf;
+    } sync_args;
+
+    typedef union {
+        int64_t int_ret;
+        double float_ret;
+    } sync_ret;
+
+    typedef struct {
+        bool kernel_has_data;
+        bool host_has_data;
+        bool is_closed;
+    } sync_info;
+
+    typedef struct {
+        bool is_float;
+        SyncCall fun;
+        sync_args args;
+        sync_ret ret;
+        sync_info info;
+    } sync_call;
+
+    // Host sync functions
+    sync_call *create_sync_call_fixed(SyncCall fun);
+    sync_call *create_sync_call_variadic(SyncCall fun, unsigned int n_args);
+    bool listen_sync_sqrt(sync_call *call);
+    bool listen_sync_pow(sync_call *call);
+
+    // Kernel sync functions
+    double call_sync_sqrt(double *arg_buf, sync_info *info, bool is_last, double x);
+    double call_sync_pow(double *arg_buf, sync_info *info, bool is_last,  double base, double exponent);
+    void close_sync(sync_info *info);
+
 #ifdef __cplusplus
 }
 #endif

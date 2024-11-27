@@ -8,9 +8,9 @@
 #include <stdint.h>
 #include "synthcalls.h"
 
-static async_call *create_async_call(size_t buffer_size, SyscallName fun);
+static async_call *create_async_call(size_t buffer_size, AsyncCall fun);
 
-async_call *create_async_call_fixed(SyscallName fun, unsigned int n_calls)
+async_call *create_async_call_fixed(AsyncCall fun, unsigned int n_calls)
 {
     size_t size = 0;
     switch (fun)
@@ -31,14 +31,14 @@ async_call *create_async_call_fixed(SyscallName fun, unsigned int n_calls)
     return create_async_call(buffer_size, fun);
 }
 
-async_call *create_async_call_variadic(SyscallName fun, unsigned int ncalls, unsigned int n_args)
+async_call *create_async_call_variadic(AsyncCall fun, unsigned int ncalls, unsigned int n_args)
 {
     size_t size = n_args * sizeof(int64_t);
     size_t buffer_size = size * ncalls;
     return create_async_call(buffer_size, fun);
 }
 
-static async_call *create_async_call(size_t buffer_size, SyscallName fun)
+static async_call *create_async_call(size_t buffer_size, AsyncCall fun)
 {
     int8_t *buffer = (int8_t *)calloc(1, buffer_size);
 
