@@ -19,46 +19,35 @@ extern "C"
     typedef struct
     {
         size_t size;
-        int32_t kernel_idx;
-        int32_t host_idx;
+        int32_t idx;
         bool is_closed;
-    } async_info;
+    } async_kernel_info;
 
     typedef struct
     {
-        async_info *info;
-        int8_t *buffer;
-    } async_call_buf;
+        int32_t idx;
+        SyscallName fun;
+    } async_host_info;
+
+    typedef struct
+    {
+        async_kernel_info *kernel_info;
+        async_host_info *host_info;
+        int8_t* buffer;
+    } async_call;
 
     // Host async functions
-    async_call_buf *create_async_buf_fixed(SyscallName fun, unsigned int n_calls);
-    async_call_buf *create_async_buf_variadic(unsigned int n_args, unsigned int ncalls);
-    bool listen_async_assert(int8_t *buffer, async_info *info);
-    bool listen_async_putchar(int8_t *buffer, async_info *info);
-    bool listen_async_printf(int8_t *buffer, async_info *info, const char *format);
+    async_call *create_async_call_fixed(SyscallName fun, unsigned int n_calls);
+    async_call *create_async_call_variadic(SyscallName fun, unsigned int ncalls, unsigned int n_args);
+    bool listen_async_assert(async_call *call);
+    bool listen_async_putchar(async_call *call);
+    bool listen_async_printf(async_call *call, const char *format);
 
     // Kernel async functions
-    void call_async_assert(int8_t *buf, async_info *info, bool isLast, bool condition);
-    void call_async_putchar(int8_t *buf, async_info *info, bool isLast, char c);
-    void call_async_printf(int8_t *buf, async_info *info, bool isLast, int64_t *args, size_t n_args);
-    void close_async(async_info *info);
-
-    typedef struct
-    {
-        size_t size;
-        int32_t kernel_idx;
-        int32_t host_idx;
-        bool is_closed;
-        int64_t res_buffer;
-        bool has_result;
-
-        int8_t *buffer;
-
-    } sync_call_buf;
-
-    sync_call_buf *create_sync_buf(const char *arg_types);
-
-    void init_sync_buf(sync_call_buf *buf, const char *arg_types);
+    void call_async_assert(int8_t *buf, async_kernel_info *info, bool isLast, bool condition);
+    void call_async_putchar(int8_t *buf, async_kernel_info *info, bool isLast, char c);
+    void call_async_printf(int8_t *buf, async_kernel_info *info, bool isLast, int64_t *args, size_t n_args);
+    void close_async(async_kernel_info *info);
 
     // TODO: implement sync_call
 #ifdef __cplusplus

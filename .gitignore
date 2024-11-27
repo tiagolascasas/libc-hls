@@ -138,3 +138,5 @@ vitis-examples/async-static-single/async-static-single_vadd/vadd/
 vitis-examples/async-static-multiple/async-static-multiple_vadd/vadd/
 
 .vscode
+
+build/

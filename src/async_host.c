@@ -8,9 +8,9 @@
 #include <stdint.h>
 #include "synthcalls.h"
 
-static async_call_buf *create_async_buf(size_t buffer_size);
+static async_call *create_async_call(size_t buffer_size, SyscallName fun);
 
-async_call_buf *create_async_buf_fixed(SyscallName fun, unsigned int n_calls)
+async_call *create_async_call_fixed(SyscallName fun, unsigned int n_calls)
 {
     size_t size = 0;
     switch (fun)
@@ -28,83 +28,87 @@ async_call_buf *create_async_buf_fixed(SyscallName fun, unsigned int n_calls)
         break;
     }
     size_t buffer_size = size * n_calls;
-    return create_async_buf(buffer_size);
+    return create_async_call(buffer_size, fun);
 }
 
-async_call_buf *create_async_buf_variadic(unsigned int n_args, unsigned int ncalls)
+async_call *create_async_call_variadic(SyscallName fun, unsigned int ncalls, unsigned int n_args)
 {
     size_t size = n_args * sizeof(int64_t);
     size_t buffer_size = size * ncalls;
-    return create_async_buf(buffer_size);
+    return create_async_call(buffer_size, fun);
 }
 
-static async_call_buf *create_async_buf(size_t buffer_size)
+static async_call *create_async_call(size_t buffer_size, SyscallName fun)
 {
     int8_t *buffer = (int8_t *)calloc(1, buffer_size);
 
-    async_info *info = (async_info *)calloc(1, sizeof(async_info));
-    info->size = buffer_size;
-    info->kernel_idx = -1;
-    info->host_idx = -1;
-    info->is_closed = false;
+    async_kernel_info *kernel_info = (async_kernel_info *)calloc(1, sizeof(async_kernel_info));
+    kernel_info->size = buffer_size;
+    kernel_info->idx = -1;
+    kernel_info->is_closed = false;
 
-    async_call_buf *buf = (async_call_buf *)calloc(1, sizeof(async_call_buf));
-    buf->info = info;
-    buf->buffer = buffer;
+    async_host_info *host_info = (async_host_info *)calloc(1, sizeof(async_host_info));
+    host_info->idx = -1;
+    host_info->fun = fun;
 
-    return buf;
+    async_call *call = (async_call *)calloc(1, sizeof(async_call));
+    call->kernel_info = kernel_info;
+    call->host_info = host_info;
+    call->buffer = buffer;
+
+    return call;
 }
 
-bool listen_async_assert(int8_t *buffer, async_info *info)
+bool listen_async_assert(async_call *call)
 {
-    if (info->host_idx == info->kernel_idx)
+    if (call->host_info->idx == call->kernel_info->idx)
     {
-        return !info->is_closed;
+        return !call->kernel_info->is_closed;
     }
-    if (info->host_idx == -1)
+    if (call->host_info->idx == -1)
     {
-        info->host_idx = 0;
+        call->host_info->idx = 0;
     }
-    int8_t *curr_ptr = buffer + info->host_idx;
+    int8_t *curr_ptr = call->buffer + call->host_info->idx;
 
     int32_t arg = *((int32_t *)curr_ptr);
     assert(arg);
     printf("Assertion passed\n");
 
-    info->host_idx += sizeof(int32_t);
+    call->host_info->idx += sizeof(int32_t);
     return true;
 }
 
-bool listen_async_putchar(int8_t *buffer, async_info *info)
+bool listen_async_putchar(async_call *call)
 {
-    if (info->host_idx == info->kernel_idx)
+    if (call->host_info->idx == call->kernel_info->idx)
     {
-        return !info->is_closed;
+        return !call->kernel_info->is_closed;
     }
-    if (info->host_idx == -1)
+    if (call->host_info->idx == -1)
     {
-        info->host_idx = 0;
+        call->host_info->idx = 0;
     }
-    int8_t *curr_ptr = buffer + info->host_idx;
+    int8_t *curr_ptr = call->buffer + call->host_info->idx;
 
     uint32_t arg = *((uint32_t *)curr_ptr);
     putchar(arg);
 
-    info->host_idx += sizeof(uint32_t);
+    call->host_info->idx += sizeof(int32_t);
     return true;
 }
 
-bool listen_async_printf(int8_t *buffer, async_info *info, const char *format)
+bool listen_async_printf(async_call *call, const char *format)
 {
-    if (info->host_idx == info->kernel_idx)
+    if (call->host_info->idx == call->kernel_info->idx)
     {
-        return !info->is_closed;
+        return !call->kernel_info->is_closed;
     }
-    if (info->host_idx == -1)
+    if (call->host_info->idx == -1)
     {
-        info->host_idx = 0;
+        call->host_info->idx = 0;
     }
-    int8_t *curr_ptr = buffer + info->host_idx;
+    int8_t *curr_ptr = call->buffer + call->host_info->idx;
     size_t host_ptr_increment = 0;
 
     for (size_t i = 0; i < strlen(format); i++)
@@ -128,7 +132,7 @@ bool listen_async_printf(int8_t *buffer, async_info *info, const char *format)
             case 'd':
             case 'i':
             {
-                printf("%d", arg);
+                printf("%d", (int32_t)arg);
                 break;
             }
             case 'c':
@@ -138,7 +142,7 @@ bool listen_async_printf(int8_t *buffer, async_info *info, const char *format)
             }
             case 'u':
             {
-                printf("%u", arg);
+                printf("%u", (uint32_t)arg);
                 break;
             }
             case 'l':
@@ -148,12 +152,12 @@ bool listen_async_printf(int8_t *buffer, async_info *info, const char *format)
             }
             case 'U':
             {
-                printf("%lu", arg);
+                printf("%lu", (uint64_t)arg);
                 break;
             }
             case 'f':
             {
-                printf("%f", arg);
+                printf("%f", (float)arg);
                 break;
             }
             case 'p':
@@ -163,7 +167,7 @@ bool listen_async_printf(int8_t *buffer, async_info *info, const char *format)
             }
             default:
             {
-                printf("%d", arg);
+                printf("%d", (int32_t)arg);
                 break;
             }
             }
@@ -171,6 +175,6 @@ bool listen_async_printf(int8_t *buffer, async_info *info, const char *format)
             i++;
         }
     }
-    info->host_idx += host_ptr_increment;
+    call->host_info->idx += host_ptr_increment;
     return true;
 }
