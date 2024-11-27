@@ -1,5 +1,7 @@
 #include <iostream>
+#include <iomanip>
 #include <thread>
+#include <chrono>
 #include <cstring>
 #include "experimental/xrt_bo.h"
 #include "experimental/xrt_device.h"
@@ -7,6 +9,17 @@
 #include "synthcalls.h"
 
 #define DATA_SIZE 256
+
+const auto program_start_time = std::chrono::steady_clock::now();
+
+std::ostream &timestamp(std::ostream &os)
+{
+    auto now = std::chrono::steady_clock::now();
+    double elapsed_seconds = std::chrono::duration<double>(now - program_start_time).count();
+
+    os << "[" << std::setw(8) << std::fixed << std::setprecision(3) << elapsed_seconds << "] ";
+    return os;
+}
 
 void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate)
 {
@@ -16,7 +29,7 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     async_call *printf0 = create_async_call_variadic(PRINTF, 1, 7);
 
-    std::cout << "Creating CPU-FPGA buffers\n";
+    std::cout << timestamp << "Creating CPU-FPGA buffers\n";
     auto bo_v1 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
     auto bo_v2 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
     auto bo_vo = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
@@ -29,37 +42,33 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     int8_t *host_ptr_printf0_buf = bo_printf0_buf.map<int8_t *>();
     async_kernel_info *host_ptr_printf0_info = bo_printf0_info.map<async_kernel_info *>();
 
-    std::cout << "Copying data into buffers\n";
+    std::cout << timestamp << "Copying data into input buffers\n";
     std::memcpy(host_ptr_v1, v1, size * sizeof(int));
     std::memcpy(host_ptr_v2, v2, size * sizeof(int));
-    std::memcpy(host_ptr_vo, vo, size * sizeof(int));
-    std::memcpy(host_ptr_printf0_buf, printf0->buffer, printf0->kernel_info->size);
     std::memcpy(host_ptr_printf0_info, printf0->kernel_info, sizeof(async_kernel_info));
+    free(printf0->kernel_info);
+    printf0->kernel_info = host_ptr_printf0_info;
 
-    std::cout << "Replacing the buffer in the async call\n";
-    replace_async_buf(printf0, host_ptr_printf0_buf, host_ptr_printf0_info);
+    std::cout << timestamp << "Zeroing out the output buffers\n";
+    std::memset(host_ptr_vo, 0, size * sizeof(int));
+    std::memset(host_ptr_printf0_buf, 0, printf0->kernel_info->size);
+    free(printf0->buffer);
+    printf0->buffer = host_ptr_printf0_buf;
 
-    std::cout << "Syncing buffers from the CPU to the FPGA\n";
+    std::cout << timestamp << "Syncing buffers from the CPU to the FPGA\n";
     bo_v1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
     bo_v2.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_printf0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
     bo_printf0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
 
-    std::cout << "Starting kernel...\n";
-    auto kernel_execution = kernel(bo_v1, bo_v2, bo_vo, size,
-                                   bo_printf0_buf, bo_printf0_info);
+    std::cout << timestamp << "Starting kernel...\n";
+    auto kernel_execution = kernel(bo_v1, bo_v2, bo_vo, size, bo_printf0_buf, bo_printf0_info);
 
-    std::cout << "Polling for asynchronous calls using a rate of " << polling_rate << "ms\n";
+    std::cout << timestamp << "Polling for asynchronous calls using a rate of " << polling_rate << "ms\n";
     bool valid;
-    unsigned int i = 0;
     do
     {
-        i++;
         valid = false;
-
         std::this_thread::sleep_for(std::chrono::milliseconds(polling_rate));
-        auto is_finished = kernel_execution.state() == ERT_CMD_STATE_COMPLETED;
-        std::cout << "Polling access " << i << (is_finished ? ", kernel has finished" : ", kernel is still running") << std::endl;
 
         bo_printf0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_printf0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
@@ -68,24 +77,25 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     if (kernel_execution.state() != ERT_CMD_STATE_COMPLETED)
     {
-        std::cout << "All async calls processed, waiting for kernel to finish...\n";
+        std::cout << timestamp << "All async calls processed, waiting for kernel to finish...\n";
         kernel_execution.wait();
-        std::cout << "Kernel has finished\n";
+        std::cout << timestamp << "Kernel has finished\n";
     }
     else
     {
-        std::cout << "All async calls processed, kernel has finished\n";
+        std::cout << timestamp << "All async calls processed, kernel has finished\n";
     }
 
-    std::cout << "Syncing the outout buffer from the FPGA back to the CPU\n";
+    std::cout << timestamp << "Syncing the output buffer from the FPGA back to the CPU\n";
     bo_vo.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
 
-    std::cout << "Copying output data from buffer into the output array\n";
+    std::cout << timestamp << "Copying output data from buffer into the output array\n";
     std::memcpy(vo, host_ptr_vo, size * sizeof(int));
 }
 
 int main(int argc, char **argv)
 {
+    std::cout << timestamp << "Starting heterogeneous CPU-FPGA application \"async-static-multiple\"" << std::endl;
     unsigned int polling_rate = (argc > 1) ? std::stoi(argv[1]) : 200;
 
     int v1[DATA_SIZE] = {0};
@@ -101,6 +111,6 @@ int main(int argc, char **argv)
     }
     wrapped_vadd(v1, v2, vo, DATA_SIZE, polling_rate);
 
-    std::cout << (std::memcmp(vo, reference, DATA_SIZE) ? "Vadd output is incorrect" : "Vadd output is correct") << std::endl;
+    std::cout << timestamp << (std::memcmp(vo, reference, DATA_SIZE) ? "Vadd output is incorrect" : "Vadd output is correct") << std::endl;
     return 0;
 }
