@@ -59,6 +59,13 @@ static async_call *create_async_call(size_t buffer_size, SyscallName fun)
     return call;
 }
 
+void replace_async_buf(async_call *call, int8_t *buf, async_kernel_info *info) {
+    //free(call->buffer);
+    //free(call->kernel_info);
+    call->buffer = buf;
+    call->kernel_info = info;
+}
+
 bool listen_async_assert(async_call *call)
 {
     if (call->host_info->idx == call->kernel_info->idx)

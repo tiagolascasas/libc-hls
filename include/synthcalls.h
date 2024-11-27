@@ -39,6 +39,7 @@ extern "C"
     // Host async functions
     async_call *create_async_call_fixed(SyscallName fun, unsigned int n_calls);
     async_call *create_async_call_variadic(SyscallName fun, unsigned int ncalls, unsigned int n_args);
+    void replace_async_buf(async_call *call, int8_t *buf, async_kernel_info *info);
     bool listen_async_assert(async_call *call);
     bool listen_async_putchar(async_call *call);
     bool listen_async_printf(async_call *call, const char *format);
