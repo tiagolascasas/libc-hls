@@ -1,5 +1,0 @@
-{
-    "VitisApplication.ZynqMP.Sysroot": "/home/tls/zcu102/sysroots/cortexa72-cortexa53-xilinx-linux",
-    "VitisApplication.ZynqMP.KernelImage": "/home/tls/zcu102/Image",
-    "VitisApplication.ZynqMP.RootFS": "/home/tls/zcu102/rootfs.ext4"
-}
