@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdint.h>
+#include <math.h>
 #include "synthcalls.h"
 
 static sync_call *create_sync_call(SyncCall fun, size_t buffer_size, bool args_are_float, bool ret_is_float);
@@ -33,11 +34,6 @@ sync_call *create_sync_call_fixed(SyncCall fun)
     return create_sync_call(fun, size, args_are_float, ret_is_float);
 }
 
-sync_call *create_sync_call_variadic(SyncCall fun, unsigned int n_args)
-{
-    printf("create_sync_call_variadic not yet implemented\n");
-}
-
 static sync_call *create_sync_call(SyncCall fun, size_t buffer_size, bool args_are_float, bool ret_is_float)  {
     sync_call *call = (sync_call *)calloc(1, sizeof(sync_call));
     call->args_are_float = args_are_float;
@@ -61,6 +57,7 @@ static sync_call *create_sync_call(SyncCall fun, size_t buffer_size, bool args_a
     info->host_has_data = false;
     info->is_closed = false;
     call->info = info;
+    return call;
 }
 
 bool listen_sync_sqrt(sync_call *call)

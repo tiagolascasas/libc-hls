@@ -47,7 +47,7 @@ extern "C"
     void call_async_assert(int8_t *buf, async_kernel_info *info, bool is_last, bool condition);
     void call_async_putchar(int8_t *buf, async_kernel_info *info, bool is_last, char c);
     void call_async_printf(int8_t *buf, async_kernel_info *info, bool is_last, int64_t *args, size_t n_args);
-    inline void close_async(async_kernel_info *info);
+    void close_async(async_kernel_info *info);
 
     // Sync data structures
     typedef enum 
@@ -88,9 +88,9 @@ extern "C"
     bool listen_sync_pow(sync_call *call);
 
     // Kernel sync functions
-    double call_sync_sqrt(double *arg_buf, sync_info *info, bool is_last, double x);
-    double call_sync_pow(double *arg_buf, sync_info *info, bool is_last,  double base, double exponent);
-    inline void close_sync(sync_info *info);
+    double call_sync_sqrt(double *arg_buf, double *ret_val, sync_info *info, bool is_last, double x);
+    double call_sync_pow(double *arg_buf, double *ret_val, sync_info *info, bool is_last, double base, double exponent);
+    void close_sync(sync_info *info);
 
 #ifdef __cplusplus
 }
