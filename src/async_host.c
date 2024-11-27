@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include "synthcalls.h"
 
-static async_call *create_async_call(size_t buffer_size, AsyncCall fun);
+static async_call *create_async_call(AsyncCall fun, size_t buffer_size);
 
 async_call *create_async_call_fixed(AsyncCall fun, unsigned int n_calls)
 {
@@ -38,7 +38,7 @@ async_call *create_async_call_variadic(AsyncCall fun, unsigned int ncalls, unsig
     return create_async_call(buffer_size, fun);
 }
 
-static async_call *create_async_call(size_t buffer_size, AsyncCall fun)
+static async_call *create_async_call(AsyncCall fun, size_t buffer_size)
 {
     int8_t *buffer = (int8_t *)calloc(1, buffer_size);
 
@@ -57,13 +57,6 @@ static async_call *create_async_call(size_t buffer_size, AsyncCall fun)
     call->buffer = buffer;
 
     return call;
-}
-
-void replace_async_buf(async_call *call, int8_t *buf, async_kernel_info *info) {
-    //free(call->buffer);
-    //free(call->kernel_info);
-    call->buffer = buf;
-    call->kernel_info = info;
 }
 
 bool listen_async_assert(async_call *call)

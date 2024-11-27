@@ -44,10 +44,10 @@ extern "C"
     bool listen_async_printf(async_call *call, const char *format);
 
     // Kernel async functions
-    void call_async_assert(int8_t *buf, async_kernel_info *info, bool isLast, bool condition);
-    void call_async_putchar(int8_t *buf, async_kernel_info *info, bool isLast, char c);
-    void call_async_printf(int8_t *buf, async_kernel_info *info, bool isLast, int64_t *args, size_t n_args);
-    void close_async(async_kernel_info *info);
+    void call_async_assert(int8_t *buf, async_kernel_info *info, bool is_last, bool condition);
+    void call_async_putchar(int8_t *buf, async_kernel_info *info, bool is_last, char c);
+    void call_async_printf(int8_t *buf, async_kernel_info *info, bool is_last, int64_t *args, size_t n_args);
+    inline void close_async(async_kernel_info *info);
 
     // Sync data structures
     typedef enum 
@@ -73,11 +73,12 @@ extern "C"
     } sync_info;
 
     typedef struct {
-        bool is_float;
+        bool args_are_float;
+        bool ret_is_float;
         SyncCall fun;
         sync_args args;
         sync_ret ret;
-        sync_info info;
+        sync_info *info;
     } sync_call;
 
     // Host sync functions
@@ -89,7 +90,7 @@ extern "C"
     // Kernel sync functions
     double call_sync_sqrt(double *arg_buf, sync_info *info, bool is_last, double x);
     double call_sync_pow(double *arg_buf, sync_info *info, bool is_last,  double base, double exponent);
-    void close_sync(sync_info *info);
+    inline void close_sync(sync_info *info);
 
 #ifdef __cplusplus
 }

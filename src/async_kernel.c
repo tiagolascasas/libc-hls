@@ -1,6 +1,6 @@
 #include "synthcalls.h"
 
-void call_async_assert(int8_t *buf, async_kernel_info *info, bool isLast, bool condition)
+void call_async_assert(int8_t *buf, async_kernel_info *info, bool is_last, bool condition)
 {
     if (info->idx == -1)
     {
@@ -10,13 +10,13 @@ void call_async_assert(int8_t *buf, async_kernel_info *info, bool isLast, bool c
     *((int32_t *)(buf + info->idx)) = (int32_t)condition;
     info->idx += sizeof(int32_t);
 
-    if (isLast)
+    if (is_last)
     {
         close_async(info);
     }
 }
 
-void call_async_putchar(int8_t *buf, async_kernel_info *info, bool isLast, char c)
+void call_async_putchar(int8_t *buf, async_kernel_info *info, bool is_last, char c)
 {
     if (info->idx == -1)
     {
@@ -26,13 +26,13 @@ void call_async_putchar(int8_t *buf, async_kernel_info *info, bool isLast, char 
     *((uint32_t *)(buf + info->idx)) = (uint32_t)c;
     info->idx += sizeof(uint32_t);
 
-    if (isLast)
+    if (is_last)
     {
         close_async(info);
     }
 }
 
-void call_async_printf(int8_t *buf, async_kernel_info *info, bool isLast, int64_t *args, size_t n_args)
+void call_async_printf(int8_t *buf, async_kernel_info *info, bool is_last, int64_t *args, size_t n_args)
 {
     if (info->idx == -1)
     {
@@ -46,7 +46,7 @@ void call_async_printf(int8_t *buf, async_kernel_info *info, bool isLast, int64_
         info->idx += sizeof(int64_t);
     }
 
-    if (isLast)
+    if (is_last)
     {
         close_async(info);
     }
