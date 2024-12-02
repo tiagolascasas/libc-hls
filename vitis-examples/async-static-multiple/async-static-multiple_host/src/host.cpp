@@ -31,10 +31,10 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     std::cout << timestamp << "Creating CPU-FPGA buffers\n";
     auto bo_v1 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
-    auto bo_v2 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
-    auto bo_vo = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
-    auto bo_printf0_buf = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(0));
-    auto bo_printf0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(0));
+    auto bo_v2 = xrt::bo(device, size * sizeof(int), kernel.group_id(1));
+    auto bo_vo = xrt::bo(device, size * sizeof(int), kernel.group_id(2));
+    auto bo_printf0_buf = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(3));
+    auto bo_printf0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(4));
 
     std::cout << timestamp << "Copying data into input buffers\n";
     bo_v1.write(v1);
@@ -76,9 +76,7 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     std::cout << timestamp << "Syncing the output buffer from the FPGA back to the CPU\n";
     bo_vo.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
-
-    std::cout << timestamp << "Copying output data from buffer into the output array\n";
-    std::memcpy(vo, host_ptr_vo, size * sizeof(int));
+    bo_vo.read(vo);
 }
 
 int main(int argc, char **argv)

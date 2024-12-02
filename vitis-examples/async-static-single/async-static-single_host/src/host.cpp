@@ -31,82 +31,95 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     std::cout << timestamp << "Creating CPU-FPGA buffers\n";
     auto bo_v1 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
-    auto bo_v2 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
-    auto bo_vo = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
-    auto bo_putchar0_buf = xrt::bo(device, putchar0->kernel_info->size, kernel.group_id(0));
-    auto bo_putchar0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(0));
-    auto bo_assert0_buf = xrt::bo(device, assert0->kernel_info->size, kernel.group_id(0));
-    auto bo_assert0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(0));
-    auto bo_printf0_buf = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(0));
-    auto bo_printf0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(0));
+    auto bo_v2 = xrt::bo(device, size * sizeof(int), kernel.group_id(1));
+    auto bo_vo = xrt::bo(device, size * sizeof(int), kernel.group_id(2));
+    auto bo_putchar0_buf = xrt::bo(device, putchar0->kernel_info->size, kernel.group_id(4));
+    auto bo_putchar0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(5));
+    auto bo_assert0_buf = xrt::bo(device, assert0->kernel_info->size, kernel.group_id(6));
+    auto bo_assert0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(7));
+    auto bo_printf0_buf = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(8));
+    auto bo_printf0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(9));
 
     std::cout << timestamp << "Copying data into buffers\n";
     bo_v1.write(v1);
-    bo_v2.write(v2);
-    bo_vo.write(vo);
-    bo_putchar0_buf.write(putchar0->buffer);
-    bo_putchar0_info.write(putchar0->kernel_info);
-    bo_assert0_buf.write(assert0->buffer);
-    bo_assert0_info.write(assert0->kernel_info);
-    bo_printf0_buf.write(printf0->buffer);
-
-    std::cout << timestamp << "Syncing buffers from the CPU to the FPGA\n";
     bo_v1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_v2.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_putchar0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_putchar0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_assert0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_assert0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_printf0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-    bo_printf0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
 
-    std::cout << timestamp << "Starting kernel...\n";
-    auto kernel_execution = kernel(bo_v1, bo_v2, bo_vo, size,
-                                   bo_putchar0_buf, bo_putchar0_info,
-                                   bo_assert0_buf, bo_assert0_info,
-                                   bo_printf0_buf, bo_printf0_info,
-                                   c1, c2, c3);
+    bo_v2.write(v2);
+    bo_v2.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+
+    bo_putchar0_info.write(putchar0->kernel_info);
+    bo_putchar0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+
+    bo_assert0_info.write(assert0->kernel_info);
+    bo_assert0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+
+    std::cout << timestamp << "Preparing kernel run\n";
+    auto kernel_run = xrt::run(kernel);
+    kernel_run.set_arg(0, bo_v1);
+    kernel_run.set_arg(1, bo_v2);
+    kernel_run.set_arg(2, bo_vo);
+    kernel_run.set_arg(3, size);
+    kernel_run.set_arg(4, bo_putchar0_buf);
+    kernel_run.set_arg(5, bo_putchar0_info);
+    kernel_run.set_arg(6, bo_assert0_buf);
+    kernel_run.set_arg(7, bo_assert0_info);
+    kernel_run.set_arg(8, bo_printf0_buf);
+    kernel_run.set_arg(9, bo_printf0_info);
+    kernel_run.set_arg(10, c1);
+    kernel_run.set_arg(11, c2);
+    kernel_run.set_arg(12, c3);
+
+    std::cout << timestamp << "Starting kernel run\n";
 
     std::cout << timestamp << "Polling for asynchronous calls using a rate of " << polling_rate << "ms\n";
     bool valid;
     unsigned int i = 0;
     do
     {
-        i++;
         valid = false;
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(polling_rate));
-        auto is_finished = kernel_execution.state() == ERT_CMD_STATE_COMPLETED;
-        std::cout << timestamp << "Polling access " << i << (is_finished ? ", kernel has finished" : ", kernel is still running") << std::endl;
 
         bo_putchar0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_putchar0_info.read(putchar0->kernel_info);
+
         bo_putchar0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_putchar0_buf.read(putchar0->buffer);
-        valid = valid || listen_async_putchar(putchar0);
-
+        
         bo_assert0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_assert0_info.read(assert0->kernel_info);
+
         bo_assert0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_assert0_buf.read(assert0->buffer);
-        valid = valid || listen_async_assert(assert0);
 
         bo_printf0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_printf0_info.read(printf0->kernel_info);
+
         bo_printf0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_printf0_buf.read(printf0->buffer);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(polling_rate));
+        auto is_finished = kernel_run.state() == ERT_CMD_STATE_COMPLETED;
+        std::cout << timestamp << "Polling access " << i << (is_finished ? ", kernel has finished" : ", kernel is still running") << std::endl;
+
+        std::cout << timestamp << " " << printf0->kernel_info->idx << " " << printf0->host_info->idx << std::endl;
+        valid = valid || listen_async_putchar(putchar0);
+        valid = valid || listen_async_assert(assert0);
         valid = valid || listen_async_printf(printf0, "This is a printf() from the FPGA, at iteration %d\n");
 
-        if (i == max_iter) {
+        if (i == 0) {
+            kernel_run.start();
+        }
+        if (i == max_iter)
+        {
             std::cout << timestamp << "Reached maximum number of iterations, exiting polling loop\n";
             valid = false;
         }
+        i++;
     } while (valid);
 
-    if (kernel_execution.state() != ERT_CMD_STATE_COMPLETED)
+    if (kernel_run.state() != ERT_CMD_STATE_COMPLETED)
     {
         std::cout << timestamp << "All async calls processed, waiting for kernel to finish...\n";
-        kernel_execution.wait();
+        kernel_run.wait();
         std::cout << timestamp << "Kernel has finished\n";
     }
     else
@@ -114,9 +127,9 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
         std::cout << timestamp << "All async calls processed, kernel has finished\n";
     }
 
-    std::cout << timestamp << "Syncing the outout buffer from the FPGA back to the CPU\n";
+    std::cout << timestamp << "Syncing the output buffer from the FPGA back to the CPU\n";
     bo_vo.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
-    bo_vo.read(vo);    
+    bo_vo.read(vo);
 }
 
 int main(int argc, char **argv)
@@ -141,6 +154,6 @@ int main(int argc, char **argv)
     }
     wrapped_vadd(v1, v2, vo, data_size, polling_rate, c1, c2, c3, max_iter);
 
-    std::cout << (std::memcmp(vo, reference, data_size) ? "Vadd output is incorrect" : "Vadd output is correct") << std::endl;
+    std::cout << timestamp << (std::memcmp(vo, reference, data_size) ? "Vadd output is incorrect" : "Vadd output is correct") << std::endl;
     return 0;
 }

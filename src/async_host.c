@@ -61,7 +61,7 @@ static async_call *create_async_call(AsyncCall fun, size_t buffer_size)
 
 bool listen_async_assert(async_call *call)
 {
-    if (call->host_info->idx == call->kernel_info->idx)
+    if (call->host_info->idx >= call->kernel_info->idx)
     {
         return !call->kernel_info->is_closed;
     }
@@ -81,7 +81,7 @@ bool listen_async_assert(async_call *call)
 
 bool listen_async_putchar(async_call *call)
 {
-    if (call->host_info->idx == call->kernel_info->idx)
+    if (call->host_info->idx >= call->kernel_info->idx)
     {
         return !call->kernel_info->is_closed;
     }
@@ -100,7 +100,7 @@ bool listen_async_putchar(async_call *call)
 
 bool listen_async_printf(async_call *call, const char *format)
 {
-    if (call->host_info->idx == call->kernel_info->idx)
+    if (call->host_info->idx >= call->kernel_info->idx)
     {
         return !call->kernel_info->is_closed;
     }
