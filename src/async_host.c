@@ -72,8 +72,8 @@ bool listen_async_assert(async_call *call)
     int8_t *curr_ptr = call->buffer + call->host_info->idx;
 
     int32_t arg = *((int32_t *)curr_ptr);
-    assert(arg);
-    printf("Assertion passed\n");
+    //assert(arg);
+    printf("Assertion %s with arg %d\n", arg ? "passed" : "failed", arg);
 
     call->host_info->idx += sizeof(int32_t);
     return true;

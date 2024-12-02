@@ -8,8 +8,6 @@
 #include "experimental/xrt_kernel.h"
 #include "synthcalls.h"
 
-#define DATA_SIZE 256
-
 const auto program_start_time = std::chrono::steady_clock::now();
 
 std::ostream &timestamp(std::ostream &os)
@@ -21,7 +19,7 @@ std::ostream &timestamp(std::ostream &os)
     return os;
 }
 
-void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate)
+void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate, int c1, int c2, int c3, unsigned int max_iter)
 {
     auto device = xrt::device(0);
     auto uuid = device.load_xclbin("./vadd.xclbin");
@@ -42,34 +40,16 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     auto bo_printf0_buf = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(0));
     auto bo_printf0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(0));
 
-    int *host_ptr_v1 = bo_v1.map<int *>();
-    int *host_ptr_v2 = bo_v2.map<int *>();
-    int *host_ptr_vo = bo_vo.map<int *>();
-    int8_t *host_ptr_putchar0_buf = bo_putchar0_buf.map<int8_t *>();
-    async_kernel_info *host_ptr_putchar0_info = bo_putchar0_info.map<async_kernel_info *>();
-    int8_t *host_ptr_assert0_buf = bo_assert0_buf.map<int8_t *>();
-    async_kernel_info *host_ptr_assert0_info = bo_assert0_info.map<async_kernel_info *>();
-    int8_t *host_ptr_printf0_buf = bo_printf0_buf.map<int8_t *>();
-    async_kernel_info *host_ptr_printf0_info = bo_printf0_info.map<async_kernel_info *>();
-
     std::cout << timestamp << "Copying data into buffers\n";
-    std::memcpy(host_ptr_v1, v1, size * sizeof(int));
-    std::memcpy(host_ptr_v2, v2, size * sizeof(int));
-    std::memcpy(host_ptr_vo, vo, size * sizeof(int));
-    std::memcpy(host_ptr_putchar0_buf, putchar0->buffer, putchar0->kernel_info->size);
-    std::memcpy(host_ptr_putchar0_info, putchar0->kernel_info, sizeof(async_kernel_info));
-    std::memcpy(host_ptr_assert0_buf, assert0->buffer, assert0->kernel_info->size);
-    std::memcpy(host_ptr_assert0_info, assert0->kernel_info, sizeof(async_kernel_info));
-    std::memcpy(host_ptr_printf0_buf, printf0->buffer, printf0->kernel_info->size);
-    std::memcpy(host_ptr_printf0_info, printf0->kernel_info, sizeof(async_kernel_info));
-
-    std::cout << timestamp << "Replacing the buffer and kernel info in the async call\n";
-    putchar0->buffer = host_ptr_putchar0_buf;
-    putchar0->kernel_info = host_ptr_putchar0_info;
-    assert0->buffer = host_ptr_assert0_buf;
-    assert0->kernel_info = host_ptr_assert0_info;
-    printf0->buffer = host_ptr_printf0_buf;
-    printf0->kernel_info = host_ptr_printf0_info;
+    bo_v1.write(v1);
+    bo_v2.write(v2);
+    bo_vo.write(vo);
+    bo_putchar0_buf.write(putchar0->buffer);
+    bo_putchar0_info.write(putchar0->kernel_info);
+    bo_assert0_buf.write(assert0->buffer);
+    bo_assert0_info.write(assert0->kernel_info);
+    bo_printf0_buf.write(printf0->buffer);
+    bo_printf0_info.write(printf0->kernel_info);
 
     std::cout << timestamp << "Syncing buffers from the CPU to the FPGA\n";
     bo_v1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
@@ -85,7 +65,8 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     auto kernel_execution = kernel(bo_v1, bo_v2, bo_vo, size,
                                    bo_putchar0_buf, bo_putchar0_info,
                                    bo_assert0_buf, bo_assert0_info,
-                                   bo_printf0_buf, bo_printf0_info);
+                                   bo_printf0_buf, bo_printf0_info,
+                                   c1, c2, c3);
 
     std::cout << timestamp << "Polling for asynchronous calls using a rate of " << polling_rate << "ms\n";
     bool valid;
@@ -100,16 +81,27 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
         std::cout << timestamp << "Polling access " << i << (is_finished ? ", kernel has finished" : ", kernel is still running") << std::endl;
 
         bo_putchar0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_putchar0_info.read(putchar0->kernel_info);
         bo_putchar0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_putchar0_buf.read(putchar0->buffer);
         valid = valid || listen_async_putchar(putchar0);
 
         bo_assert0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_assert0_info.read(assert0->kernel_info);
         bo_assert0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_assert0_buf.read(assert0->buffer);
         valid = valid || listen_async_assert(assert0);
 
         bo_printf0_info.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_printf0_info.read(printf0->kernel_info);
         bo_printf0_buf.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+        bo_printf0_buf.read(printf0->buffer);
         valid = valid || listen_async_printf(printf0, "This is a printf() from the FPGA, at iteration %d\n");
+
+        if (i == max_iter) {
+            std::cout << timestamp << "Reached maximum number of iterations, exiting polling loop\n";
+            valid = false;
+        }
     } while (valid);
 
     if (kernel_execution.state() != ERT_CMD_STATE_COMPLETED)
@@ -125,28 +117,31 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
 
     std::cout << timestamp << "Syncing the outout buffer from the FPGA back to the CPU\n";
     bo_vo.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
-
-    std::cout << timestamp << "Copying output data from buffer into the output array\n";
-    std::memcpy(vo, host_ptr_vo, size * sizeof(int));
+    bo_vo.read(vo);    
 }
 
 int main(int argc, char **argv)
 {
-    unsigned int polling_rate = (argc > 1) ? std::stoi(argv[1]) : 200;
+    unsigned int polling_rate = (argc > 1) ? std::stoi(argv[1]) : 100;
+    int data_size = (argc > 2) ? std::stoi(argv[2]) : 256;
+    int c1 = (argc > 3) ? std::stoi(argv[3]) : 50;
+    int c2 = (argc > 4) ? std::stoi(argv[4]) : 150;
+    int c3 = (argc > 5) ? std::stoi(argv[5]) : 200;
+    unsigned int max_iter = (argc > 6) ? std::stoi(argv[6]) : 1000;
 
-    int v1[DATA_SIZE] = {0};
-    int v2[DATA_SIZE] = {0};
-    int vo[DATA_SIZE] = {0};
-    int reference[DATA_SIZE] = {0};
+    int v1[data_size] = {0};
+    int v2[data_size] = {0};
+    int vo[data_size] = {0};
+    int reference[data_size] = {0};
 
-    for (int i = 0; i < DATA_SIZE; ++i)
+    for (int i = 0; i < data_size; ++i)
     {
         v1[i] = i;
         v2[i] = i;
         reference[i] = v1[i] + v2[i];
     }
-    wrapped_vadd(v1, v2, vo, DATA_SIZE, polling_rate);
+    wrapped_vadd(v1, v2, vo, data_size, polling_rate, c1, c2, c3, max_iter);
 
-    std::cout << (std::memcmp(vo, reference, DATA_SIZE) ? "Vadd output is incorrect" : "Vadd output is correct") << std::endl;
+    std::cout << (std::memcmp(vo, reference, data_size) ? "Vadd output is incorrect" : "Vadd output is correct") << std::endl;
     return 0;
 }
