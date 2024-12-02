@@ -28,14 +28,14 @@ async_call *create_async_call_fixed(AsyncCall fun, unsigned int n_calls)
         break;
     }
     size_t buffer_size = size * n_calls;
-    return create_async_call(buffer_size, fun);
+    return create_async_call(fun, buffer_size);
 }
 
 async_call *create_async_call_variadic(AsyncCall fun, unsigned int ncalls, unsigned int n_args)
 {
     size_t size = n_args * sizeof(int64_t);
     size_t buffer_size = size * ncalls;
-    return create_async_call(buffer_size, fun);
+    return create_async_call(fun, buffer_size);
 }
 
 static async_call *create_async_call(AsyncCall fun, size_t buffer_size)
