@@ -36,24 +36,12 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     auto bo_printf0_buf = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(0));
     auto bo_printf0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(0));
 
-    int *host_ptr_v1 = bo_v1.map<int *>();
-    int *host_ptr_v2 = bo_v2.map<int *>();
-    int *host_ptr_vo = bo_vo.map<int *>();
-    int8_t *host_ptr_printf0_buf = bo_printf0_buf.map<int8_t *>();
-    async_kernel_info *host_ptr_printf0_info = bo_printf0_info.map<async_kernel_info *>();
-
     std::cout << timestamp << "Copying data into input buffers\n";
-    std::memcpy(host_ptr_v1, v1, size * sizeof(int));
-    std::memcpy(host_ptr_v2, v2, size * sizeof(int));
-    std::memcpy(host_ptr_printf0_info, printf0->kernel_info, sizeof(async_kernel_info));
-    free(printf0->kernel_info);
-    printf0->kernel_info = host_ptr_printf0_info;
-
-    std::cout << timestamp << "Zeroing out the output buffers\n";
-    std::memset(host_ptr_vo, 0, size * sizeof(int));
-    std::memset(host_ptr_printf0_buf, 0, printf0->kernel_info->size);
-    free(printf0->buffer);
-    printf0->buffer = host_ptr_printf0_buf;
+    bo_v1.write(v1);
+    bo_v2.write(v2);
+    bo_vo.write(vo);
+    bo_printf0_buf.write(printf0->buffer);
+    bo_printf0_info.write(printf0->kernel_info);
 
     std::cout << timestamp << "Syncing buffers from the CPU to the FPGA\n";
     bo_v1.sync(XCL_BO_SYNC_BO_TO_DEVICE);

@@ -49,7 +49,6 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     bo_assert0_buf.write(assert0->buffer);
     bo_assert0_info.write(assert0->kernel_info);
     bo_printf0_buf.write(printf0->buffer);
-    bo_printf0_info.write(printf0->kernel_info);
 
     std::cout << timestamp << "Syncing buffers from the CPU to the FPGA\n";
     bo_v1.sync(XCL_BO_SYNC_BO_TO_DEVICE);

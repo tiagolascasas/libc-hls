@@ -17,7 +17,7 @@ void vadd(unsigned int *in1, unsigned int *in2, unsigned int *out, int size,
 
         if (i == c2)
         {
-            call_async_assert(buf_assert, info_assert, true, i == 100);
+            call_async_assert(buf_assert, info_assert, true, i == c2);
         }
         if (i == c3)
         {
