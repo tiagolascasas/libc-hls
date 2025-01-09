@@ -98,6 +98,24 @@ bool listen_async_putchar(async_call *call)
     return true;
 }
 
+bool listen_async_fflush(async_call *call, FILE *stream)
+{
+    if (call->host_info->idx >= call->kernel_info->idx)
+    {
+        return !call->kernel_info->is_closed;
+    }
+    if (call->host_info->idx == -1)
+    {
+        call->host_info->idx = 0;
+    }
+    // we don't need to read anything, though there should be a "1" in the buffer
+
+    fflush(stream);
+
+    call->host_info->idx += sizeof(int32_t);
+    return true;
+}
+
 bool listen_async_printf(async_call *call, const char *format)
 {
     if (call->host_info->idx >= call->kernel_info->idx)

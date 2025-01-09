@@ -32,6 +32,22 @@ void call_async_putchar(int8_t *buf, async_kernel_info *info, bool is_last, char
     }
 }
 
+void call_async_fflush(int8_t *buf, async_kernel_info *info, bool is_last)
+{
+    if (info->idx == -1)
+    {
+        info->idx = 0;
+    }
+
+    *((uint32_t *)(buf + info->idx)) = (uint32_t)true;
+    info->idx += sizeof(uint32_t);
+
+    if (is_last)
+    {
+        close_async(info);
+    }
+}
+
 void call_async_printf(int8_t *buf, async_kernel_info *info, bool is_last, int64_t *args, size_t n_args)
 {
     if (info->idx == -1)

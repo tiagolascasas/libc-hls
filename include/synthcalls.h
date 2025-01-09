@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -41,11 +42,13 @@ extern "C"
     async_call *create_async_call_variadic(AsyncCall fun, unsigned int ncalls, unsigned int n_args);
     bool listen_async_assert(async_call *call);
     bool listen_async_putchar(async_call *call);
+    bool listen_async_fflush(async_call *call, FILE *stream);
     bool listen_async_printf(async_call *call, const char *format);
 
     // Kernel async functions
     void call_async_assert(int8_t *buf, async_kernel_info *info, bool is_last, bool condition);
     void call_async_putchar(int8_t *buf, async_kernel_info *info, bool is_last, char c);
+    void call_async_fflush(int8_t *buf, async_kernel_info *info, bool is_last);
     void call_async_printf(int8_t *buf, async_kernel_info *info, bool is_last, int64_t *args, size_t n_args);
     void close_async(async_kernel_info *info);
 
