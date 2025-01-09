@@ -21,6 +21,9 @@ async_call *create_async_call_fixed(AsyncCall fun, unsigned int n_calls)
     case PUTCHAR:
         size = sizeof(uint32_t);
         break;
+    case FFLUSH:
+        size = sizeof(uint32_t);
+        break;
     case PRINTF:
         size = sizeof(uint32_t);
         break;

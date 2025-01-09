@@ -14,6 +14,7 @@ extern "C"
     {
         ASSERT,
         PUTCHAR,
+        FFLUSH,
         PRINTF
     } AsyncCall;
 
