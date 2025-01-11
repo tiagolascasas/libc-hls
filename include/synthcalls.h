@@ -51,6 +51,7 @@ extern "C"
     void call_async_putchar(int8_t *buf, async_kernel_info *info, bool is_last, char c);
     void call_async_fflush(int8_t *buf, async_kernel_info *info, bool is_last);
     void call_async_printf(int8_t *buf, async_kernel_info *info, bool is_last, int64_t *args, size_t n_args);
+    void call_async_printf_string(int8_t *buf, async_kernel_info *info, bool is_last, int8_t *str);
     void close_async(async_kernel_info *info);
 
     // Sync data structures
