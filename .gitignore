@@ -140,3 +140,5 @@ vitis-examples/async-static-multiple/async-static-multiple_vadd/vadd/
 .vscode
 
 build/
+
+tools/header-to-json/woven_code/

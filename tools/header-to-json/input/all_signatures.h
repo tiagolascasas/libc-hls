@@ -15,6 +15,9 @@
 
 #define time64_t time_t
 #define __bool__ bool
+#define _Decimal32 float
+#define _Decimal64 float
+#define _Decimal128 double
 
 void          hls_abort(void);                                                                                                                     // Stops a program abnormally.
 int           hls_abs(int n);                                                                                                                      // Calculates the absolute value of an integer argument n.
