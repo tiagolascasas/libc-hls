@@ -3,12 +3,18 @@
 #include <regex.h>
 #include <setjmp.h>
 #include <signal.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
 #include <time.h>
 #include <wchar.h>
 #include <wctype.h>
+
+// This may be necessary to get this to compile, adapt as needed
+#define time64_t time_t
+#define __bool__ bool
 
 void          abort(void);                                                                                                                     // Stops a program abnormally.
 int           abs(int n);                                                                                                                      // Calculates the absolute value of an integer argument n.
@@ -157,7 +163,6 @@ int           putc(int c, FILE* stream);                                        
 int           putchar(int c);                                                                                                                  // Prints c to stdout.
 int*          putenv(const char* varname);                                                                                                     // Sets the value of an environment variable by altering an existing variable or creating a new one.
 int           puts(const char* string);                                                                                                        // Prints a string to stdout.
-wint_t        putwchar(wchar_t wc, FILE* stream);                                                                                              // Converts the wide character wc to a multibyte character, and writes it to the stream at the current position.
 wint_t        putwchar(wchar_t wc);                                                                                                            // Converts the wide character wc to a multibyte character and writes it to stdout.
 void          qsort(void* base, size_t num, size_t width, int (*compare)(const void* element1, const void* element2));                         // Performs a quick sort of an array of num elements, each of width bytes in size.
 #ifdef __STDC_IEC_559__
