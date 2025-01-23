@@ -1,4 +1,4 @@
-import { FunctionJp, Statement } from "@specs-feup/clava/api/Joinpoints.js";
+import { Decl, FunctionJp, Statement } from "@specs-feup/clava/api/Joinpoints.js";
 import { AHandler } from "./AHandler.js";
 import ClavaJoinPoints from "@specs-feup/clava/api/clava/ClavaJoinPoints.js";
 
@@ -10,6 +10,21 @@ export class AsyncKernelHandler extends AHandler {
     protected applyHeaderPrologue(): void {
         this.header.addInclude(`${this.libName}-types.h`, false);
         return;
+    }
+
+    protected buildSignature(name: string, returnType: string, parameters: Record<string, string>[]): FunctionJp {
+        const newParams: Decl[] = [
+            ClavaJoinPoints.param("buf", ClavaJoinPoints.type("char*")),
+            ClavaJoinPoints.param("info", ClavaJoinPoints.type("async_kernel_info*")),
+            ClavaJoinPoints.param("is_last", ClavaJoinPoints.type("bool"))
+        ];
+
+        for (const param of parameters) {
+            newParams.push(ClavaJoinPoints.param(param["name"], ClavaJoinPoints.type(param["type"])));
+        }
+
+        const newFun = ClavaJoinPoints.functionDecl(name, ClavaJoinPoints.type(returnType), ...newParams);
+        return newFun;
     }
 
     protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {

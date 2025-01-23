@@ -8,20 +8,7 @@
       {
         "name": "hls_abort",
         "returnType": "void",
-        "parameters": [
-          {
-            "name": "buf",
-            "type": "int8_t*"
-          },
-          {
-            "name": "info",
-            "type": "hls_async_info*"
-          },
-          {
-            "name": "is_last",
-            "type": "bool"
-          }
-        ]
+        "parameters": []
       }
     ]
   },
@@ -163,18 +150,6 @@
         "name": "hls_assert",
         "returnType": "void",
         "parameters": [
-          {
-            "name": "buf",
-            "type": "int8_t*"
-          },
-          {
-            "name": "info",
-            "type": "hls_async_info*"
-          },
-          {
-            "name": "is_last",
-            "type": "bool"
-          },
           {
             "name": "expression",
             "type": "int"
