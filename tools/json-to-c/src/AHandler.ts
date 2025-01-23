@@ -1,8 +1,8 @@
 import ClavaJoinPoints from "@specs-feup/clava/api/clava/ClavaJoinPoints.js";
 import Clava from "@specs-feup/clava/api/clava/Clava.js";
-import { Decl, FileJp, FunctionJp, Param } from "@specs-feup/clava/api/Joinpoints.js";
+import { Decl, FileJp, FunctionJp } from "@specs-feup/clava/api/Joinpoints.js";
 
-abstract class AHandler {
+export abstract class AHandler {
     protected header: FileJp;
     protected source: FileJp;
     protected name: string;
@@ -66,38 +66,4 @@ abstract class AHandler {
     }
 
     protected abstract buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp;
-}
-
-export class SynthesizableHandler extends AHandler {
-    constructor(libraryPrefix: string) {
-        super("synthesizable", libraryPrefix);
-    }
-
-    protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
-        const newFun = newSig.copy() as FunctionJp;
-
-        const args = newFun.params.map(param => param.varref());
-        const call = ClavaJoinPoints.callFromName(signature["name"], newFun.returnType, ...args);
-        const retExpr = ClavaJoinPoints.returnStmt(call);
-
-        const scope = ClavaJoinPoints.scope(retExpr);
-        newFun.setBody(scope);
-        return newFun;
-    }
-}
-
-export class ReimplementableHandler extends AHandler {
-    constructor(libraryPrefix: string) {
-        super("reimplemented", libraryPrefix);
-    }
-
-    protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
-        const newFun = newSig.copy() as FunctionJp;
-
-        const comment = ClavaJoinPoints.comment("TODO: Implement this function");
-
-        const scope = ClavaJoinPoints.scope(comment);
-        newFun.setBody(scope);
-        return newFun;
-    }
 }

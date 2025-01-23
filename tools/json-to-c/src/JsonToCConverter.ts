@@ -1,7 +1,9 @@
 import Clava from "@specs-feup/clava/api/clava/Clava.js";
 import ClavaJoinPoints from "@specs-feup/clava/api/clava/ClavaJoinPoints.js";
-import { ReimplementableHandler, SynthesizableHandler } from "./SignatureTypeHandlers.js";
 import Io from "@specs-feup/lara/api/lara/Io.js";
+import { SynthesizableHandler } from "./SynthesizableHandler.js";
+import { ReimplementableHandler } from "./ReimplementableHandler.js";
+import { AsyncKernelHandler } from "./AsyncKernelHandler.js";
 
 export class JsonToCConverter {
     constructor() {
@@ -11,6 +13,7 @@ export class JsonToCConverter {
     public convert(json: Record<string, any>, libraryPrefix: string): boolean {
         const synthHandler = new SynthesizableHandler(libraryPrefix);
         const reimpHandler = new ReimplementableHandler(libraryPrefix);
+        const asyncKernelHandler = new AsyncKernelHandler(libraryPrefix);
 
         for (const [key, value] of Object.entries(json)) {
             const type = value["type"];
@@ -22,6 +25,9 @@ export class JsonToCConverter {
             }
             if (type == "reimplementable") {
                 reimpHandler.handle(value);
+            }
+            if (type == "async") {
+                asyncKernelHandler.handle(value);
             }
         }
         Io.deleteFolderContents("output");
