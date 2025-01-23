@@ -6,22 +6,24 @@ export abstract class AHandler {
     protected header: FileJp;
     protected source: FileJp;
     protected name: string;
-    protected libraryPrefix: string;
+    protected libName: string;
+    protected fileName: string;
 
-    constructor(name: string, libraryPrefix: string) {
-        const fileName = libraryPrefix + name;
+    constructor(name: string, libName: string) {
+        this.fileName = `${libName}-${name}`;
 
-        this.header = ClavaJoinPoints.file(fileName + ".h", ".");
-        this.source = ClavaJoinPoints.file(fileName + ".c", ".");
+        this.header = ClavaJoinPoints.file(this.fileName + ".h", ".");
+        this.source = ClavaJoinPoints.file(this.fileName + ".c", ".");
         this.name = name;
-        this.libraryPrefix = libraryPrefix;
+        this.libName = libName;
 
         Clava.addFile(this.header);
         Clava.addFile(this.source);
 
-        this.source.addInclude(fileName + ".h", false);
+        this.source.addInclude(this.fileName + ".h", false);
         const defaultIncludes = [
             "features-time64.h",
+            "math.h",
             "nl_types.h",
             "regex.h",
             "setjmp.h",
@@ -55,6 +57,10 @@ export abstract class AHandler {
             const newImpl = this.buildFunctionImpl(signature, newSig);
             this.source.insertEnd(newImpl);
         }
+    }
+
+    public getHeaderName(): string {
+        return this.fileName + ".h";
     }
 
     protected buildSignature(name: string, returnType: string, parameters: Record<string, string>[]): FunctionJp {

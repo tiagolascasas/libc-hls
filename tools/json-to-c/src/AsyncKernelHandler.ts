@@ -8,7 +8,7 @@ export class AsyncKernelHandler extends AHandler {
     }
 
     protected applyHeaderPrologue(): void {
-        this.header.addInclude(this.libraryPrefix + "types.h", false);
+        this.header.addInclude(`${this.libName}-types.h`, false);
         return;
     }
 

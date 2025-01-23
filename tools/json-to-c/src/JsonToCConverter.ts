@@ -10,10 +10,10 @@ export class JsonToCConverter {
         Clava.pushAst(ClavaJoinPoints.program());
     }
 
-    public convert(json: Record<string, any>, libraryPrefix: string, additionalHeaders: string[] = []): boolean {
-        const synthHandler = new SynthesizableHandler(libraryPrefix);
-        const reimpHandler = new ReimplementableHandler(libraryPrefix);
-        const asyncKernelHandler = new AsyncKernelHandler(libraryPrefix);
+    public convert(json: Record<string, any>, libName: string, additionalHeaders: string[] = []): boolean {
+        const synthHandler = new SynthesizableHandler(libName);
+        const reimpHandler = new ReimplementableHandler(libName);
+        const asyncKernelHandler = new AsyncKernelHandler(libName);
 
         for (const [key, value] of Object.entries(json)) {
             const type = value["type"];
@@ -31,14 +31,30 @@ export class JsonToCConverter {
             }
         }
 
+        const headerNames: string[] = [];
         for (const header of additionalHeaders) {
             const file = ClavaJoinPoints.file(header);
-            file.setName(libraryPrefix + file.name);
+            const headerName = `${libName}-${file.name}`;
+            file.setName(headerName);
+
             Clava.addFile(file);
+            headerNames.push(headerName);
         }
+        headerNames.push(synthHandler.getHeaderName());
+        headerNames.push(reimpHandler.getHeaderName());
+        headerNames.push(asyncKernelHandler.getHeaderName());
+        this.createMasterHeader(headerNames, libName);
 
         Io.deleteFolderContents("output");
         Clava.writeCode("output");
         return true;
+    }
+
+    private createMasterHeader(headerNames: string[], libName: string): void {
+        const masterHeader = ClavaJoinPoints.file(libName + ".h");
+        for (const headerName of headerNames) {
+            masterHeader.addInclude(headerName, false);
+        }
+        Clava.addFile(masterHeader);
     }
 }
