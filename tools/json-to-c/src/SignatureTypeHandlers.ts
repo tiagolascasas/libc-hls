@@ -61,21 +61,39 @@ abstract class AHandler {
         return newFun;
     }
 
+    protected abstract buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp;
+}
+
+export class SynthesizableHandler extends AHandler {
+    constructor() {
+        super("hls-libc-synthesizable");
+    }
+
     protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
         const newFun = newSig.copy() as FunctionJp;
 
         const args = newFun.params.map(param => param.varref());
         const call = ClavaJoinPoints.callFromName(signature["name"], newFun.returnType, ...args);
         const retExpr = ClavaJoinPoints.returnStmt(call);
-        const scope = ClavaJoinPoints.scope(retExpr);
 
+        const scope = ClavaJoinPoints.scope(retExpr);
         newFun.setBody(scope);
         return newFun;
     }
 }
 
-export class SynthesizableHandler extends AHandler {
+export class ReimplementableHandler extends AHandler {
     constructor() {
-        super("hls-libc-synthesizable");
+        super("hls-libc-reimplemented");
+    }
+
+    protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
+        const newFun = newSig.copy() as FunctionJp;
+
+        const comment = ClavaJoinPoints.comment("TODO: Implement this function");
+
+        const scope = ClavaJoinPoints.scope(comment);
+        newFun.setBody(scope);
+        return newFun;
     }
 }

@@ -142,3 +142,7 @@ vitis-examples/async-static-multiple/async-static-multiple_vadd/vadd/
 build/
 
 tools/header-to-json/woven_code/
+
+tools/json-to-c/output/
+
+tools/json-to-c/woven_code/
