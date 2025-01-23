@@ -39,6 +39,7 @@ export abstract class AHandler {
         for (const include of defaultIncludes) {
             this.header.addInclude(include, true);
         }
+        this.applyHeaderPrologue();
     }
 
     public handle(signature: Record<string, any>): void {
@@ -63,6 +64,10 @@ export abstract class AHandler {
         }
         const newFun = ClavaJoinPoints.functionDecl(name, ClavaJoinPoints.type(returnType), ...newParams);
         return newFun;
+    }
+
+    protected applyHeaderPrologue(): void {
+        return;
     }
 
     protected abstract buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp;

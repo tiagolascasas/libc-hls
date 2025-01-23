@@ -8,5 +8,8 @@ AllowShortFunctionsOnASingleLine: false
 BreakBeforeBraces: Allman
 PointerAlignment: Left
 PenaltyBreakFunctionSignature: 0
+IndentWidth: 4
+UseTab: Never
+TabWidth: 4
 ---
 

@@ -10,7 +10,7 @@ export class JsonToCConverter {
         Clava.pushAst(ClavaJoinPoints.program());
     }
 
-    public convert(json: Record<string, any>, libraryPrefix: string): boolean {
+    public convert(json: Record<string, any>, libraryPrefix: string, additionalHeaders: string[] = []): boolean {
         const synthHandler = new SynthesizableHandler(libraryPrefix);
         const reimpHandler = new ReimplementableHandler(libraryPrefix);
         const asyncKernelHandler = new AsyncKernelHandler(libraryPrefix);
@@ -30,6 +30,13 @@ export class JsonToCConverter {
                 asyncKernelHandler.handle(value);
             }
         }
+
+        for (const header of additionalHeaders) {
+            const file = ClavaJoinPoints.file(header);
+            file.setName(libraryPrefix + file.name);
+            Clava.addFile(file);
+        }
+
         Io.deleteFolderContents("output");
         Clava.writeCode("output");
         return true;

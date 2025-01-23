@@ -161,6 +161,10 @@
           {
             "name": "info",
             "type": "hls_async_info*"
+          },
+          {
+            "name": "is_closed",
+            "type": "bool"
           }
         ]
       }
