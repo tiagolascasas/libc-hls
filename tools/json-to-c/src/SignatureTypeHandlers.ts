@@ -6,16 +6,20 @@ abstract class AHandler {
     protected header: FileJp;
     protected source: FileJp;
     protected name: string;
+    protected libraryPrefix: string;
 
-    constructor(name: string) {
-        this.header = ClavaJoinPoints.file(name + ".h", ".");
-        this.source = ClavaJoinPoints.file(name + ".c", ".");
+    constructor(name: string, libraryPrefix: string) {
+        const fileName = libraryPrefix + name;
+
+        this.header = ClavaJoinPoints.file(fileName + ".h", ".");
+        this.source = ClavaJoinPoints.file(fileName + ".c", ".");
         this.name = name;
+        this.libraryPrefix = libraryPrefix;
 
         Clava.addFile(this.header);
         Clava.addFile(this.source);
 
-        this.source.addInclude(name + ".h", false);
+        this.source.addInclude(fileName + ".h", false);
         const defaultIncludes = [
             "features-time64.h",
             "nl_types.h",
@@ -65,8 +69,8 @@ abstract class AHandler {
 }
 
 export class SynthesizableHandler extends AHandler {
-    constructor() {
-        super("hls-libc-synthesizable");
+    constructor(libraryPrefix: string) {
+        super("synthesizable", libraryPrefix);
     }
 
     protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
@@ -83,8 +87,8 @@ export class SynthesizableHandler extends AHandler {
 }
 
 export class ReimplementableHandler extends AHandler {
-    constructor() {
-        super("hls-libc-reimplemented");
+    constructor(libraryPrefix: string) {
+        super("reimplemented", libraryPrefix);
     }
 
     protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
