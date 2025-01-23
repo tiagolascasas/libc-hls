@@ -1,6 +1,6 @@
 import Clava from "@specs-feup/clava/api/clava/Clava.js";
 import ClavaJoinPoints from "@specs-feup/clava/api/clava/ClavaJoinPoints.js";
-import { PassthroughHandler } from "./SignatureTypeHandlers.js";
+import { SynthesizableHandler } from "./SignatureTypeHandlers.js";
 
 export class JsonToCConverter {
     private prefix: string;
@@ -11,12 +11,15 @@ export class JsonToCConverter {
     }
 
     public convert(json: Record<string, any>): boolean {
-        const passthroughHandler = new PassthroughHandler();
+        const synthHandler = new SynthesizableHandler();
 
         for (const [key, value] of Object.entries(json)) {
             const type = value["type"];
-            if (type == "passthrough") {
-                passthroughHandler.handle(value);
+            if (type == "passthrough" || type == "host") {
+                console.log(`Function ${key} is of type ${type}, skipping`);
+            }
+            if (type == "synthesizable") {
+                synthHandler.handle(value);
             }
         }
         Clava.writeCode("output");

@@ -24,7 +24,7 @@
     ],
     "mappings": [
       {
-        "name": "abs",
+        "name": "hls_abs",
         "returnType": "int",
         "parameters": [
           {
@@ -47,7 +47,7 @@
     ],
     "mappings": [
       {
-        "name": "acos",
+        "name": "hls_acos",
         "returnType": "double",
         "parameters": [
           {
@@ -124,7 +124,7 @@
     ],
     "mappings": [
       {
-        "name": "asin",
+        "name": "hls_asin",
         "returnType": "double",
         "parameters": [
           {
@@ -147,12 +147,20 @@
     ],
     "mappings": [
       {
-        "name": "assert",
+        "name": "hls_assert",
         "returnType": "void",
         "parameters": [
           {
             "name": "expression",
             "type": "int"
+          },
+          {
+            "name": "buf",
+            "type": "int8_t*"
+          },
+          {
+            "name": "info",
+            "type": "hls_async_info*"
           }
         ]
       }
@@ -170,7 +178,7 @@
     ],
     "mappings": [
       {
-        "name": "atan",
+        "name": "hls_atan",
         "returnType": "double",
         "parameters": [
           {
@@ -197,7 +205,7 @@
     ],
     "mappings": [
       {
-        "name": "atan2",
+        "name": "hls_atan2",
         "returnType": "double",
         "parameters": [
           {
@@ -247,7 +255,7 @@
     ],
     "mappings": [
       {
-        "name": "atof",
+        "name": "hls_atof",
         "returnType": "double",
         "parameters": [
           {
