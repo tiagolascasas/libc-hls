@@ -6,9 +6,22 @@
     "parameters": [],
     "mappings": [
       {
-        "name": "abort",
+        "name": "hls_abort",
         "returnType": "void",
-        "parameters": []
+        "parameters": [
+          {
+            "name": "buf",
+            "type": "int8_t*"
+          },
+          {
+            "name": "info",
+            "type": "hls_async_info*"
+          },
+          {
+            "name": "is_last",
+            "type": "bool"
+          }
+        ]
       }
     ]
   },
@@ -151,10 +164,6 @@
         "returnType": "void",
         "parameters": [
           {
-            "name": "expression",
-            "type": "int"
-          },
-          {
             "name": "buf",
             "type": "int8_t*"
           },
@@ -163,8 +172,12 @@
             "type": "hls_async_info*"
           },
           {
-            "name": "is_closed",
+            "name": "is_last",
             "type": "bool"
+          },
+          {
+            "name": "expression",
+            "type": "int"
           }
         ]
       }
