@@ -1,0 +1,8535 @@
+{
+  "abort": {
+    "type": "async",
+    "name": "abort",
+    "returnType": "void",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "abort",
+        "returnType": "void",
+        "parameters": []
+      }
+    ]
+  },
+  "abs": {
+    "type": "synthesizable",
+    "name": "abs",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "abs",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "n",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "acos": {
+    "type": "synthesizable",
+    "name": "acos",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "acos",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "asctime": {
+    "type": "host",
+    "name": "asctime",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "struct tm const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "asctime",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "struct tm const *"
+          }
+        ]
+      }
+    ]
+  },
+  "asctime_r": {
+    "type": "host",
+    "name": "asctime_r",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "tm",
+        "type": "struct tm const *"
+      },
+      {
+        "name": "buf",
+        "type": "char *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "asctime_r",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "tm",
+            "type": "struct tm const *"
+          },
+          {
+            "name": "buf",
+            "type": "char *"
+          }
+        ]
+      }
+    ]
+  },
+  "asin": {
+    "type": "synthesizable",
+    "name": "asin",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "asin",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "assert": {
+    "type": "async",
+    "name": "assert",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "expression",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "assert",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "expression",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "atan": {
+    "type": "synthesizable",
+    "name": "atan",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "atan",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "atan2": {
+    "type": "synthesizable",
+    "name": "atan2",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "y",
+        "type": "double"
+      },
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "atan2",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "y",
+            "type": "double"
+          },
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "atexit": {
+    "type": "host",
+    "name": "atexit",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "func",
+        "type": "void (*) ()"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "atexit",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "func",
+            "type": "void (*) ()"
+          }
+        ]
+      }
+    ]
+  },
+  "atof": {
+    "type": "reimplementable",
+    "name": "atof",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "atof",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "atoi": {
+    "type": "passthrough",
+    "name": "atoi",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "atoi",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "atol": {
+    "type": "passthrough",
+    "name": "atol",
+    "returnType": "long",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "atol",
+        "returnType": "long",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "bsearch": {
+    "type": "passthrough",
+    "name": "bsearch",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "key",
+        "type": "void const *"
+      },
+      {
+        "name": "base",
+        "type": "void const *"
+      },
+      {
+        "name": "num",
+        "type": "size_t"
+      },
+      {
+        "name": "size",
+        "type": "size_t"
+      },
+      {
+        "name": "compare",
+        "type": "int (*) (void const *, void const *)"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "bsearch",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "key",
+            "type": "void const *"
+          },
+          {
+            "name": "base",
+            "type": "void const *"
+          },
+          {
+            "name": "num",
+            "type": "size_t"
+          },
+          {
+            "name": "size",
+            "type": "size_t"
+          },
+          {
+            "name": "compare",
+            "type": "int (*) (void const *, void const *)"
+          }
+        ]
+      }
+    ]
+  },
+  "btowc": {
+    "type": "passthrough",
+    "name": "btowc",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "btowc",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "calloc": {
+    "type": "passthrough",
+    "name": "calloc",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "num",
+        "type": "size_t"
+      },
+      {
+        "name": "size",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "calloc",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "num",
+            "type": "size_t"
+          },
+          {
+            "name": "size",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "catclose": {
+    "type": "passthrough",
+    "name": "catclose",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "catd",
+        "type": "nl_catd"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "catclose",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "catd",
+            "type": "nl_catd"
+          }
+        ]
+      }
+    ]
+  },
+  "catgets": {
+    "type": "passthrough",
+    "name": "catgets",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "catd",
+        "type": "nl_catd"
+      },
+      {
+        "name": "set_id",
+        "type": "int"
+      },
+      {
+        "name": "msg_id",
+        "type": "int"
+      },
+      {
+        "name": "s",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "catgets",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "catd",
+            "type": "nl_catd"
+          },
+          {
+            "name": "set_id",
+            "type": "int"
+          },
+          {
+            "name": "msg_id",
+            "type": "int"
+          },
+          {
+            "name": "s",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "catopen": {
+    "type": "passthrough",
+    "name": "catopen",
+    "returnType": "nl_catd",
+    "parameters": [
+      {
+        "name": "name",
+        "type": "char const *"
+      },
+      {
+        "name": "oflag",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "catopen",
+        "returnType": "nl_catd",
+        "parameters": [
+          {
+            "name": "name",
+            "type": "char const *"
+          },
+          {
+            "name": "oflag",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "ceil": {
+    "type": "passthrough",
+    "name": "ceil",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ceil",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "clearerr": {
+    "type": "passthrough",
+    "name": "clearerr",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "clearerr",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "type": "passthrough",
+    "name": "clock",
+    "returnType": "clock_t",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "clock",
+        "returnType": "clock_t",
+        "parameters": []
+      }
+    ]
+  },
+  "cos": {
+    "type": "passthrough",
+    "name": "cos",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "cos",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "cosh": {
+    "type": "passthrough",
+    "name": "cosh",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "cosh",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "ctime": {
+    "type": "passthrough",
+    "name": "ctime",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ctime",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "ctime64": {
+    "type": "passthrough",
+    "name": "ctime64",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ctime64",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "ctime_r": {
+    "type": "passthrough",
+    "name": "ctime_r",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      },
+      {
+        "name": "buf",
+        "type": "char *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ctime_r",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          },
+          {
+            "name": "buf",
+            "type": "char *"
+          }
+        ]
+      }
+    ]
+  },
+  "ctime64_r": {
+    "type": "passthrough",
+    "name": "ctime64_r",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      },
+      {
+        "name": "buf",
+        "type": "char *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ctime64_r",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          },
+          {
+            "name": "buf",
+            "type": "char *"
+          }
+        ]
+      }
+    ]
+  },
+  "difftime": {
+    "type": "passthrough",
+    "name": "difftime",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "time2",
+        "type": "time_t"
+      },
+      {
+        "name": "time1",
+        "type": "time_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "difftime",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "time2",
+            "type": "time_t"
+          },
+          {
+            "name": "time1",
+            "type": "time_t"
+          }
+        ]
+      }
+    ]
+  },
+  "difftime64": {
+    "type": "passthrough",
+    "name": "difftime64",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "time2",
+        "type": "time_t"
+      },
+      {
+        "name": "time1",
+        "type": "time_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "difftime64",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "time2",
+            "type": "time_t"
+          },
+          {
+            "name": "time1",
+            "type": "time_t"
+          }
+        ]
+      }
+    ]
+  },
+  "div": {
+    "type": "passthrough",
+    "name": "div",
+    "returnType": "div_t",
+    "parameters": [
+      {
+        "name": "numerator",
+        "type": "int"
+      },
+      {
+        "name": "denominator",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "div",
+        "returnType": "div_t",
+        "parameters": [
+          {
+            "name": "numerator",
+            "type": "int"
+          },
+          {
+            "name": "denominator",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "erf": {
+    "type": "passthrough",
+    "name": "erf",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "erf",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "erfc": {
+    "type": "passthrough",
+    "name": "erfc",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "erfc",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "exit": {
+    "type": "passthrough",
+    "name": "exit",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "status",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "exit",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "status",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "exp": {
+    "type": "passthrough",
+    "name": "exp",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "exp",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "fabs": {
+    "type": "passthrough",
+    "name": "fabs",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fabs",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "fclose": {
+    "type": "passthrough",
+    "name": "fclose",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fclose",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fdopen": {
+    "type": "passthrough",
+    "name": "fdopen",
+    "returnType": "FILE *",
+    "parameters": [
+      {
+        "name": "handle",
+        "type": "int"
+      },
+      {
+        "name": "type",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fdopen",
+        "returnType": "FILE *",
+        "parameters": [
+          {
+            "name": "handle",
+            "type": "int"
+          },
+          {
+            "name": "type",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "feof": {
+    "type": "passthrough",
+    "name": "feof",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "feof",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "ferror": {
+    "type": "passthrough",
+    "name": "ferror",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ferror",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fflush": {
+    "type": "passthrough",
+    "name": "fflush",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fflush",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fgetc": {
+    "type": "passthrough",
+    "name": "fgetc",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fgetc",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fgetpos": {
+    "type": "passthrough",
+    "name": "fgetpos",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "pos",
+        "type": "fpos_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fgetpos",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "pos",
+            "type": "fpos_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "fgets": {
+    "type": "passthrough",
+    "name": "fgets",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char *"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fgets",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char *"
+          },
+          {
+            "name": "n",
+            "type": "int"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fgetwc": {
+    "type": "passthrough",
+    "name": "fgetwc",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fgetwc",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fgetws": {
+    "type": "passthrough",
+    "name": "fgetws",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "wcs",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fgetws",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "wcs",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "n",
+            "type": "int"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fileno": {
+    "type": "passthrough",
+    "name": "fileno",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fileno",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "floor": {
+    "type": "passthrough",
+    "name": "floor",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "floor",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "fmod": {
+    "type": "passthrough",
+    "name": "fmod",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "y",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fmod",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "y",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "fopen": {
+    "type": "passthrough",
+    "name": "fopen",
+    "returnType": "FILE *",
+    "parameters": [
+      {
+        "name": "filename",
+        "type": "char const *"
+      },
+      {
+        "name": "mode",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fopen",
+        "returnType": "FILE *",
+        "parameters": [
+          {
+            "name": "filename",
+            "type": "char const *"
+          },
+          {
+            "name": "mode",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "fprintf": {
+    "type": "passthrough",
+    "name": "fprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "fputc": {
+    "type": "passthrough",
+    "name": "fputc",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fputc",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fputs": {
+    "type": "passthrough",
+    "name": "fputs",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fputs",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fputwc": {
+    "type": "passthrough",
+    "name": "fputwc",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wchar_t"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fputwc",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wchar_t"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fputws": {
+    "type": "passthrough",
+    "name": "fputws",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wcs",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fputws",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wcs",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fread": {
+    "type": "passthrough",
+    "name": "fread",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "void *"
+      },
+      {
+        "name": "size",
+        "type": "size_t"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fread",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "void *"
+          },
+          {
+            "name": "size",
+            "type": "size_t"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "free": {
+    "type": "passthrough",
+    "name": "free",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "ptr",
+        "type": "void *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "free",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "ptr",
+            "type": "void *"
+          }
+        ]
+      }
+    ]
+  },
+  "freopen": {
+    "type": "passthrough",
+    "name": "freopen",
+    "returnType": "FILE *",
+    "parameters": [
+      {
+        "name": "filename",
+        "type": "char const *"
+      },
+      {
+        "name": "mode",
+        "type": "char const *"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "freopen",
+        "returnType": "FILE *",
+        "parameters": [
+          {
+            "name": "filename",
+            "type": "char const *"
+          },
+          {
+            "name": "mode",
+            "type": "char const *"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "frexp": {
+    "type": "passthrough",
+    "name": "frexp",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "expptr",
+        "type": "int *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "frexp",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "expptr",
+            "type": "int *"
+          }
+        ]
+      }
+    ]
+  },
+  "fscanf": {
+    "type": "passthrough",
+    "name": "fscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "fseek": {
+    "type": "passthrough",
+    "name": "fseek",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "offset",
+        "type": "long"
+      },
+      {
+        "name": "origin",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fseek",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "offset",
+            "type": "long"
+          },
+          {
+            "name": "origin",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "fsetpos": {
+    "type": "passthrough",
+    "name": "fsetpos",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "pos",
+        "type": "fpos_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fsetpos",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "pos",
+            "type": "fpos_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "ftell": {
+    "type": "passthrough",
+    "name": "ftell",
+    "returnType": "long",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ftell",
+        "returnType": "long",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fwide": {
+    "type": "passthrough",
+    "name": "fwide",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "mode",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fwide",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "mode",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "fwprintf": {
+    "type": "passthrough",
+    "name": "fwprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fwprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "fwrite": {
+    "type": "passthrough",
+    "name": "fwrite",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "void const *"
+      },
+      {
+        "name": "size",
+        "type": "size_t"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fwrite",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "void const *"
+          },
+          {
+            "name": "size",
+            "type": "size_t"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "fwscanf": {
+    "type": "passthrough",
+    "name": "fwscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "fwscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "gamma": {
+    "type": "passthrough",
+    "name": "gamma",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "gamma",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "getc": {
+    "type": "passthrough",
+    "name": "getc",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "getc",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "getchar": {
+    "type": "passthrough",
+    "name": "getchar",
+    "returnType": "int",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "getchar",
+        "returnType": "int",
+        "parameters": []
+      }
+    ]
+  },
+  "getenv": {
+    "type": "passthrough",
+    "name": "getenv",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "varname",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "getenv",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "varname",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "gets": {
+    "type": "passthrough",
+    "name": "gets",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "char *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "gets",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "char *"
+          }
+        ]
+      }
+    ]
+  },
+  "getwc": {
+    "type": "passthrough",
+    "name": "getwc",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "getwc",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "getwchar": {
+    "type": "passthrough",
+    "name": "getwchar",
+    "returnType": "wint_t",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "getwchar",
+        "returnType": "wint_t",
+        "parameters": []
+      }
+    ]
+  },
+  "gmtime": {
+    "type": "passthrough",
+    "name": "gmtime",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "gmtime",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "gmtime64": {
+    "type": "passthrough",
+    "name": "gmtime64",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "gmtime64",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "gmtime_r": {
+    "type": "passthrough",
+    "name": "gmtime_r",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      },
+      {
+        "name": "result",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "gmtime_r",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          },
+          {
+            "name": "result",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "gmtime64_r": {
+    "type": "passthrough",
+    "name": "gmtime64_r",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "time_t const *"
+      },
+      {
+        "name": "result",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "gmtime64_r",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "time_t const *"
+          },
+          {
+            "name": "result",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "hypot": {
+    "type": "passthrough",
+    "name": "hypot",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "side1",
+        "type": "double"
+      },
+      {
+        "name": "side2",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "hypot",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "side1",
+            "type": "double"
+          },
+          {
+            "name": "side2",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "isalnum": {
+    "type": "passthrough",
+    "name": "isalnum",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isalnum",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isalpha": {
+    "type": "passthrough",
+    "name": "isalpha",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isalpha",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isascii": {
+    "type": "passthrough",
+    "name": "isascii",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isascii",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isblank": {
+    "type": "passthrough",
+    "name": "isblank",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isblank",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "iscntrl": {
+    "type": "passthrough",
+    "name": "iscntrl",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iscntrl",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isdigit": {
+    "type": "passthrough",
+    "name": "isdigit",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isdigit",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isgraph": {
+    "type": "passthrough",
+    "name": "isgraph",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isgraph",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "islower": {
+    "type": "passthrough",
+    "name": "islower",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "islower",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isprint": {
+    "type": "passthrough",
+    "name": "isprint",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isprint",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "ispunct": {
+    "type": "passthrough",
+    "name": "ispunct",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ispunct",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isspace": {
+    "type": "passthrough",
+    "name": "isspace",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isspace",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "isupper": {
+    "type": "passthrough",
+    "name": "isupper",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isupper",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "iswalnum": {
+    "type": "passthrough",
+    "name": "iswalnum",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswalnum",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswalpha": {
+    "type": "passthrough",
+    "name": "iswalpha",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswalpha",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswblank": {
+    "type": "passthrough",
+    "name": "iswblank",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswblank",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswcntrl": {
+    "type": "passthrough",
+    "name": "iswcntrl",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswcntrl",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswctype": {
+    "type": "passthrough",
+    "name": "iswctype",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      },
+      {
+        "name": "wc_prop",
+        "type": "wctype_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswctype",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          },
+          {
+            "name": "wc_prop",
+            "type": "wctype_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswdigit": {
+    "type": "passthrough",
+    "name": "iswdigit",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswdigit",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswgraph": {
+    "type": "passthrough",
+    "name": "iswgraph",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswgraph",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswlower": {
+    "type": "passthrough",
+    "name": "iswlower",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswlower",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswprint": {
+    "type": "passthrough",
+    "name": "iswprint",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswprint",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswpunct": {
+    "type": "passthrough",
+    "name": "iswpunct",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswpunct",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswspace": {
+    "type": "passthrough",
+    "name": "iswspace",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswspace",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswupper": {
+    "type": "passthrough",
+    "name": "iswupper",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswupper",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "iswxdigit": {
+    "type": "passthrough",
+    "name": "iswxdigit",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "iswxdigit",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "isxdigit": {
+    "type": "passthrough",
+    "name": "isxdigit",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "isxdigit",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "j0": {
+    "type": "passthrough",
+    "name": "j0",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "j0",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "j1": {
+    "type": "passthrough",
+    "name": "j1",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "j1",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "jn": {
+    "type": "passthrough",
+    "name": "jn",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "jn",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "n",
+            "type": "int"
+          },
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "labs": {
+    "type": "passthrough",
+    "name": "labs",
+    "returnType": "long",
+    "parameters": [
+      {
+        "name": "n",
+        "type": "long"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "labs",
+        "returnType": "long",
+        "parameters": [
+          {
+            "name": "n",
+            "type": "long"
+          }
+        ]
+      }
+    ]
+  },
+  "ldexp": {
+    "type": "passthrough",
+    "name": "ldexp",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "exp",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ldexp",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "exp",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "ldiv": {
+    "type": "passthrough",
+    "name": "ldiv",
+    "returnType": "ldiv_t",
+    "parameters": [
+      {
+        "name": "numerator",
+        "type": "long"
+      },
+      {
+        "name": "denominator",
+        "type": "long"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ldiv",
+        "returnType": "ldiv_t",
+        "parameters": [
+          {
+            "name": "numerator",
+            "type": "long"
+          },
+          {
+            "name": "denominator",
+            "type": "long"
+          }
+        ]
+      }
+    ]
+  },
+  "localeconv": {
+    "type": "passthrough",
+    "name": "localeconv",
+    "returnType": "struct lconv *",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "localeconv",
+        "returnType": "struct lconv *",
+        "parameters": []
+      }
+    ]
+  },
+  "localtime": {
+    "type": "passthrough",
+    "name": "localtime",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "timeval",
+        "type": "time_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "localtime",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "timeval",
+            "type": "time_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "localtime64": {
+    "type": "passthrough",
+    "name": "localtime64",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "timeval",
+        "type": "time_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "localtime64",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "timeval",
+            "type": "time_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "localtime_r": {
+    "type": "passthrough",
+    "name": "localtime_r",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "timeval",
+        "type": "time_t const *"
+      },
+      {
+        "name": "result",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "localtime_r",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "timeval",
+            "type": "time_t const *"
+          },
+          {
+            "name": "result",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "localtime64_r": {
+    "type": "passthrough",
+    "name": "localtime64_r",
+    "returnType": "struct tm *",
+    "parameters": [
+      {
+        "name": "timeval",
+        "type": "time_t const *"
+      },
+      {
+        "name": "result",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "localtime64_r",
+        "returnType": "struct tm *",
+        "parameters": [
+          {
+            "name": "timeval",
+            "type": "time_t const *"
+          },
+          {
+            "name": "result",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "log": {
+    "type": "passthrough",
+    "name": "log",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "log",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "log10": {
+    "type": "passthrough",
+    "name": "log10",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "log10",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "longjmp": {
+    "type": "passthrough",
+    "name": "longjmp",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "env",
+        "type": "jmp_buf"
+      },
+      {
+        "name": "value",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "longjmp",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "env",
+            "type": "jmp_buf"
+          },
+          {
+            "name": "value",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "malloc": {
+    "type": "passthrough",
+    "name": "malloc",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "size",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "malloc",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "size",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "mblen": {
+    "type": "passthrough",
+    "name": "mblen",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mblen",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "mbrlen": {
+    "type": "passthrough",
+    "name": "mbrlen",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "s",
+        "type": "char const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      },
+      {
+        "name": "ps",
+        "type": "mbstate_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mbrlen",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "s",
+            "type": "char const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          },
+          {
+            "name": "ps",
+            "type": "mbstate_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "mbrtowc": {
+    "type": "passthrough",
+    "name": "mbrtowc",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "pwc",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "s",
+        "type": "char const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      },
+      {
+        "name": "ps",
+        "type": "mbstate_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mbrtowc",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "pwc",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "s",
+            "type": "char const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          },
+          {
+            "name": "ps",
+            "type": "mbstate_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "mbsinit": {
+    "type": "passthrough",
+    "name": "mbsinit",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "ps",
+        "type": "mbstate_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mbsinit",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "ps",
+            "type": "mbstate_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "mbsrtowc": {
+    "type": "passthrough",
+    "name": "mbsrtowc",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "dst",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "src",
+        "type": "char const **"
+      },
+      {
+        "name": "len",
+        "type": "size_t"
+      },
+      {
+        "name": "ps",
+        "type": "mbstate_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mbsrtowc",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "dst",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "src",
+            "type": "char const **"
+          },
+          {
+            "name": "len",
+            "type": "size_t"
+          },
+          {
+            "name": "ps",
+            "type": "mbstate_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "mbstowcs": {
+    "type": "passthrough",
+    "name": "mbstowcs",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "pwc",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "string",
+        "type": "char const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mbstowcs",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "pwc",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "string",
+            "type": "char const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "mbtowc": {
+    "type": "passthrough",
+    "name": "mbtowc",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "pwc",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "string",
+        "type": "char const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mbtowc",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "pwc",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "string",
+            "type": "char const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "memchr": {
+    "type": "passthrough",
+    "name": "memchr",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "buf",
+        "type": "void const *"
+      },
+      {
+        "name": "c",
+        "type": "int"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "memchr",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "buf",
+            "type": "void const *"
+          },
+          {
+            "name": "c",
+            "type": "int"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "memcmp": {
+    "type": "passthrough",
+    "name": "memcmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "buf1",
+        "type": "void const *"
+      },
+      {
+        "name": "buf2",
+        "type": "void const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "memcmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "buf1",
+            "type": "void const *"
+          },
+          {
+            "name": "buf2",
+            "type": "void const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "memcpy": {
+    "type": "passthrough",
+    "name": "memcpy",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "dest",
+        "type": "void *"
+      },
+      {
+        "name": "src",
+        "type": "void const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "memcpy",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "dest",
+            "type": "void *"
+          },
+          {
+            "name": "src",
+            "type": "void const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "memmove": {
+    "type": "passthrough",
+    "name": "memmove",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "dest",
+        "type": "void *"
+      },
+      {
+        "name": "src",
+        "type": "void const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "memmove",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "dest",
+            "type": "void *"
+          },
+          {
+            "name": "src",
+            "type": "void const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "memset": {
+    "type": "passthrough",
+    "name": "memset",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "dest",
+        "type": "void *"
+      },
+      {
+        "name": "c",
+        "type": "int"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "memset",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "dest",
+            "type": "void *"
+          },
+          {
+            "name": "c",
+            "type": "int"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "mktime": {
+    "type": "passthrough",
+    "name": "mktime",
+    "returnType": "time_t",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mktime",
+        "returnType": "time_t",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "mktime64": {
+    "type": "passthrough",
+    "name": "mktime64",
+    "returnType": "time_t",
+    "parameters": [
+      {
+        "name": "time",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "mktime64",
+        "returnType": "time_t",
+        "parameters": [
+          {
+            "name": "time",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "modf": {
+    "type": "passthrough",
+    "name": "modf",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "intptr",
+        "type": "double *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "modf",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "intptr",
+            "type": "double *"
+          }
+        ]
+      }
+    ]
+  },
+  "nextafter": {
+    "type": "passthrough",
+    "name": "nextafter",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "y",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "nextafter",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "y",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "nextafterl": {
+    "type": "passthrough",
+    "name": "nextafterl",
+    "returnType": "long double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "long double"
+      },
+      {
+        "name": "y",
+        "type": "long double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "nextafterl",
+        "returnType": "long double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "long double"
+          },
+          {
+            "name": "y",
+            "type": "long double"
+          }
+        ]
+      }
+    ]
+  },
+  "nexttoward": {
+    "type": "passthrough",
+    "name": "nexttoward",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "y",
+        "type": "long double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "nexttoward",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "y",
+            "type": "long double"
+          }
+        ]
+      }
+    ]
+  },
+  "nexttowardl": {
+    "type": "passthrough",
+    "name": "nexttowardl",
+    "returnType": "long double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "long double"
+      },
+      {
+        "name": "y",
+        "type": "long double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "nexttowardl",
+        "returnType": "long double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "long double"
+          },
+          {
+            "name": "y",
+            "type": "long double"
+          }
+        ]
+      }
+    ]
+  },
+  "nl_langinfo": {
+    "type": "passthrough",
+    "name": "nl_langinfo",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "item",
+        "type": "nl_item"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "nl_langinfo",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "item",
+            "type": "nl_item"
+          }
+        ]
+      }
+    ]
+  },
+  "perror": {
+    "type": "passthrough",
+    "name": "perror",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "perror",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "pow": {
+    "type": "passthrough",
+    "name": "pow",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "y",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "pow",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "y",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "printf": {
+    "type": "passthrough",
+    "name": "printf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "printf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "putc": {
+    "type": "passthrough",
+    "name": "putc",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "putc",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "putchar": {
+    "type": "passthrough",
+    "name": "putchar",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "putchar",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "putenv": {
+    "type": "passthrough",
+    "name": "putenv",
+    "returnType": "int *",
+    "parameters": [
+      {
+        "name": "varname",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "putenv",
+        "returnType": "int *",
+        "parameters": [
+          {
+            "name": "varname",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "puts": {
+    "type": "passthrough",
+    "name": "puts",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "puts",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "putwchar": {
+    "type": "passthrough",
+    "name": "putwchar",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wchar_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "putwchar",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wchar_t"
+          }
+        ]
+      }
+    ]
+  },
+  "qsort": {
+    "type": "passthrough",
+    "name": "qsort",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "base",
+        "type": "void *"
+      },
+      {
+        "name": "num",
+        "type": "size_t"
+      },
+      {
+        "name": "width",
+        "type": "size_t"
+      },
+      {
+        "name": "compare",
+        "type": "int (*) (void const *, void const *)"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "qsort",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "base",
+            "type": "void *"
+          },
+          {
+            "name": "num",
+            "type": "size_t"
+          },
+          {
+            "name": "width",
+            "type": "size_t"
+          },
+          {
+            "name": "compare",
+            "type": "int (*) (void const *, void const *)"
+          }
+        ]
+      }
+    ]
+  },
+  "quantized32": {
+    "type": "passthrough",
+    "name": "quantized32",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float"
+      },
+      {
+        "name": "y",
+        "type": "float"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "quantized32",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "float"
+          },
+          {
+            "name": "y",
+            "type": "float"
+          }
+        ]
+      }
+    ]
+  },
+  "quantized64": {
+    "type": "passthrough",
+    "name": "quantized64",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float"
+      },
+      {
+        "name": "y",
+        "type": "float"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "quantized64",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "float"
+          },
+          {
+            "name": "y",
+            "type": "float"
+          }
+        ]
+      }
+    ]
+  },
+  "quantized128": {
+    "type": "passthrough",
+    "name": "quantized128",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "y",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "quantized128",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "y",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "quantexpd32": {
+    "type": "passthrough",
+    "name": "quantexpd32",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "quantexpd32",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "float"
+          }
+        ]
+      }
+    ]
+  },
+  "quantexpd64": {
+    "type": "passthrough",
+    "name": "quantexpd64",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "quantexpd64",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "float"
+          }
+        ]
+      }
+    ]
+  },
+  "quantexpd128": {
+    "type": "passthrough",
+    "name": "quantexpd128",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "quantexpd128",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "samequantumd32": {
+    "type": "passthrough",
+    "name": "samequantumd32",
+    "returnType": "bool",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float"
+      },
+      {
+        "name": "y",
+        "type": "float"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "samequantumd32",
+        "returnType": "bool",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "float"
+          },
+          {
+            "name": "y",
+            "type": "float"
+          }
+        ]
+      }
+    ]
+  },
+  "samequantumd64": {
+    "type": "passthrough",
+    "name": "samequantumd64",
+    "returnType": "bool",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float"
+      },
+      {
+        "name": "y",
+        "type": "float"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "samequantumd64",
+        "returnType": "bool",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "float"
+          },
+          {
+            "name": "y",
+            "type": "float"
+          }
+        ]
+      }
+    ]
+  },
+  "samequantumd128": {
+    "type": "passthrough",
+    "name": "samequantumd128",
+    "returnType": "bool",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "y",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "samequantumd128",
+        "returnType": "bool",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          },
+          {
+            "name": "y",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "raise": {
+    "type": "passthrough",
+    "name": "raise",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "sig",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "raise",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "sig",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "rand": {
+    "type": "passthrough",
+    "name": "rand",
+    "returnType": "int",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "rand",
+        "returnType": "int",
+        "parameters": []
+      }
+    ]
+  },
+  "rand_r": {
+    "type": "passthrough",
+    "name": "rand_r",
+    "returnType": "int",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "rand_r",
+        "returnType": "int",
+        "parameters": []
+      }
+    ]
+  },
+  "realloc": {
+    "type": "passthrough",
+    "name": "realloc",
+    "returnType": "void *",
+    "parameters": [
+      {
+        "name": "ptr",
+        "type": "void *"
+      },
+      {
+        "name": "size",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "realloc",
+        "returnType": "void *",
+        "parameters": [
+          {
+            "name": "ptr",
+            "type": "void *"
+          },
+          {
+            "name": "size",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "regcomp": {
+    "type": "passthrough",
+    "name": "regcomp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "preg",
+        "type": "regex_t *"
+      },
+      {
+        "name": "pattern",
+        "type": "char const *"
+      },
+      {
+        "name": "cflags",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "regcomp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "preg",
+            "type": "regex_t *"
+          },
+          {
+            "name": "pattern",
+            "type": "char const *"
+          },
+          {
+            "name": "cflags",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "regerror": {
+    "type": "passthrough",
+    "name": "regerror",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "errcode",
+        "type": "int"
+      },
+      {
+        "name": "preg",
+        "type": "regex_t const *"
+      },
+      {
+        "name": "errbuf",
+        "type": "char *"
+      },
+      {
+        "name": "errbuf_size",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "regerror",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "errcode",
+            "type": "int"
+          },
+          {
+            "name": "preg",
+            "type": "regex_t const *"
+          },
+          {
+            "name": "errbuf",
+            "type": "char *"
+          },
+          {
+            "name": "errbuf_size",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "regexec": {
+    "type": "passthrough",
+    "name": "regexec",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "preg",
+        "type": "regex_t const *"
+      },
+      {
+        "name": "string",
+        "type": "char const *"
+      },
+      {
+        "name": "nmatch",
+        "type": "size_t"
+      },
+      {
+        "name": "pmatch",
+        "type": "regmatch_t *"
+      },
+      {
+        "name": "eflags",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "regexec",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "preg",
+            "type": "regex_t const *"
+          },
+          {
+            "name": "string",
+            "type": "char const *"
+          },
+          {
+            "name": "nmatch",
+            "type": "size_t"
+          },
+          {
+            "name": "pmatch",
+            "type": "regmatch_t *"
+          },
+          {
+            "name": "eflags",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "regfree": {
+    "type": "passthrough",
+    "name": "regfree",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "preg",
+        "type": "regex_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "regfree",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "preg",
+            "type": "regex_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "remove": {
+    "type": "passthrough",
+    "name": "remove",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "filename",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "remove",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "filename",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "rename": {
+    "type": "passthrough",
+    "name": "rename",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "oldname",
+        "type": "char const *"
+      },
+      {
+        "name": "newname",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "rename",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "oldname",
+            "type": "char const *"
+          },
+          {
+            "name": "newname",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "rewind": {
+    "type": "passthrough",
+    "name": "rewind",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "rewind",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "scanf": {
+    "type": "passthrough",
+    "name": "scanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "scanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "setbuf": {
+    "type": "passthrough",
+    "name": "setbuf",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "buffer",
+        "type": "char *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "setbuf",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "buffer",
+            "type": "char *"
+          }
+        ]
+      }
+    ]
+  },
+  "setjmp": {
+    "type": "passthrough",
+    "name": "setjmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "env",
+        "type": "jmp_buf"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "setjmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "env",
+            "type": "jmp_buf"
+          }
+        ]
+      }
+    ]
+  },
+  "setlocale": {
+    "type": "passthrough",
+    "name": "setlocale",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "category",
+        "type": "int"
+      },
+      {
+        "name": "locale",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "setlocale",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "category",
+            "type": "int"
+          },
+          {
+            "name": "locale",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "setvbuf": {
+    "type": "passthrough",
+    "name": "setvbuf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "buf",
+        "type": "char *"
+      },
+      {
+        "name": "type",
+        "type": "int"
+      },
+      {
+        "name": "size",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "setvbuf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "buf",
+            "type": "char *"
+          },
+          {
+            "name": "type",
+            "type": "int"
+          },
+          {
+            "name": "size",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "signal": {
+    "type": "passthrough",
+    "name": "signal",
+    "returnType": "void (*) (int)",
+    "parameters": [
+      {
+        "name": "sig",
+        "type": "int"
+      },
+      {
+        "name": "func",
+        "type": "void (*) (int)"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "signal",
+        "returnType": "void (*) (int)",
+        "parameters": [
+          {
+            "name": "sig",
+            "type": "int"
+          },
+          {
+            "name": "func",
+            "type": "void (*) (int)"
+          }
+        ]
+      }
+    ]
+  },
+  "sin": {
+    "type": "passthrough",
+    "name": "sin",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "sin",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "sinh": {
+    "type": "passthrough",
+    "name": "sinh",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "sinh",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "snprintf": {
+    "type": "passthrough",
+    "name": "snprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "outbuf",
+        "type": "char *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      },
+      {
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "snprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "outbuf",
+            "type": "char *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          },
+          {
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "sprintf": {
+    "type": "passthrough",
+    "name": "sprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "char *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "sprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "char *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "sqrt": {
+    "type": "passthrough",
+    "name": "sqrt",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "sqrt",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "srand": {
+    "type": "passthrough",
+    "name": "srand",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "seed",
+        "type": "unsigned int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "srand",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "seed",
+            "type": "unsigned int"
+          }
+        ]
+      }
+    ]
+  },
+  "sscanf": {
+    "type": "passthrough",
+    "name": "sscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "char const *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "sscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "char const *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "srtcasecmp": {
+    "type": "passthrough",
+    "name": "srtcasecmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "srtcasecmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strcat": {
+    "type": "passthrough",
+    "name": "strcat",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strcat",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strchr": {
+    "type": "passthrough",
+    "name": "strchr",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      },
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strchr",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          },
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "strcmp": {
+    "type": "passthrough",
+    "name": "strcmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strcmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strcoll": {
+    "type": "passthrough",
+    "name": "strcoll",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strcoll",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strcpy": {
+    "type": "passthrough",
+    "name": "strcpy",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strcpy",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strcspn": {
+    "type": "passthrough",
+    "name": "strcspn",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strcspn",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strerror": {
+    "type": "passthrough",
+    "name": "strerror",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "errnum",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strerror",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "errnum",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "strfmon": {
+    "type": "passthrough",
+    "name": "strfmon",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "s",
+        "type": "char *"
+      },
+      {
+        "name": "maxsize",
+        "type": "size_t"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strfmon",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "s",
+            "type": "char *"
+          },
+          {
+            "name": "maxsize",
+            "type": "size_t"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strftime": {
+    "type": "passthrough",
+    "name": "strftime",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "dest",
+        "type": "char *"
+      },
+      {
+        "name": "maxsize",
+        "type": "size_t"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "timeptr",
+        "type": "struct tm const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strftime",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "dest",
+            "type": "char *"
+          },
+          {
+            "name": "maxsize",
+            "type": "size_t"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "timeptr",
+            "type": "struct tm const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strlen": {
+    "type": "passthrough",
+    "name": "strlen",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strlen",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strncasecmp": {
+    "type": "passthrough",
+    "name": "strncasecmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strncasecmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "strncat": {
+    "type": "passthrough",
+    "name": "strncat",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strncat",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "strncmp": {
+    "type": "passthrough",
+    "name": "strncmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strncmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "strncpy": {
+    "type": "passthrough",
+    "name": "strncpy",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strncpy",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "strpbrk": {
+    "type": "passthrough",
+    "name": "strpbrk",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strpbrk",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strptime": {
+    "type": "passthrough",
+    "name": "strptime",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "buf",
+        "type": "char const *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "tm",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strptime",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "buf",
+            "type": "char const *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "tm",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "strrchr": {
+    "type": "passthrough",
+    "name": "strrchr",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      },
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strrchr",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          },
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "strspn": {
+    "type": "passthrough",
+    "name": "strspn",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strspn",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strstr": {
+    "type": "passthrough",
+    "name": "strstr",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strstr",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strtod": {
+    "type": "passthrough",
+    "name": "strtod",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "char const *"
+      },
+      {
+        "name": "endptr",
+        "type": "char **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtod",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "char const *"
+          },
+          {
+            "name": "endptr",
+            "type": "char **"
+          }
+        ]
+      }
+    ]
+  },
+  "strtod32": {
+    "type": "passthrough",
+    "name": "strtod32",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "char const *"
+      },
+      {
+        "name": "endptr",
+        "type": "char **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtod32",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "char const *"
+          },
+          {
+            "name": "endptr",
+            "type": "char **"
+          }
+        ]
+      }
+    ]
+  },
+  "strtod64": {
+    "type": "passthrough",
+    "name": "strtod64",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "char const *"
+      },
+      {
+        "name": "endptr",
+        "type": "char **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtod64",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "char const *"
+          },
+          {
+            "name": "endptr",
+            "type": "char **"
+          }
+        ]
+      }
+    ]
+  },
+  "strtod128": {
+    "type": "passthrough",
+    "name": "strtod128",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "char const *"
+      },
+      {
+        "name": "endptr",
+        "type": "char **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtod128",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "char const *"
+          },
+          {
+            "name": "endptr",
+            "type": "char **"
+          }
+        ]
+      }
+    ]
+  },
+  "strtof": {
+    "type": "passthrough",
+    "name": "strtof",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "char const *"
+      },
+      {
+        "name": "endptr",
+        "type": "char **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtof",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "char const *"
+          },
+          {
+            "name": "endptr",
+            "type": "char **"
+          }
+        ]
+      }
+    ]
+  },
+  "strtok": {
+    "type": "passthrough",
+    "name": "strtok",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtok",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "strtok_r": {
+    "type": "passthrough",
+    "name": "strtok_r",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char *"
+      },
+      {
+        "name": "seps",
+        "type": "char const *"
+      },
+      {
+        "name": "lasts",
+        "type": "char **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtok_r",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char *"
+          },
+          {
+            "name": "seps",
+            "type": "char const *"
+          },
+          {
+            "name": "lasts",
+            "type": "char **"
+          }
+        ]
+      }
+    ]
+  },
+  "strtol": {
+    "type": "passthrough",
+    "name": "strtol",
+    "returnType": "long",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "char const *"
+      },
+      {
+        "name": "endptr",
+        "type": "char **"
+      },
+      {
+        "name": "base",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtol",
+        "returnType": "long",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "char const *"
+          },
+          {
+            "name": "endptr",
+            "type": "char **"
+          },
+          {
+            "name": "base",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "strtold": {
+    "type": "passthrough",
+    "name": "strtold",
+    "returnType": "long double",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "char const *"
+      },
+      {
+        "name": "endptr",
+        "type": "char **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtold",
+        "returnType": "long double",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "char const *"
+          },
+          {
+            "name": "endptr",
+            "type": "char **"
+          }
+        ]
+      }
+    ]
+  },
+  "strtoul": {
+    "type": "passthrough",
+    "name": "strtoul",
+    "returnType": "unsigned long",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char const *"
+      },
+      {
+        "name": "string2",
+        "type": "char **"
+      },
+      {
+        "name": "base",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strtoul",
+        "returnType": "unsigned long",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char const *"
+          },
+          {
+            "name": "string2",
+            "type": "char **"
+          },
+          {
+            "name": "base",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "strxfrm": {
+    "type": "passthrough",
+    "name": "strxfrm",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "char *"
+      },
+      {
+        "name": "string2",
+        "type": "char const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "strxfrm",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "char *"
+          },
+          {
+            "name": "string2",
+            "type": "char const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "swprintf": {
+    "type": "passthrough",
+    "name": "swprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wcsbuffer",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "swprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wcsbuffer",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "swscanf": {
+    "type": "passthrough",
+    "name": "swscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "swscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "system": {
+    "type": "passthrough",
+    "name": "system",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "system",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "tan": {
+    "type": "passthrough",
+    "name": "tan",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "tan",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "tanh": {
+    "type": "passthrough",
+    "name": "tanh",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "tanh",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "time": {
+    "type": "passthrough",
+    "name": "time",
+    "returnType": "time_t",
+    "parameters": [
+      {
+        "name": "timeptr",
+        "type": "time_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "time",
+        "returnType": "time_t",
+        "parameters": [
+          {
+            "name": "timeptr",
+            "type": "time_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "time64": {
+    "type": "passthrough",
+    "name": "time64",
+    "returnType": "time_t",
+    "parameters": [
+      {
+        "name": "timeptr",
+        "type": "time_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "time64",
+        "returnType": "time_t",
+        "parameters": [
+          {
+            "name": "timeptr",
+            "type": "time_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "tmpfile": {
+    "type": "passthrough",
+    "name": "tmpfile",
+    "returnType": "FILE *",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "tmpfile",
+        "returnType": "FILE *",
+        "parameters": []
+      }
+    ]
+  },
+  "tmpnam": {
+    "type": "passthrough",
+    "name": "tmpnam",
+    "returnType": "char *",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "tmpnam",
+        "returnType": "char *",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char *"
+          }
+        ]
+      }
+    ]
+  },
+  "toascii": {
+    "type": "passthrough",
+    "name": "toascii",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "toascii",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "tolower": {
+    "type": "passthrough",
+    "name": "tolower",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "tolower",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "toupper": {
+    "type": "passthrough",
+    "name": "toupper",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "toupper",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "towctrans": {
+    "type": "passthrough",
+    "name": "towctrans",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      },
+      {
+        "name": "desc",
+        "type": "wctrans_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "towctrans",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          },
+          {
+            "name": "desc",
+            "type": "wctrans_t"
+          }
+        ]
+      }
+    ]
+  },
+  "towlower": {
+    "type": "passthrough",
+    "name": "towlower",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "towlower",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "towupper": {
+    "type": "passthrough",
+    "name": "towupper",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "towupper",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "ungetc": {
+    "type": "passthrough",
+    "name": "ungetc",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "c",
+        "type": "int"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ungetc",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "c",
+            "type": "int"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "ungetwc": {
+    "type": "passthrough",
+    "name": "ungetwc",
+    "returnType": "wint_t",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      },
+      {
+        "name": "stream",
+        "type": "FILE *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "ungetwc",
+        "returnType": "wint_t",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          },
+          {
+            "name": "stream",
+            "type": "FILE *"
+          }
+        ]
+      }
+    ]
+  },
+  "va_copy": {
+    "type": "passthrough",
+    "name": "va_copy",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "dest",
+        "type": "va_list"
+      },
+      {
+        "name": "src",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "va_copy",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "dest",
+            "type": "va_list"
+          },
+          {
+            "name": "src",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "va_end": {
+    "type": "passthrough",
+    "name": "va_end",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "va_end",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "va_start": {
+    "type": "passthrough",
+    "name": "va_start",
+    "returnType": "void",
+    "parameters": [
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "va_start",
+        "returnType": "void",
+        "parameters": [
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vfprintf": {
+    "type": "passthrough",
+    "name": "vfprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vfprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vfscanf": {
+    "type": "passthrough",
+    "name": "vfscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vfscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vfwprintf": {
+    "type": "passthrough",
+    "name": "vfwprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "arg",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vfwprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "arg",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vfwscanf": {
+    "type": "passthrough",
+    "name": "vfwscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "stream",
+        "type": "FILE *"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vfwscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "stream",
+            "type": "FILE *"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vprintf": {
+    "type": "passthrough",
+    "name": "vprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vscanf": {
+    "type": "passthrough",
+    "name": "vscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vsprintf": {
+    "type": "passthrough",
+    "name": "vsprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "target",
+        "type": "char *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vsprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "target",
+            "type": "char *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vsnprintf": {
+    "type": "passthrough",
+    "name": "vsnprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "outbuf",
+        "type": "char *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      },
+      {
+        "type": "char const *"
+      },
+      {
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vsnprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "outbuf",
+            "type": "char *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          },
+          {
+            "type": "char const *"
+          },
+          {
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vsscanf": {
+    "type": "passthrough",
+    "name": "vsscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "char const *"
+      },
+      {
+        "name": "format",
+        "type": "char const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vsscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "char const *"
+          },
+          {
+            "name": "format",
+            "type": "char const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vswprintf": {
+    "type": "passthrough",
+    "name": "vswprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wcsbuffer",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "arg",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vswprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wcsbuffer",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "arg",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vswscanf": {
+    "type": "passthrough",
+    "name": "vswscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "buffer",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vswscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "buffer",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vwprintf": {
+    "type": "passthrough",
+    "name": "vwprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "arg",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vwprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "arg",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "vwscanf": {
+    "type": "passthrough",
+    "name": "vwscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "arg_ptr",
+        "type": "va_list"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "vwscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "arg_ptr",
+            "type": "va_list"
+          }
+        ]
+      }
+    ]
+  },
+  "wcrtomb": {
+    "type": "passthrough",
+    "name": "wcrtomb",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "s",
+        "type": "char *"
+      },
+      {
+        "name": "wchar",
+        "type": "wchar_t"
+      },
+      {
+        "name": "pss",
+        "type": "mbstate_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcrtomb",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "s",
+            "type": "char *"
+          },
+          {
+            "name": "wchar",
+            "type": "wchar_t"
+          },
+          {
+            "name": "pss",
+            "type": "mbstate_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcscat": {
+    "type": "passthrough",
+    "name": "wcscat",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcscat",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcschr": {
+    "type": "passthrough",
+    "name": "wcschr",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "character",
+        "type": "wchar_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcschr",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "character",
+            "type": "wchar_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wcscmp": {
+    "type": "passthrough",
+    "name": "wcscmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcscmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcscoll": {
+    "type": "passthrough",
+    "name": "wcscoll",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wcs1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "wcs2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcscoll",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wcs1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "wcs2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcscpy": {
+    "type": "passthrough",
+    "name": "wcscpy",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcscpy",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcscspn": {
+    "type": "passthrough",
+    "name": "wcscspn",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcscspn",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsftime": {
+    "type": "passthrough",
+    "name": "wcsftime",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "wdest",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "maxsize",
+        "type": "size_t"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "timeptr",
+        "type": "struct tm const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsftime",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "wdest",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "maxsize",
+            "type": "size_t"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "timeptr",
+            "type": "struct tm const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcslen": {
+    "type": "passthrough",
+    "name": "wcslen",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcslen",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcslocaleconv": {
+    "type": "passthrough",
+    "name": "wcslocaleconv",
+    "returnType": "struct wcslconv *",
+    "parameters": [],
+    "mappings": [
+      {
+        "name": "wcslocaleconv",
+        "returnType": "struct wcslconv *",
+        "parameters": []
+      }
+    ]
+  },
+  "wcsncat": {
+    "type": "passthrough",
+    "name": "wcsncat",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsncat",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsncmp": {
+    "type": "passthrough",
+    "name": "wcsncmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsncmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsncpy": {
+    "type": "passthrough",
+    "name": "wcsncpy",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsncpy",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wcspbrk": {
+    "type": "passthrough",
+    "name": "wcspbrk",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcspbrk",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsptime": {
+    "type": "passthrough",
+    "name": "wcsptime",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "buf",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "tm",
+        "type": "struct tm *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsptime",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "buf",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "tm",
+            "type": "struct tm *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsrchr": {
+    "type": "passthrough",
+    "name": "wcsrchr",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "character",
+        "type": "wchar_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsrchr",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "character",
+            "type": "wchar_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsrtombs": {
+    "type": "passthrough",
+    "name": "wcsrtombs",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "dst",
+        "type": "char *"
+      },
+      {
+        "name": "src",
+        "type": "wchar_t const **"
+      },
+      {
+        "name": "len",
+        "type": "size_t"
+      },
+      {
+        "name": "ps",
+        "type": "mbstate_t *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsrtombs",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "dst",
+            "type": "char *"
+          },
+          {
+            "name": "src",
+            "type": "wchar_t const **"
+          },
+          {
+            "name": "len",
+            "type": "size_t"
+          },
+          {
+            "name": "ps",
+            "type": "mbstate_t *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsspn": {
+    "type": "passthrough",
+    "name": "wcsspn",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "string1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "string2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsspn",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "string2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsstr": {
+    "type": "passthrough",
+    "name": "wcsstr",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "wcs1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "wcs2",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsstr",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "wcs1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "wcs2",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstod": {
+    "type": "passthrough",
+    "name": "wcstod",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstod",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstod32": {
+    "type": "passthrough",
+    "name": "wcstod32",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstod32",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstod64": {
+    "type": "passthrough",
+    "name": "wcstod64",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstod64",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstod128": {
+    "type": "passthrough",
+    "name": "wcstod128",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstod128",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstof": {
+    "type": "passthrough",
+    "name": "wcstof",
+    "returnType": "float",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstof",
+        "returnType": "float",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstok": {
+    "type": "passthrough",
+    "name": "wcstok",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "wcs1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "wcs2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "ptr",
+        "type": "wchar_t **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstok",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "wcs1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "wcs2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "ptr",
+            "type": "wchar_t **"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstol": {
+    "type": "passthrough",
+    "name": "wcstol",
+    "returnType": "long",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      },
+      {
+        "name": "base",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstol",
+        "returnType": "long",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          },
+          {
+            "name": "base",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstold": {
+    "type": "passthrough",
+    "name": "wcstold",
+    "returnType": "long double",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstold",
+        "returnType": "long double",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstombs": {
+    "type": "passthrough",
+    "name": "wcstombs",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "dest",
+        "type": "char *"
+      },
+      {
+        "name": "string",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "count",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstombs",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "dest",
+            "type": "char *"
+          },
+          {
+            "name": "string",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "count",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wcstoul": {
+    "type": "passthrough",
+    "name": "wcstoul",
+    "returnType": "unsigned long",
+    "parameters": [
+      {
+        "name": "nptr",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "endptr",
+        "type": "wchar_t **"
+      },
+      {
+        "name": "base",
+        "type": "int"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcstoul",
+        "returnType": "unsigned long",
+        "parameters": [
+          {
+            "name": "nptr",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "endptr",
+            "type": "wchar_t **"
+          },
+          {
+            "name": "base",
+            "type": "int"
+          }
+        ]
+      }
+    ]
+  },
+  "wcsxfrm": {
+    "type": "passthrough",
+    "name": "wcsxfrm",
+    "returnType": "size_t",
+    "parameters": [
+      {
+        "name": "wcs1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "wcs2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcsxfrm",
+        "returnType": "size_t",
+        "parameters": [
+          {
+            "name": "wcs1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "wcs2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wctob": {
+    "type": "passthrough",
+    "name": "wctob",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "wc",
+        "type": "wint_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wctob",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "wc",
+            "type": "wint_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wctomb": {
+    "type": "passthrough",
+    "name": "wctomb",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "string",
+        "type": "char *"
+      },
+      {
+        "name": "character",
+        "type": "wchar_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wctomb",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "char *"
+          },
+          {
+            "name": "character",
+            "type": "wchar_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wctrans": {
+    "type": "passthrough",
+    "name": "wctrans",
+    "returnType": "wctrans_t",
+    "parameters": [
+      {
+        "name": "property",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wctrans",
+        "returnType": "wctrans_t",
+        "parameters": [
+          {
+            "name": "property",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wctype": {
+    "type": "passthrough",
+    "name": "wctype",
+    "returnType": "wctype_t",
+    "parameters": [
+      {
+        "name": "property",
+        "type": "char const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wctype",
+        "returnType": "wctype_t",
+        "parameters": [
+          {
+            "name": "property",
+            "type": "char const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wcswidth": {
+    "type": "passthrough",
+    "name": "wcswidth",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "pwcs",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wcswidth",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "pwcs",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wmemchr": {
+    "type": "passthrough",
+    "name": "wmemchr",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "s",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "c",
+        "type": "wchar_t"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wmemchr",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "s",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "c",
+            "type": "wchar_t"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wmemcmp": {
+    "type": "passthrough",
+    "name": "wmemcmp",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "s1",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "s2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wmemcmp",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "s1",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "s2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wmemcpy": {
+    "type": "passthrough",
+    "name": "wmemcpy",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "s1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "s2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wmemcpy",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "s1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "s2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wmemmove": {
+    "type": "passthrough",
+    "name": "wmemmove",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "s1",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "s2",
+        "type": "wchar_t const *"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wmemmove",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "s1",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "s2",
+            "type": "wchar_t const *"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wmemset": {
+    "type": "passthrough",
+    "name": "wmemset",
+    "returnType": "wchar_t *",
+    "parameters": [
+      {
+        "name": "s",
+        "type": "wchar_t *"
+      },
+      {
+        "name": "c",
+        "type": "wchar_t"
+      },
+      {
+        "name": "n",
+        "type": "size_t"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wmemset",
+        "returnType": "wchar_t *",
+        "parameters": [
+          {
+            "name": "s",
+            "type": "wchar_t *"
+          },
+          {
+            "name": "c",
+            "type": "wchar_t"
+          },
+          {
+            "name": "n",
+            "type": "size_t"
+          }
+        ]
+      }
+    ]
+  },
+  "wprintf": {
+    "type": "passthrough",
+    "name": "wprintf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wprintf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "wscanf": {
+    "type": "passthrough",
+    "name": "wscanf",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "format",
+        "type": "wchar_t const *"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "wscanf",
+        "returnType": "int",
+        "parameters": [
+          {
+            "name": "format",
+            "type": "wchar_t const *"
+          }
+        ]
+      }
+    ]
+  },
+  "y0": {
+    "type": "passthrough",
+    "name": "y0",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "y0",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "y1": {
+    "type": "passthrough",
+    "name": "y1",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "y1",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  },
+  "yn": {
+    "type": "passthrough",
+    "name": "yn",
+    "returnType": "double",
+    "parameters": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "x",
+        "type": "double"
+      }
+    ],
+    "mappings": [
+      {
+        "name": "yn",
+        "returnType": "double",
+        "parameters": [
+          {
+            "name": "n",
+            "type": "int"
+          },
+          {
+            "name": "x",
+            "type": "double"
+          }
+        ]
+      }
+    ]
+  }
+}

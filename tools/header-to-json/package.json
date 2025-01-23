@@ -5,8 +5,6 @@
   "description": "Converts a C/C++ header file to a JSON file",
   "type": "module",
   "scripts": {
-    "run": "clava dist/main.js -- clang CxxSources/",
-    "run:watch": "clava dist/main.js -w dist/main.js -- clang CxxSources/",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "lint": "eslint .",
