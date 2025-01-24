@@ -4,18 +4,18 @@ import ClavaJoinPoints from "@specs-feup/clava/api/clava/ClavaJoinPoints.js";
 
 export class AsyncKernelHandler extends AHandler {
     constructor(libraryPrefix: string) {
-        super("async-kernel", libraryPrefix);
+        super("async_kernel", libraryPrefix);
     }
 
     protected applyHeaderPrologue(): void {
-        this.header.addInclude(`${this.libName}-types.h`, false);
+        this.header.addInclude(`${this.libName}_types.h`, false);
         return;
     }
 
     protected buildSignature(name: string, returnType: string, parameters: Record<string, string>[]): FunctionJp {
         const newParams: Decl[] = [
             ClavaJoinPoints.param("buf", ClavaJoinPoints.type("char*")),
-            ClavaJoinPoints.param("info", ClavaJoinPoints.type("async_kernel_info*")),
+            ClavaJoinPoints.param("info", ClavaJoinPoints.type("hls_async_info*")),
             ClavaJoinPoints.param("is_last", ClavaJoinPoints.type("bool"))
         ];
 

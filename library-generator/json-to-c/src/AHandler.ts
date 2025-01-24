@@ -10,7 +10,7 @@ export abstract class AHandler {
     protected fileName: string;
 
     constructor(name: string, libName: string) {
-        this.fileName = `${libName}-${name}`;
+        this.fileName = `${libName}_${name}`;
 
         this.header = ClavaJoinPoints.file(this.fileName + ".h", ".");
         this.source = ClavaJoinPoints.file(this.fileName + ".c", ".");
@@ -22,7 +22,6 @@ export abstract class AHandler {
 
         this.source.addInclude(this.fileName + ".h", false);
         const defaultIncludes = [
-            "features-time64.h",
             "math.h",
             "nl_types.h",
             "regex.h",

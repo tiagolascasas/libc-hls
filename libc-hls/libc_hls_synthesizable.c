@@ -1,4 +1,4 @@
-#include "libc-hls-synthesizable.h"
+#include "libc_hls_synthesizable.h"
 int hls_abs(int n) {
    
    return abs(n);

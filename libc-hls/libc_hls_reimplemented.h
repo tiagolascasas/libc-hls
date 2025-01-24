@@ -1,7 +1,6 @@
 #ifndef _LIBC_HLS_REIMPLEMENTED_H_
 #define _LIBC_HLS_REIMPLEMENTED_H_
 
-#include <features-time64.h>
 #include <math.h>
 #include <nl_types.h>
 #include <regex.h>

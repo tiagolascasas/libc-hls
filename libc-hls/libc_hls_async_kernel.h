@@ -1,7 +1,6 @@
-#ifndef _LIBC_HLS_SYNTHESIZABLE_H_
-#define _LIBC_HLS_SYNTHESIZABLE_H_
+#ifndef _LIBC_HLS_ASYNC_KERNEL_H_
+#define _LIBC_HLS_ASYNC_KERNEL_H_
 
-#include <features-time64.h>
 #include <math.h>
 #include <nl_types.h>
 #include <regex.h>
@@ -16,9 +15,7 @@
 #include <time.h>
 #include <wchar.h>
 #include <wctype.h>
-int hls_abs(int n);
-double hls_acos(double x);
-double hls_asin(double x);
-double hls_atan(double x);
-double hls_atan2(double y, double x);
+#include "libc_hls_types.h"
+void hls_abort(char* buf, hls_async_info* info, bool is_last);
+void hls_assert(char* buf, hls_async_info* info, bool is_last, int expression);
 #endif

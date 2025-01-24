@@ -39,7 +39,7 @@ export class JsonToCConverter {
             const oldHeader = ClavaJoinPoints.file(header);
             Clava.addFile(oldHeader);
 
-            const headerName = `${libName}-${oldHeader.name}`;
+            const headerName = `${libName}_${oldHeader.name}`;
             headerNames.push(headerName);
 
             const newHeader = ClavaJoinPoints.file(headerName, ".");
