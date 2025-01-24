@@ -42,7 +42,7 @@ export class JsonToCConverter {
             const headerName = `${libName}-${oldHeader.name}`;
             headerNames.push(headerName);
 
-            const newHeader = ClavaJoinPoints.file(headerName, "include/internal");
+            const newHeader = ClavaJoinPoints.file(headerName, ".");
             this.copyHeader(oldHeader, newHeader);
 
             oldHeader.detach();
@@ -83,9 +83,9 @@ export class JsonToCConverter {
     }
 
     private createMasterHeader(headerNames: string[], libName: string): void {
-        const masterHeader = ClavaJoinPoints.file(libName + ".h", "include");
+        const masterHeader = ClavaJoinPoints.file(libName + ".h", ".");
         for (const headerName of headerNames) {
-            masterHeader.addInclude("internal/" + headerName, false);
+            masterHeader.addInclude(headerName, false);
         }
         Clava.addFile(masterHeader);
     }
