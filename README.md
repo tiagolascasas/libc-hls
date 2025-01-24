@@ -1,2 +1,3 @@
-# synthesizable-syscalls
-A collection of C/C++ system calls that can be synthesized using High-level Synthesis
+# libc-hls
+
+A reimplementation of many libc functions to enable High-level Synthesis compatibility
