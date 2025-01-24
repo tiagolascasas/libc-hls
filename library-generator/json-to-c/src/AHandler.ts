@@ -12,8 +12,8 @@ export abstract class AHandler {
     constructor(name: string, libName: string) {
         this.fileName = `${libName}-${name}`;
 
-        this.header = ClavaJoinPoints.file(this.fileName + ".h", ".");
-        this.source = ClavaJoinPoints.file(this.fileName + ".c", ".");
+        this.header = ClavaJoinPoints.file(this.fileName + ".h", "include/internal");
+        this.source = ClavaJoinPoints.file(this.fileName + ".c", "src");
         this.name = name;
         this.libName = libName;
 

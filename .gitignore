@@ -150,3 +150,7 @@ tools/json-to-c/woven_code/
 library-generator/header-to-json/woven_code/
 
 library-generator/header-to-json/output/
+
+library-generator/json-to-c/woven_code/
+
+library-generator/json-to-c/output/
