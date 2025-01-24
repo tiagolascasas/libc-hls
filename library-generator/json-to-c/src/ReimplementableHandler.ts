@@ -5,14 +5,8 @@ import Clava from "@specs-feup/clava/api/clava/Clava.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 export class ReimplementableHandler extends AHandler {
-    constructor(libraryPrefix: string, additionalSources: string[]) {
+    constructor(libraryPrefix: string) {
         super("reimplemented", libraryPrefix);
-
-        for (const source of additionalSources) {
-            const file = ClavaJoinPoints.file(source);
-            Clava.addFile(file);
-            //Clava.rebuild();
-        }
     }
 
     protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
@@ -51,8 +45,8 @@ export class ReimplementableHandler extends AHandler {
             for (const child of fun.body.children) {
                 const stmt = ClavaJoinPoints.stmtLiteral(child.code);
                 jps.push(stmt);
-                return jps;
             }
+            return jps;
         }
         return jps;
     }

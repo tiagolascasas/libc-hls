@@ -13,8 +13,14 @@ export class JsonToCConverter {
     }
 
     public convert(json: Record<string, any>, libName: string, additionalHeaders: string[] = [], additionalSources: string[] = [], outputFolders: string[] = ["./output"]): boolean {
+        for (const source of additionalSources) {
+            const file = ClavaJoinPoints.file(source);
+            Clava.addFile(file);
+            Clava.rebuild();
+        }
+
         const synthHandler = new SynthesizableHandler(libName);
-        const reimpHandler = new ReimplementableHandler(libName, additionalSources);
+        const reimpHandler = new ReimplementableHandler(libName);
         const asyncKernelHandler = new AsyncKernelHandler(libName);
 
         for (const [key, value] of Object.entries(json)) {
