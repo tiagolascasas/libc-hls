@@ -146,3 +146,7 @@ tools/header-to-json/woven_code/
 tools/json-to-c/output/
 
 tools/json-to-c/woven_code/
+
+library-generator/header-to-json/woven_code/
+
+library-generator/header-to-json/output/
