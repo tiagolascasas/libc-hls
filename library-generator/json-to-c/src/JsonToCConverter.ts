@@ -7,7 +7,7 @@ import { ReimplementableHandler } from "./ReimplementableHandler.js";
 import { AsyncKernelHandler } from "./AsyncKernelHandler.js";
 import { FileJp } from "@specs-feup/clava/api/Joinpoints.js";
 import { AsyncHostAllocHandler } from "./AsyncHostAllocHandler.js";
-import { AsyncHostListenerHandler } from "./AsyncHostListenerHandler copy.js";
+import { AsyncHostListenerHandler } from "./AsyncHostListenerHandler.js";
 
 export class JsonToCConverter {
     constructor() {
