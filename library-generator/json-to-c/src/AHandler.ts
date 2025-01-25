@@ -46,11 +46,7 @@ export abstract class AHandler {
     public handle(signature: Record<string, any>): void {
         const mappings = signature["mappings"];
         for (const mapping of mappings) {
-            const name = mapping["name"];
-            const returnType = mapping["returnType"];
-            const parameters = mapping["parameters"];
-
-            const newSig = this.buildSignature(name, returnType, parameters);
+            const newSig = this.buildSignature(signature, mapping);
             this.header.insertEnd(newSig);
 
             const newImpl = this.buildFunctionImpl(signature, newSig);
@@ -62,8 +58,12 @@ export abstract class AHandler {
         return this.fileName + ".h";
     }
 
-    protected buildSignature(name: string, returnType: string, parameters: Record<string, string>[]): FunctionJp {
+    protected buildSignature(original: Record<string, any>, mapping: Record<string, any>): FunctionJp {
+        const name = mapping["name"] as string;
+        const returnType = mapping["returnType"] as string;
+        const parameters = mapping["parameters"] as [];
         const newParams: Decl[] = [];
+
         for (const param of parameters) {
             newParams.push(ClavaJoinPoints.param(param["name"], ClavaJoinPoints.type(param["type"])));
         }

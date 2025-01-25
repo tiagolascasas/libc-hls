@@ -12,7 +12,11 @@ export class AsyncKernelHandler extends AHandler {
         return;
     }
 
-    protected buildSignature(name: string, returnType: string, parameters: Record<string, string>[]): FunctionJp {
+    protected buildSignature(original: Record<string, any>, mapping: Record<string, any>): FunctionJp {
+        const name = mapping["name"] as string;
+        const returnType = mapping["returnType"] as string;
+        const parameters = mapping["parameters"] as [];
+
         const newParams: Decl[] = [
             ClavaJoinPoints.param("buf", ClavaJoinPoints.type("char*")),
             ClavaJoinPoints.param("info", ClavaJoinPoints.type("hls_async_info*")),

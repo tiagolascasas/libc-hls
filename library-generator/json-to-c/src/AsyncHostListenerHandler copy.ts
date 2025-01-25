@@ -12,7 +12,11 @@ export class AsyncHostListenerHandler extends AHandler {
         return;
     }
 
-    protected buildSignature(name: string, returnType: string, parameters: Record<string, string>[]): FunctionJp {
+    protected buildSignature(original: Record<string, any>, mapping: Record<string, any>): FunctionJp {
+        const name = mapping["name"] as string;
+        const returnType = mapping["returnType"] as string;
+        const parameters = mapping["parameters"] as [];
+
         const newParams: Decl[] = [];
         for (const param of parameters) {
             newParams.push(ClavaJoinPoints.param(param["name"], ClavaJoinPoints.type(param["type"])));
@@ -21,9 +25,9 @@ export class AsyncHostListenerHandler extends AHandler {
         return newFun;
     }
 
-
     protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
         const newFun = newSig.copy() as FunctionJp;
+
 
 
         return newFun;
