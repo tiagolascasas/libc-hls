@@ -1,4 +1,4 @@
-import { FunctionJp, Joinpoint, Statement } from "@specs-feup/clava/api/Joinpoints.js";
+import { FunctionJp, Joinpoint } from "@specs-feup/clava/api/Joinpoints.js";
 import { AHandler } from "./AHandler.js";
 import ClavaJoinPoints from "@specs-feup/clava/api/clava/ClavaJoinPoints.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";

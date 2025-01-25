@@ -16,6 +16,6 @@
 #include <wchar.h>
 #include <wctype.h>
 #include "libc_hls_types.h"
-void hls_abort();
-void hls_assert(int expression);
+hls_async_call* hls_abort_alloc(unsigned int n_calls);
+hls_async_call* hls_assert_alloc(unsigned int n_calls);
 #endif
