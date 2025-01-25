@@ -31,7 +31,6 @@ export class ReimplementableHandler extends AHandler {
         const jps: Joinpoint[] = [];
 
         for (const fun of Query.search(FunctionJp, { name: signature.name })) {
-            console.log(fun);
             if (!fun.isImplementation) {
                 continue;
             }

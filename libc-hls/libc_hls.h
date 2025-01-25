@@ -2,6 +2,8 @@
 #define _LIBC_HLS_H_
 
 #include "libc_hls_types.h"
+#include "libc_hls_passthrough.h"
+#include "libc_hls_host.h"
 #include "libc_hls_synthesizable.h"
 #include "libc_hls_reimplemented.h"
 #include "libc_hls_async_kernel.h"

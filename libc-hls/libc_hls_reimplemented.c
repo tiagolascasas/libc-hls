@@ -64,3 +64,15 @@ double hls_atof(char const * string) {
    
    return sign * result;
 }
+
+int atoi(char const * string) {
+   //TODO: Implement this function
+}
+
+long atol(char const * string) {
+   //TODO: Implement this function
+}
+
+void * bsearch(void const * key, void const * base, size_t num, size_t size) {
+   //TODO: Implement this function
+}

@@ -8,6 +8,7 @@ import { AsyncKernelHandler } from "./AsyncKernelHandler.js";
 import { FileJp } from "@specs-feup/clava/api/Joinpoints.js";
 import { AsyncHostAllocHandler } from "./AsyncHostAllocHandler.js";
 import { AsyncHostListenerHandler } from "./AsyncHostListenerHandler.js";
+import { PassthroughHandler } from "./PassthroughHandler.js";
 
 export class JsonToCConverter {
     constructor() {
@@ -21,6 +22,8 @@ export class JsonToCConverter {
             Clava.rebuild();
         }
 
+        const passthroughHandler = new PassthroughHandler(libName, "passthrough");
+        const hostHandler = new PassthroughHandler(libName, "host");
         const synthHandler = new SynthesizableHandler(libName);
         const reimpHandler = new ReimplementableHandler(libName);
         const asyncKernelHandler = new AsyncKernelHandler(libName);
@@ -29,9 +32,11 @@ export class JsonToCConverter {
 
         for (const [key, value] of Object.entries(json)) {
             const type = value["type"];
-            if (type == "passthrough" || type == "host") {
-                //console.log(`Function ${key} is of type ${type}, skipping`);
-                continue;
+            if (type == "passthrough") {
+                passthroughHandler.handle(value);
+            }
+            if (type == "host") {
+                hostHandler.handle(value);
             }
             if (type == "synthesizable") {
                 synthHandler.handle(value);
@@ -62,6 +67,8 @@ export class JsonToCConverter {
             Clava.addFile(newHeader);
 
         }
+        headerNames.push(passthroughHandler.getHeaderName());
+        headerNames.push(hostHandler.getHeaderName());
         headerNames.push(synthHandler.getHeaderName());
         headerNames.push(reimpHandler.getHeaderName());
         headerNames.push(asyncKernelHandler.getHeaderName());

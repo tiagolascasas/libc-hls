@@ -259,7 +259,7 @@
     ]
   },
   "atoi": {
-    "type": "passthrough",
+    "type": "reimplementable",
     "name": "atoi",
     "returnType": "int",
     "parameters": [
@@ -282,7 +282,7 @@
     ]
   },
   "atol": {
-    "type": "passthrough",
+    "type": "reimplementable",
     "name": "atol",
     "returnType": "long",
     "parameters": [
@@ -305,7 +305,7 @@
     ]
   },
   "bsearch": {
-    "type": "passthrough",
+    "type": "reimplementable",
     "name": "bsearch",
     "returnType": "void *",
     "parameters": [
@@ -350,10 +350,6 @@
           {
             "name": "size",
             "type": "size_t"
-          },
-          {
-            "name": "compare",
-            "type": "int (*) (void const *, void const *)"
           }
         ]
       }
@@ -4897,6 +4893,7 @@
         "type": "size_t"
       },
       {
+        "name": "format",
         "type": "char const *"
       }
     ],
@@ -4914,6 +4911,7 @@
             "type": "size_t"
           },
           {
+            "name": "format",
             "type": "char const *"
           }
         ]
@@ -6846,9 +6844,11 @@
         "type": "size_t"
       },
       {
+        "name": "format",
         "type": "char const *"
       },
       {
+        "name": "arg_ptr",
         "type": "va_list"
       }
     ],
@@ -6866,9 +6866,11 @@
             "type": "size_t"
           },
           {
+            "name": "format",
             "type": "char const *"
           },
           {
+            "name": "arg_ptr",
             "type": "va_list"
           }
         ]
