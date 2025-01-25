@@ -5,4 +5,5 @@
 #include "libc_hls_synthesizable.h"
 #include "libc_hls_reimplemented.h"
 #include "libc_hls_async_kernel.h"
+#include "libc_hls_async_host.h"
 #endif

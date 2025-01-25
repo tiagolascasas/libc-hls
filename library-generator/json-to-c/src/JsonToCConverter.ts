@@ -6,6 +6,7 @@ import { SynthesizableHandler } from "./SynthesizableHandler.js";
 import { ReimplementableHandler } from "./ReimplementableHandler.js";
 import { AsyncKernelHandler } from "./AsyncKernelHandler.js";
 import { FileJp } from "@specs-feup/clava/api/Joinpoints.js";
+import { AsyncHostHandler } from "./AsyncHostHandler.js";
 
 export class JsonToCConverter {
     constructor() {
@@ -22,6 +23,7 @@ export class JsonToCConverter {
         const synthHandler = new SynthesizableHandler(libName);
         const reimpHandler = new ReimplementableHandler(libName);
         const asyncKernelHandler = new AsyncKernelHandler(libName);
+        const asyncHostHandler = new AsyncHostHandler(libName);
 
         for (const [key, value] of Object.entries(json)) {
             const type = value["type"];
@@ -37,8 +39,10 @@ export class JsonToCConverter {
             }
             if (type == "async") {
                 asyncKernelHandler.handle(value);
+                asyncHostHandler.handle(value);
             }
         }
+        asyncHostHandler.applyHeaderEpilogue();
 
         const headerNames: string[] = [];
         for (const header of additionalHeaders) {
@@ -58,6 +62,7 @@ export class JsonToCConverter {
         headerNames.push(synthHandler.getHeaderName());
         headerNames.push(reimpHandler.getHeaderName());
         headerNames.push(asyncKernelHandler.getHeaderName());
+        headerNames.push(asyncHostHandler.getHeaderName());
         this.createMasterHeader(headerNames, libName);
 
         this.deleteAdditionalFiles(additionalSources);

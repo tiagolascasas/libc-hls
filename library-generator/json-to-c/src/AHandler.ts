@@ -75,5 +75,9 @@ export abstract class AHandler {
         return;
     }
 
+    public applyHeaderEpilogue(): void {
+        return;
+    }
+
     protected abstract buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp;
 }
