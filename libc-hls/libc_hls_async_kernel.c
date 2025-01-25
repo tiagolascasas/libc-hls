@@ -3,6 +3,8 @@ void hls_abort(char* buf, hls_async_info* info, bool is_last) {
    if(info->idx == -1) {
       info->idx = 0;
    }
+   *((int8_t *)(buf + info->idx)) = (int8_t)true;
+   info->idx += sizeof(int8_t);
    if(is_last) {
       info->is_closed = true;
    }
@@ -23,6 +25,8 @@ int hls_fflush(char* buf, hls_async_info* info, bool is_last) {
    if(info->idx == -1) {
       info->idx = 0;
    }
+   *((int8_t *)(buf + info->idx)) = (int8_t)true;
+   info->idx += sizeof(int8_t);
    if(is_last) {
       info->is_closed = true;
    }

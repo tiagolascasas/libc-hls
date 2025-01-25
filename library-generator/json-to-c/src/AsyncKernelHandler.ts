@@ -40,16 +40,16 @@ export class AsyncKernelHandler extends AHandler {
         const ifBody = ClavaJoinPoints.stmtLiteral(`${info}->idx = 0;`);
         const ifStmt = ClavaJoinPoints.ifStmt(ifCond, ifBody);
 
-        // push to buffer
+        const args = mapping.parameters.length > 0 ? mapping.parameters : [{ name: "true", type: "int8_t" }];
         const pushStmts: Statement[] = [];
-        for (let i = 3; i < newFun.params.length; i++) {
-            const param = newFun.params[i];
-            const paramName = param.name;
-            const type = param.type.code;
 
-            const memOp = `*((${type} *)(buf + info->idx)) = (${type})${paramName};`;
+        for (const arg of args) {
+            const argName = arg.name;
+            const argType = arg.type;
+
+            const memOp = `*((${argType} *)(buf + info->idx)) = (${argType})${argName};`;
             const memStmt = ClavaJoinPoints.stmtLiteral(memOp);
-            const increment = `info->idx += sizeof(${type});`;
+            const increment = `info->idx += sizeof(${argType});`;
             const incrementStmt = ClavaJoinPoints.stmtLiteral(increment);
 
             pushStmts.push(memStmt);
