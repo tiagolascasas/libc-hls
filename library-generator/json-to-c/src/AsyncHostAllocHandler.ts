@@ -14,9 +14,6 @@ export class AsyncHostAllocHandler extends AHandler {
 
     protected buildSignature(original: Record<string, any>, mapping: Record<string, any>): FunctionJp {
         const name = mapping["name"] as string;
-        const returnType = mapping["returnType"] as string;
-        const parameters = mapping["parameters"] as [];
-
         const newName = `${name}_alloc`;
         const retType = ClavaJoinPoints.type("hls_async_call*");
 
@@ -27,18 +24,16 @@ export class AsyncHostAllocHandler extends AHandler {
         return newFun;
     }
 
-    protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
+    protected buildFunctionImpl(signature: Record<string, any>, mapping: Record<string, any>, newSig: FunctionJp): FunctionJp {
         const newFun = newSig.copy() as FunctionJp;
 
         const sizes = [];
-        for (const param of signature.parameters) {
+        for (const param of mapping.parameters) {
             sizes.push(`sizeof(${param.type})`);
         }
-        if (sizes.length === 0) {
-            sizes.push("1");
-        }
+        const sizeExpr = sizes.length === 0 ? "" : `(${sizes.join(" + ")}) * `;
         const code = [
-            `size_t buf_size = (${sizes.join(" + ")}) * n_calls;`,
+            `size_t buf_size = ${sizeExpr}n_calls;`,
             `int8_t* buf = (int8_t*)malloc(buf_size);`,
             ``,
             `hls_async_call* call = (hls_async_call*)malloc(sizeof(hls_async_call));`,

@@ -18,5 +18,6 @@
 #include "libc_hls_types.h"
 void hls_abort(char* buf, hls_async_info* info, bool is_last);
 void hls_assert(char* buf, hls_async_info* info, bool is_last, int expression);
+int hls_fflush(char* buf, hls_async_info* info, bool is_last);
 void hls_close_async(hls_async_info* info);
 #endif

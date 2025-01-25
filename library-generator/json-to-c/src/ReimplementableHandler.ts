@@ -8,7 +8,7 @@ export class ReimplementableHandler extends AHandler {
         super("reimplemented", libraryPrefix);
     }
 
-    protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
+    protected buildFunctionImpl(signature: Record<string, any>, mapping: Record<string, any>, newSig: FunctionJp): FunctionJp {
         const newFun = newSig.copy() as FunctionJp;
 
         const stmts: Joinpoint[] = [];

@@ -1036,7 +1036,7 @@
     ]
   },
   "fflush": {
-    "type": "passthrough",
+    "type": "async",
     "name": "fflush",
     "returnType": "int",
     "parameters": [
@@ -1047,14 +1047,9 @@
     ],
     "mappings": [
       {
-        "name": "fflush",
+        "name": "hls_fflush",
         "returnType": "int",
-        "parameters": [
-          {
-            "name": "stream",
-            "type": "FILE *"
-          }
-        ]
+        "parameters": []
       }
     ]
   },

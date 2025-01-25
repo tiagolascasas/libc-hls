@@ -18,4 +18,5 @@
 #include "libc_hls_types.h"
 void hls_abort();
 void hls_assert(int expression);
+int hls_fflush();
 #endif

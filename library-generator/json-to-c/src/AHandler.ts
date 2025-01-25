@@ -49,7 +49,7 @@ export abstract class AHandler {
             const newSig = this.buildSignature(signature, mapping);
             this.header.insertEnd(newSig);
 
-            const newImpl = this.buildFunctionImpl(signature, newSig);
+            const newImpl = this.buildFunctionImpl(signature, mapping, newSig);
             this.source.insertEnd(newImpl);
         }
     }
@@ -79,5 +79,5 @@ export abstract class AHandler {
         return;
     }
 
-    protected abstract buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp;
+    protected abstract buildFunctionImpl(signature: Record<string, any>, mapping: Record<string, any>, newSig: FunctionJp): FunctionJp;
 }

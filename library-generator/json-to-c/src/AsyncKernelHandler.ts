@@ -31,7 +31,7 @@ export class AsyncKernelHandler extends AHandler {
         return newFun;
     }
 
-    protected buildFunctionImpl(signature: Record<string, any>, newSig: FunctionJp): FunctionJp {
+    protected buildFunctionImpl(signature: Record<string, any>, mapping: Record<string, any>, newSig: FunctionJp): FunctionJp {
         const newFun = newSig.copy() as FunctionJp;
         const info = newFun.params[1].name;
         const isLast = newFun.params[2].name;
