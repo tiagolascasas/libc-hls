@@ -16,7 +16,7 @@
 #include <wchar.h>
 #include <wctype.h>
 #include "libc_hls_types.h"
-void hls_abort();
-void hls_assert(int expression);
-int hls_fflush();
+bool hls_abort_listen(hls_async_info* info);
+bool hls_assert_listen(hls_async_info* info);
+bool hls_fflush_listen(hls_async_info* info, FILE * stream);
 #endif

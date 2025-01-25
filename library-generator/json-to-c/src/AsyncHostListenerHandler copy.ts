@@ -14,14 +14,22 @@ export class AsyncHostListenerHandler extends AHandler {
 
     protected buildSignature(original: Record<string, any>, mapping: Record<string, any>): FunctionJp {
         const name = mapping["name"] as string;
-        const returnType = mapping["returnType"] as string;
-        const parameters = mapping["parameters"] as [];
+        const newName = `${name}_listen`;
 
-        const newParams: Decl[] = [];
+        const mapParams = mapping["parameters"] as [];
+        const oriParams = original["parameters"] as [];
+
+        const sliceN = oriParams.length - mapParams.length;
+        const parameters = oriParams.slice(0, sliceN);
+
+        const newParams: Decl[] = [
+            ClavaJoinPoints.param("info", ClavaJoinPoints.type("hls_async_info*"))
+        ];
         for (const param of parameters) {
             newParams.push(ClavaJoinPoints.param(param["name"], ClavaJoinPoints.type(param["type"])));
         }
-        const newFun = ClavaJoinPoints.functionDecl(name, ClavaJoinPoints.type(returnType), ...newParams);
+
+        const newFun = ClavaJoinPoints.functionDecl(newName, ClavaJoinPoints.type("bool"), ...newParams);
         return newFun;
     }
 
