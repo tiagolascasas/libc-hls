@@ -18,3 +18,7 @@ void hls_assert(char* buf, hls_async_info* info, bool is_last, int expression) {
       info->is_closed = true;
    }
 }
+
+void hls_close_async(hls_async_info* info) {
+   info->is_closed = true;
+}

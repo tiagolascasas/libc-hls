@@ -65,4 +65,18 @@ export class AsyncKernelHandler extends AHandler {
         newFun.setBody(body);
         return newFun;
     }
+
+    public applyHeaderEpilogue(): void {
+        const closeFun = ClavaJoinPoints.functionDecl("hls_close_async", ClavaJoinPoints.type("void"), ClavaJoinPoints.param("info", ClavaJoinPoints.type("hls_async_info*")));
+        this.header.insertEnd(closeFun);
+
+        const closeFunImpl = closeFun.copy() as FunctionJp;
+
+        const closeStmt = ClavaJoinPoints.stmtLiteral("info->is_closed = true;");
+        const closeBody = ClavaJoinPoints.scope(closeStmt);
+        closeFunImpl.setBody(closeBody);
+
+        this.source.insertEnd(closeFunImpl);
+        return;
+    }
 }

@@ -3,9 +3,9 @@ import { AHandler } from "./AHandler.js";
 import ClavaJoinPoints from "@specs-feup/clava/api/clava/ClavaJoinPoints.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
-export class AsyncHostAllocHandler extends AHandler {
+export class AsyncHostListenerHandler extends AHandler {
     constructor(libraryPrefix: string) {
-        super("async_host_alloc", libraryPrefix);
+        super("async_host_listener", libraryPrefix);
     }
 
     protected applyHeaderPrologue(): void {
@@ -28,19 +28,5 @@ export class AsyncHostAllocHandler extends AHandler {
 
 
         return newFun;
-    }
-
-    public applyHeaderEpilogue(): void {
-        const closeFun = ClavaJoinPoints.functionDecl("hls_close_async", ClavaJoinPoints.type("void"), ClavaJoinPoints.param("info", ClavaJoinPoints.type("hls_async_info*")));
-        this.header.insertEnd(closeFun);
-
-        const closeFunImpl = closeFun.copy() as FunctionJp;
-
-        const closeStmt = ClavaJoinPoints.stmtLiteral("info->is_closed = true;");
-        const closeBody = ClavaJoinPoints.scope(closeStmt);
-        closeFunImpl.setBody(closeBody);
-
-        this.source.insertEnd(closeFunImpl);
-        return;
     }
 }

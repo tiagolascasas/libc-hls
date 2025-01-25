@@ -1,5 +1,5 @@
-#ifndef _LIBC_HLS_ASYNC_HOST_H_
-#define _LIBC_HLS_ASYNC_HOST_H_
+#ifndef _LIBC_HLS_ASYNC_HOST_LISTENER_H_
+#define _LIBC_HLS_ASYNC_HOST_LISTENER_H_
 
 #include <math.h>
 #include <nl_types.h>
@@ -18,5 +18,4 @@
 #include "libc_hls_types.h"
 void hls_abort();
 void hls_assert(int expression);
-void hls_close_async(hls_async_info* info);
 #endif

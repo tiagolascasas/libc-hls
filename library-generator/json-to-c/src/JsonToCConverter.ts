@@ -6,7 +6,8 @@ import { SynthesizableHandler } from "./SynthesizableHandler.js";
 import { ReimplementableHandler } from "./ReimplementableHandler.js";
 import { AsyncKernelHandler } from "./AsyncKernelHandler.js";
 import { FileJp } from "@specs-feup/clava/api/Joinpoints.js";
-import { AsyncHostHandler } from "./AsyncHostHandler.js";
+import { AsyncHostAllocHandler } from "./AsyncHostAllocHandler.js";
+import { AsyncHostListenerHandler } from "./AsyncHostListenerHandler copy.js";
 
 export class JsonToCConverter {
     constructor() {
@@ -23,7 +24,8 @@ export class JsonToCConverter {
         const synthHandler = new SynthesizableHandler(libName);
         const reimpHandler = new ReimplementableHandler(libName);
         const asyncKernelHandler = new AsyncKernelHandler(libName);
-        const asyncHostHandler = new AsyncHostHandler(libName);
+        const asyncHostAllocHandler = new AsyncHostAllocHandler(libName);
+        const asyncHostListenerHandler = new AsyncHostListenerHandler(libName);
 
         for (const [key, value] of Object.entries(json)) {
             const type = value["type"];
@@ -39,10 +41,11 @@ export class JsonToCConverter {
             }
             if (type == "async") {
                 asyncKernelHandler.handle(value);
-                asyncHostHandler.handle(value);
+                asyncHostAllocHandler.handle(value);
+                asyncHostListenerHandler.handle(value);
             }
         }
-        asyncHostHandler.applyHeaderEpilogue();
+        asyncKernelHandler.applyHeaderEpilogue();
 
         const headerNames: string[] = [];
         for (const header of additionalHeaders) {
@@ -62,7 +65,8 @@ export class JsonToCConverter {
         headerNames.push(synthHandler.getHeaderName());
         headerNames.push(reimpHandler.getHeaderName());
         headerNames.push(asyncKernelHandler.getHeaderName());
-        headerNames.push(asyncHostHandler.getHeaderName());
+        headerNames.push(asyncHostAllocHandler.getHeaderName());
+        headerNames.push(asyncHostListenerHandler.getHeaderName());
         this.createMasterHeader(headerNames, libName);
 
         this.deleteAdditionalFiles(additionalSources);
