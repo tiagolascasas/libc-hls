@@ -18,5 +18,11 @@
 #include "libc_hls_types.h"
 bool hls_abort_listen(hls_async_call* call);
 bool hls_assert_listen(hls_async_call* call);
+bool hls_exit_listen(hls_async_call* call);
+bool hls_fclose_listen(hls_async_call* call, FILE * stream);
 bool hls_fflush_listen(hls_async_call* call, FILE * stream);
+bool hls_fprintf_int_listen(hls_async_call* call, FILE * stream);
+bool hls_fprintf_str_listen(hls_async_call* call, FILE * stream);
+bool hls_fputc_listen(hls_async_call* call, int c);
+bool hls_fputs_listen(hls_async_call* call, char const * string);
 #endif

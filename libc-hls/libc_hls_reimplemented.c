@@ -76,3 +76,31 @@ long atol(char const * string) {
 void * bsearch(void const * key, void const * base, size_t num, size_t size) {
    //TODO: Implement this function
 }
+
+wint_t btowc(int c) {
+   //TODO: Implement this function
+}
+
+char * ctime(time_t const * time) {
+   //TODO: Implement this function
+}
+
+char * ctime64(time_t const * time) {
+   //TODO: Implement this function
+}
+
+char * ctime_r(time_t const * time, char * buf) {
+   //TODO: Implement this function
+}
+
+char * ctime64_r(time_t const * time, char * buf) {
+   //TODO: Implement this function
+}
+
+double difftime(time_t time2, time_t time1) {
+   //TODO: Implement this function
+}
+
+double difftime64(time_t time2, time_t time1) {
+   //TODO: Implement this function
+}

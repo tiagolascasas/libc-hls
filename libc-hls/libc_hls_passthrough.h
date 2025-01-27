@@ -15,44 +15,6 @@
 #include <time.h>
 #include <wchar.h>
 #include <wctype.h>
-wint_t hls_btowc(int c);
-void * hls_calloc(size_t num, size_t size);
-int hls_catclose(nl_catd catd);
-char * hls_catgets(nl_catd catd, int set_id, int msg_id, char const * s);
-nl_catd hls_catopen(char const * name, int oflag);
-double hls_ceil(double x);
-void hls_clearerr(FILE * stream);
-clock_t hls_clock();
-double hls_cos(double x);
-double hls_cosh(double x);
-char * hls_ctime(time_t const * time);
-char * hls_ctime64(time_t const * time);
-char * hls_ctime_r(time_t const * time, char * buf);
-char * hls_ctime64_r(time_t const * time, char * buf);
-double hls_difftime(time_t time2, time_t time1);
-double hls_difftime64(time_t time2, time_t time1);
-div_t hls_div(int numerator, int denominator);
-double hls_erf(double x);
-double hls_erfc(double x);
-void hls_exit(int status);
-double hls_exp(double x);
-double hls_fabs(double x);
-int hls_fclose(FILE * stream);
-FILE * hls_fdopen(int handle, char const * type);
-int hls_feof(FILE * stream);
-int hls_ferror(FILE * stream);
-int hls_fgetc(FILE * stream);
-int hls_fgetpos(FILE * stream, fpos_t * pos);
-char * hls_fgets(char * string, int n, FILE * stream);
-wint_t hls_fgetwc(FILE * stream);
-wchar_t * hls_fgetws(wchar_t * wcs, int n, FILE * stream);
-int hls_fileno(FILE * stream);
-double hls_floor(double x);
-double hls_fmod(double x, double y);
-FILE * hls_fopen(char const * filename, char const * mode);
-int hls_fprintf(FILE * stream, char const * format);
-int hls_fputc(int c, FILE * stream);
-int hls_fputs(char const * string, FILE * stream);
 wint_t hls_fputwc(wchar_t wc, FILE * stream);
 int hls_fputws(wchar_t const * wcs, FILE * stream);
 size_t hls_fread(void * buffer, size_t size, size_t count, FILE * stream);

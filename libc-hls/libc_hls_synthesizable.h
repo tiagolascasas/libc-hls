@@ -20,4 +20,14 @@ double hls_acos(double x);
 double hls_asin(double x);
 double hls_atan(double x);
 double hls_atan2(double y, double x);
+double ceil(double x);
+double cos(double x);
+double cosh(double x);
+div_t div(int numerator, int denominator);
+double erf(double x);
+double erfc(double x);
+double exp(double x);
+double fabs(double x);
+double floor(double x);
+double fmod(double x, double y);
 #endif

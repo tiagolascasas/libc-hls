@@ -18,5 +18,11 @@
 #include "libc_hls_types.h"
 hls_async_call* hls_abort_alloc(unsigned int n_calls);
 hls_async_call* hls_assert_alloc(unsigned int n_calls);
+hls_async_call* hls_exit_alloc(unsigned int n_calls);
+hls_async_call* hls_fclose_alloc(unsigned int n_calls);
 hls_async_call* hls_fflush_alloc(unsigned int n_calls);
+hls_async_call* hls_fprintf_int_alloc(unsigned int n_calls);
+hls_async_call* hls_fprintf_str_alloc(unsigned int n_calls);
+hls_async_call* hls_fputc_alloc(unsigned int n_calls);
+hls_async_call* hls_fputs_alloc(unsigned int n_calls);
 #endif
