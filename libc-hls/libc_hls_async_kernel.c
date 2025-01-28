@@ -65,12 +65,12 @@ int hls_fprintf_int(char* buf, hls_async_info* info, bool is_last, int num) {
    }
 }
 
-int hls_fprintf_str(char* buf, hls_async_info* info, bool is_last, char[128] str) {
+int hls_fprintf_str(char* buf, hls_async_info* info, bool is_last, char* str, size_t str_size) {
    if(info->idx == -1) {
       info->idx = 0;
    }
-   *((char[128] *)(buf + info->idx)) = (char[128])str;
-   info->idx += sizeof(char[128]);
+   *((char[N] *)(buf + info->idx)) = (char[N])str;
+   info->idx += sizeof(char[N]);
    if(is_last) {
       info->is_closed = true;
    }

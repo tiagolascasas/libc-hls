@@ -1338,7 +1338,7 @@
         "parameters": [
           {
             "name": "str",
-            "type": "char[128]"
+            "type": "char[N]"
           }
         ]
       }

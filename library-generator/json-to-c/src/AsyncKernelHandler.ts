@@ -24,7 +24,18 @@ export class AsyncKernelHandler extends AHandler {
         ];
 
         for (const param of parameters) {
-            newParams.push(ClavaJoinPoints.param(param["name"], ClavaJoinPoints.type(param["type"])));
+            const baseType = param["type"] as string;
+            if (baseType.includes("[")) {
+                const type = baseType.split("[")[0] + "*";
+                const typeJp = ClavaJoinPoints.type(type);
+
+                newParams.push(ClavaJoinPoints.param(param["name"], typeJp));
+                newParams.push(ClavaJoinPoints.param(`${param["name"]}_size`, ClavaJoinPoints.type("size_t")));
+            }
+            else {
+                const typeJp = ClavaJoinPoints.type(baseType);
+                newParams.push(ClavaJoinPoints.param(param["name"], typeJp));
+            }
         }
 
         const newFun = ClavaJoinPoints.functionDecl(name, ClavaJoinPoints.type(returnType), ...newParams);

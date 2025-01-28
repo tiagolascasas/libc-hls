@@ -22,7 +22,7 @@ void hls_exit(char* buf, hls_async_info* info, bool is_last, int status);
 int hls_fclose(char* buf, hls_async_info* info, bool is_last);
 int hls_fflush(char* buf, hls_async_info* info, bool is_last);
 int hls_fprintf_int(char* buf, hls_async_info* info, bool is_last, int num);
-int hls_fprintf_str(char* buf, hls_async_info* info, bool is_last, char[128] str);
+int hls_fprintf_str(char* buf, hls_async_info* info, bool is_last, char* str, size_t str_size);
 int hls_fputc(char* buf, hls_async_info* info, bool is_last, int c);
 int hls_fputs(char* buf, hls_async_info* info, bool is_last, char const * string);
 void hls_close_async(hls_async_info* info);

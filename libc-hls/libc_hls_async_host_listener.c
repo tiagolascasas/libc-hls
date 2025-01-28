@@ -88,9 +88,9 @@ bool hls_fprintf_str_listen(hls_async_call* call, FILE * stream) {
       call->host_idx = 0;
    }
    int8_t *curr_ptr ;
-   int8_t *curr_ptr = call->buffer + sizeof(char[128]);
-   char[128] str = *((char[128] *)curr_ptr);
-   call->host_idx += sizeof(char[128]);
+   int8_t *curr_ptr = call->buffer + sizeof(char[N]);
+   char[N] str = *((char[N] *)curr_ptr);
+   call->host_idx += sizeof(char[N]);
    fprintf(stream, str);
    return true;
 }
