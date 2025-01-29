@@ -15,15 +15,15 @@
 #include <time.h>
 #include <wchar.h>
 #include <wctype.h>
-double hls_atof(char const * string);
-int atoi(char const * string);
-long atol(char const * string);
-void * bsearch(void const * key, void const * base, size_t num, size_t size);
+double hls_atof(char const* string);
+int    atoi(char const* string);
+long   atol(char const* string);
+void*  bsearch(void const* key, void const* base, size_t num, size_t size);
 wint_t btowc(int c);
-char * ctime(time_t const * time);
-char * ctime64(time_t const * time);
-char * ctime_r(time_t const * time, char * buf);
-char * ctime64_r(time_t const * time, char * buf);
+char*  ctime(time_t const* time);
+char*  ctime64(time_t const* time);
+char*  ctime_r(time_t const* time, char* buf);
+char*  ctime64_r(time_t const* time, char* buf);
 double difftime(time_t time2, time_t time1);
 double difftime64(time_t time2, time_t time1);
 #endif
