@@ -58,13 +58,25 @@ export class AsyncKernelHandler extends AHandler {
             const argName = arg.name;
             const argType = arg.type;
 
-            const memOp = `*((${argType} *)(buf + info->idx)) = (${argType})${argName};`;
-            const memStmt = ClavaJoinPoints.stmtLiteral(memOp);
-            const increment = `info->idx += sizeof(${argType});`;
-            const incrementStmt = ClavaJoinPoints.stmtLiteral(increment);
+            if (argType.includes("[")) {
+                const forLoop = `
+int ${argName}_idx;
+for (${argName}_idx = 0; ${argName}_idx < ${argName}_size; ${argName}_idx++) {
+    *((${argType.split("[")[0]} *)(buf + info->idx)) = (${argType.split("[")[0]})${argName}[${argName}_idx];
+    info->idx += sizeof(${argType.split("[")[0]});
+}`;
+                const forStmt = ClavaJoinPoints.stmtLiteral(forLoop);
+                pushStmts.push(forStmt);
+            }
+            else {
+                const memOp = `*((${argType} *)(buf + info->idx)) = (${argType})${argName};`;
+                const memStmt = ClavaJoinPoints.stmtLiteral(memOp);
+                const increment = `info->idx += sizeof(${argType});`;
+                const incrementStmt = ClavaJoinPoints.stmtLiteral(increment);
 
-            pushStmts.push(memStmt);
-            pushStmts.push(incrementStmt);
+                pushStmts.push(memStmt);
+                pushStmts.push(incrementStmt);
+            }
         }
 
         const closeIfCond = ClavaJoinPoints.exprLiteral(isLast);

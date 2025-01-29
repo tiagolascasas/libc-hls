@@ -69,8 +69,12 @@ int hls_fprintf_str(char* buf, hls_async_info* info, bool is_last, char* str, si
    if(info->idx == -1) {
       info->idx = 0;
    }
-   *((char[N] *)(buf + info->idx)) = (char[N])str;
-   info->idx += sizeof(char[N]);
+   
+   int str_idx;
+   for (str_idx = 0; str_idx < str_size; str_idx++) {
+       *((char *)(buf + info->idx)) = (char)str[str_idx];
+       info->idx += sizeof(char);
+   }
    if(is_last) {
       info->is_closed = true;
    }
