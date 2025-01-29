@@ -89,9 +89,9 @@ hls_async_call* hls_fprintf_int_alloc(unsigned int n_calls)
     return call;
 }
 
-hls_async_call* hls_fprintf_str_alloc(unsigned int n_calls)
+hls_async_call* hls_fprintf_str_alloc(unsigned int n_calls, size_t str_size)
 {
-    size_t  buf_size = (sizeof(char[N])) * n_calls;
+    size_t  buf_size = (sizeof(char) * str_size) * n_calls;
     int8_t* buf      = (int8_t*)malloc(buf_size);
 
     hls_async_call* call         = (hls_async_call*)malloc(sizeof(hls_async_call));

@@ -20,6 +20,16 @@ export class AsyncHostAllocHandler extends AHandler {
         const newParams: Decl[] = [
             ClavaJoinPoints.param("n_calls", ClavaJoinPoints.type("unsigned int"))
         ];
+
+        for (const param of mapping.parameters) {
+            const paramName = param.name;
+            const paramType = param.type;
+
+            if (paramType.includes("[")) {
+                newParams.push(ClavaJoinPoints.param(`${paramName}_size`, ClavaJoinPoints.type("size_t")));
+            }
+        }
+
         const newFun = ClavaJoinPoints.functionDecl(newName, retType, ...newParams);
         return newFun;
     }
@@ -29,7 +39,13 @@ export class AsyncHostAllocHandler extends AHandler {
 
         const sizes = [];
         for (const param of mapping.parameters) {
-            sizes.push(`sizeof(${param.type})`);
+            const type = param.type;
+            if (type.includes("[")) {
+                sizes.push(`sizeof(${type.split("[")[0]}) * ${param.name}_size`);
+            }
+            else {
+                sizes.push(`sizeof(${param.type})`);
+            }
         }
         const sizeExpr = sizes.length === 0 ? "" : `(${sizes.join(" + ")}) * `;
         const code = [
