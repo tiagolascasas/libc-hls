@@ -1,10 +1,6 @@
 #include "synthcalls.h"
 
-void vadd(unsigned int *in1, unsigned int *in2, unsigned int *out, int size,
-          int8_t *buf_putchar, async_kernel_info *info_putchar,
-          int8_t *buf_assert, async_kernel_info *info_assert,
-          int8_t *buf_printf, async_kernel_info *info_printf,
-          int c1, int c2, int c3)
+void vadd(unsigned int* in1, unsigned int* in2, unsigned int* out, int size, int8_t* buf_putchar, async_kernel_info* info_putchar, int8_t* buf_assert, async_kernel_info* info_assert, int8_t* buf_printf, async_kernel_info* info_printf, int c1, int c2, int c3)
 {
     for (int i = 0; i < size; i++)
     {

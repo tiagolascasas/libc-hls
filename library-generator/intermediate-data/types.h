@@ -1,5 +1,6 @@
 #ifndef __HLS_TYPES_H__
 #define __HLS_TYPES_H__
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 

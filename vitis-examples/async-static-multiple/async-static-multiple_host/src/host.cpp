@@ -1,39 +1,39 @@
-#include <iostream>
-#include <iomanip>
-#include <thread>
-#include <chrono>
-#include <cstring>
 #include "experimental/xrt_bo.h"
 #include "experimental/xrt_device.h"
 #include "experimental/xrt_kernel.h"
 #include "synthcalls.h"
+#include <chrono>
+#include <cstring>
+#include <iomanip>
+#include <iostream>
+#include <thread>
 
 #define DATA_SIZE 256
 
 const auto program_start_time = std::chrono::steady_clock::now();
 
-std::ostream &timestamp(std::ostream &os)
+std::ostream& timestamp(std::ostream& os)
 {
-    auto now = std::chrono::steady_clock::now();
+    auto   now             = std::chrono::steady_clock::now();
     double elapsed_seconds = std::chrono::duration<double>(now - program_start_time).count();
 
     os << "[" << std::setw(8) << std::fixed << std::setprecision(3) << elapsed_seconds << "] ";
     return os;
 }
 
-void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate)
+void wrapped_vadd(int* v1, int* v2, int* vo, int size, unsigned int polling_rate)
 {
     auto device = xrt::device(0);
-    auto uuid = device.load_xclbin("./vadd.xclbin");
+    auto uuid   = device.load_xclbin("./vadd.xclbin");
     auto kernel = xrt::kernel(device, uuid, "vadd");
 
-    async_call *printf0 = create_async_call_variadic(PRINTF, 1, 7);
+    async_call* printf0 = create_async_call_variadic(PRINTF, 1, 7);
 
     std::cout << timestamp << "Creating CPU-FPGA buffers\n";
-    auto bo_v1 = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
-    auto bo_v2 = xrt::bo(device, size * sizeof(int), kernel.group_id(1));
-    auto bo_vo = xrt::bo(device, size * sizeof(int), kernel.group_id(2));
-    auto bo_printf0_buf = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(3));
+    auto bo_v1           = xrt::bo(device, size * sizeof(int), kernel.group_id(0));
+    auto bo_v2           = xrt::bo(device, size * sizeof(int), kernel.group_id(1));
+    auto bo_vo           = xrt::bo(device, size * sizeof(int), kernel.group_id(2));
+    auto bo_printf0_buf  = xrt::bo(device, printf0->kernel_info->size, kernel.group_id(3));
     auto bo_printf0_info = xrt::bo(device, sizeof(async_kernel_info), kernel.group_id(4));
 
     std::cout << timestamp << "Copying data into input buffers\n";
@@ -79,20 +79,20 @@ void wrapped_vadd(int *v1, int *v2, int *vo, int size, unsigned int polling_rate
     bo_vo.read(vo);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     std::cout << timestamp << "Starting heterogeneous CPU-FPGA application \"async-static-multiple\"" << std::endl;
     unsigned int polling_rate = (argc > 1) ? std::stoi(argv[1]) : 200;
 
-    int v1[DATA_SIZE] = {0};
-    int v2[DATA_SIZE] = {0};
-    int vo[DATA_SIZE] = {0};
+    int v1[DATA_SIZE]        = {0};
+    int v2[DATA_SIZE]        = {0};
+    int vo[DATA_SIZE]        = {0};
     int reference[DATA_SIZE] = {0};
 
     for (int i = 0; i < DATA_SIZE; ++i)
     {
-        v1[i] = i;
-        v2[i] = i;
+        v1[i]        = i;
+        v2[i]        = i;
         reference[i] = v1[i] + v2[i];
     }
     wrapped_vadd(v1, v2, vo, DATA_SIZE, polling_rate);
