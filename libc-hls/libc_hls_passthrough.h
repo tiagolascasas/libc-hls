@@ -15,7 +15,6 @@
 #include <time.h>
 #include <wchar.h>
 #include <wctype.h>
-wint_t        hls_fputwc(wchar_t wc, FILE* stream);
 int           hls_fputws(wchar_t const* wcs, FILE* stream);
 size_t        hls_fread(void* buffer, size_t size, size_t count, FILE* stream);
 void          hls_free(void* ptr);

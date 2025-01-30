@@ -25,4 +25,5 @@ hls_async_call* hls_fprintf_int_alloc(unsigned int n_calls);
 hls_async_call* hls_fprintf_str_alloc(unsigned int n_calls, size_t str_size);
 hls_async_call* hls_fputc_alloc(unsigned int n_calls);
 hls_async_call* hls_fputs_alloc(unsigned int n_calls);
+hls_async_call* fputwc_alloc(unsigned int n_calls);
 #endif

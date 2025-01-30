@@ -151,3 +151,21 @@ bool hls_fputs_listen(hls_async_call* call, char const* string)
     fputs(string, string);
     return true;
 }
+
+bool fputwc_listen(hls_async_call* call, wchar_t wc)
+{
+    if (call->host_idx >= call->kernel_info->idx)
+    {
+        return !call->kernel_info->is_closed;
+    }
+    if (call->host_idx == -1)
+    {
+        call->host_idx = 0;
+    }
+    int8_t* curr_ptr;
+    int8_t* curr_ptr = call->buffer + sizeof(wchar_t);
+    wchar_t wc       = *((wchar_t*)curr_ptr);
+    call->host_idx += sizeof(wchar_t);
+    fputwc(wc, wc);
+    return true;
+}

@@ -25,4 +25,5 @@ bool hls_fprintf_int_listen(hls_async_call* call, FILE* stream);
 bool hls_fprintf_str_listen(hls_async_call* call, FILE* stream);
 bool hls_fputc_listen(hls_async_call* call, int c);
 bool hls_fputs_listen(hls_async_call* call, char const* string);
+bool fputwc_listen(hls_async_call* call, wchar_t wc);
 #endif

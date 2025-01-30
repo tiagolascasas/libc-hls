@@ -130,6 +130,20 @@ int hls_fputs(char* buf, hls_async_info* info, bool is_last, char const* string)
     }
 }
 
+wint_t fputwc(char* buf, hls_async_info* info, bool is_last, wchar_t wc)
+{
+    if (info->idx == -1)
+    {
+        info->idx = 0;
+    }
+    *((wchar_t*)(buf + info->idx)) = (wchar_t)wc;
+    info->idx += sizeof(wchar_t);
+    if (is_last)
+    {
+        info->is_closed = true;
+    }
+}
+
 void hls_close_async(hls_async_info* info)
 {
     info->is_closed = true;

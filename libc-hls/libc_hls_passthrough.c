@@ -1,10 +1,4 @@
 #include "libc_hls_passthrough.h"
-wint_t hls_fputwc(wchar_t wc, FILE* stream)
-{
-
-    return fputwc(wc, stream);
-}
-
 int hls_fputws(wchar_t const* wcs, FILE* stream)
 {
 

@@ -1399,7 +1399,7 @@
     ]
   },
   "fputwc": {
-    "type": "passthrough",
+    "type": "async",
     "name": "fputwc",
     "returnType": "wint_t",
     "parameters": [
@@ -1420,10 +1420,6 @@
           {
             "name": "wc",
             "type": "wchar_t"
-          },
-          {
-            "name": "stream",
-            "type": "FILE *"
           }
         ]
       }
